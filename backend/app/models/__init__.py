@@ -1,11 +1,11 @@
-from sqlalchemy import Column, Integer, String
-from sqlalchemy.orm import relationship
-from app.db.base import Base
+# Models need to be included here to be migrated
+from app.models.level import Level
+from app.models.level_session import LevelSession
+from app.models.user import User
 
-class User(Base):
-    id = Column(Integer, primary_key=True, index=True)
-    nickname = Column(String, nullable=False, unique=True)
-    password_hash = Column(String, nullable=False)
+# Read me:
+# To create alembic migration use:
+# alembic revision --autogenerate -m "Migration name"
 
-    # One-to-many relationship with LevelSession
-    level_sessions = relationship("LevelSession", back_populates="user")
+# To upgrade database to latest migration use:
+# alembic upgrade head
