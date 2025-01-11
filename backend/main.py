@@ -13,4 +13,7 @@ app.include_router(users_router, prefix="/user", tags=["User"])
 app.include_router(level_sessions_router, prefix="/level_session", tags=["Level session"])
 
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
-templates = Jinja2Templates(directory="app/templates")
+
+import logging
+logging.basicConfig()
+logging.getLogger('sqlalchemy.engine').setLevel(logging.DEBUG)
