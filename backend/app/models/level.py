@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Literal, Optional
 from pydantic import BaseModel
 import enum
 
@@ -6,15 +6,17 @@ class CategoryEnum(enum.Enum):
     Elements = "Elements"
     Network = "Network"
 
+LevelKey = Literal['e1', 'e2', 'n1']
+
 class Level(BaseModel):
-    key: str
+    key: LevelKey
     category: CategoryEnum
     order_in_category: int
     difficulty: int
 
 levels: list[Level] = [
-    Level(key="demo", category=CategoryEnum.Elements, order_in_category=1, difficulty=1),
-    Level(key="other", category=CategoryEnum.Elements, order_in_category=2, difficulty=1),
+    Level(key="e1", category=CategoryEnum.Elements, order_in_category=1, difficulty=1),
+    Level(key="e2", category=CategoryEnum.Elements, order_in_category=2, difficulty=1),
 ]
 
 def getLevelByKey(key: str) -> Optional[Level]:

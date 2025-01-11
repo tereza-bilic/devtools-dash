@@ -47,7 +47,7 @@ class OAuth2PasswordBearerWithCookie(OAuth2):
 
 oauth2_scheme = OAuth2PasswordBearerWithCookie(tokenUrl="/user/login")
 
-async def get_logged_in_user(
+async def get_current_user(
     token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)
 ) -> TokenData:
     credentials_exception = HTTPException(

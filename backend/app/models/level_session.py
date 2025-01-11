@@ -1,9 +1,10 @@
 from datetime import datetime
 from typing import Optional
-from sqlalchemy import DateTime, ForeignKey, JSON, Integer, select
+from sqlalchemy import DateTime, ForeignKey, JSON, Integer, String, select
 from sqlalchemy.orm import relationship, mapped_column, Mapped
 from app.db.base import Base
 from sqlalchemy.ext.asyncio import AsyncSession
+from app.models.level import LevelKey
 
 class LevelSession(Base):
     __tablename__ = "level_session"
@@ -11,9 +12,9 @@ class LevelSession(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
     completed: Mapped[bool]
     finish_secret: Mapped[Optional[str]]
-    started_at: Mapped[datetime] = mapped_column(DateTime, nullable=False)
+    started_at: Mapped[datetime]
     finished_at: Mapped[Optional[datetime]]
-    level_key: Mapped[str]
+    level_key: Mapped[LevelKey] = mapped_column(String, nullable=False)
     level_metadata: Mapped[JSON] = mapped_column(JSON)
 
     # Foreign keys

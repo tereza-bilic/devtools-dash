@@ -1,4 +1,8 @@
 from pydantic_settings import BaseSettings
+import logging
+
+logger = logging.getLogger('uvicorn.error')
+
 
 class Settings(BaseSettings):
     DATABASE_URL: str = "postgresql+asyncpg://postgres:postgres@localhost/devtoolsdash"

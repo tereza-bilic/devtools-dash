@@ -1,0 +1,12 @@
+<html>
+  <head>
+    <title>Playing level {{ level_session.level_key }}</title>
+    <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet" />
+  </head>
+  <body>
+    You are playing level {{ level_session.level_key }}.<br/>
+    You started it at {{ level_session.started_at }}.<br/>
+    The secret is {{ level_session.finish_secret }}.<br/>
+    The metadata is {{ level_session.level_metadata }}.<br/>
+  </body>
+</html>
