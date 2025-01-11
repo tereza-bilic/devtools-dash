@@ -1,18 +1,27 @@
-from sqlalchemy import Column, Enum, Integer, String
-from sqlalchemy.orm import relationship
-from app.db.base import Base
+from typing import Optional
+from pydantic import BaseModel
 import enum
 
 class CategoryEnum(enum.Enum):
     Elements = "Elements"
     Network = "Network"
 
-class Level(Base):
-    id = Column(Integer, primary_key=True, index=True)
-    category = Column(Enum(CategoryEnum), nullable=False)
-    difficulty = Column(Integer, nullable=False)
-    name = Column(String, nullable=False)
-    order_in_category = Column(Integer, nullable=False)
+class Level(BaseModel):
+    key: str
+    category: CategoryEnum
+    order_in_category: int
+    difficulty: int
 
-    # One-to-many relationship with LevelSession
-    level_sessions = relationship("LevelSession", back_populates="level")
+levels: list[Level] = [
+    Level(key="demo", category=CategoryEnum.Elements, order_in_category=1, difficulty=1),
+    Level(key="other", category=CategoryEnum.Elements, order_in_category=2, difficulty=1),
+]
+
+def getLevelByKey(key: str) -> Optional[Level]:
+    for level in levels:
+        if level.key == key:
+            return level
+    return None
+
+def getLevelsByCategory(category: CategoryEnum) -> list[Level]:
+    return [level for level in levels if level.category == category]
