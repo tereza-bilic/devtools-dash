@@ -5,19 +5,12 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 
+from app.api.endpoints import users_router, level_sessions_router
 
-app = FastAPI()
+app = FastAPI(title="devtools_api", version="0.1")
+
+app.include_router(users_router, prefix="/user", tags=["User"])
+app.include_router(level_sessions_router, prefix="/level_session", tags=["Level session"])
+
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
-
 templates = Jinja2Templates(directory="app/templates")
-
-class UserGreetRequest(BaseModel):
-    first_name: str
-    last_name: str
-
-class UserGreetResponse(BaseModel):
-    message: str
-
-@app.get("/greet", response_class=HTMLResponse)
-async def greet_user(request: Request, user: Annotated[UserGreetRequest, Query()]):
-    return templates.TemplateResponse(request=request, name="demo.html", context={"user": user})
