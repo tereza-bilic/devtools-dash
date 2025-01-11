@@ -7,10 +7,13 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://your-backend-api-server.com',
+        target: 'http://localhost:8000',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
       },
-    },
+      '/openapi.json': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+      }
+    }
   },
 })
