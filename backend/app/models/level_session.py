@@ -26,6 +26,13 @@ class LevelSession(Base):
 async def get_level_session_by_id(session: AsyncSession, id: int) -> Optional[LevelSession]:
     return (await session.scalars(select(LevelSession).filter(LevelSession.id == id).limit(1))).first()
 
+
+async def get_level_session_by_user_and_key(session: AsyncSession, user_id: int, level_key: str) -> Optional[LevelSession]:
+    return (await session.scalars(
+        select(LevelSession).filter(LevelSession.user_id == user_id, LevelSession.level_key == level_key, LevelSession.completed == False).limit(1)
+        )).first()
+
+
 async def get_level_sessions_by_user_id(session: AsyncSession, user_id: int) -> list[LevelSession]:
     return list((await session.scalars(select(LevelSession).filter(LevelSession.user_id == user_id))).all())
 
