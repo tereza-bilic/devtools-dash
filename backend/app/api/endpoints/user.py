@@ -26,8 +26,9 @@ async def login_for_access_token(
         return login_response
 
 
-@router.post("/register", response_model=CreatedUserResponse)
+@router.post("/register", response_model=LoginUserResponse)
 async def register(
+    response: Response,
     form_data: OAuth2PasswordRequestForm = Depends(),
     db: AsyncSession = Depends(get_db)):
     registration_response = await create_user(db,  form_data.username, form_data.password)
@@ -36,7 +37,13 @@ async def register(
                 status_code=status.HTTP_409_CONFLICT,
                 detail="User with nickname already exists"
             )
+    response.set_cookie(key="access_token",value=f"Bearer {registration_response.access_token}", httponly=True)
     return registration_response
+
+@router.post("/logout")
+async def logout(response: Response):
+    response.delete_cookie(key="access_token")
+    return {"message": "Logged out"}
 
 @router.get(
     "/me",

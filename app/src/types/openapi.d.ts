@@ -67,19 +67,6 @@ declare namespace Components {
             client_secret?: /* Client Secret */ string | null;
         }
         /**
-         * CreatedUserResponse
-         */
-        export interface CreatedUserResponse {
-            /**
-             * Id
-             */
-            id: number;
-            /**
-             * Nickname
-             */
-            nickname: string;
-        }
-        /**
          * HTTPValidationError
          */
         export interface HTTPValidationError {
@@ -146,6 +133,11 @@ declare namespace Paths {
             export type $422 = /* HTTPValidationError */ Components.Schemas.HTTPValidationError;
         }
     }
+    namespace LogoutApiUserLogoutPost {
+        namespace Responses {
+            export type $200 = any;
+        }
+    }
     namespace PlayLevelApiLevelSessionPlayLevelKeyGet {
         namespace Parameters {
             /**
@@ -164,7 +156,7 @@ declare namespace Paths {
     namespace RegisterApiUserRegisterPost {
         export type RequestBody = /* Body_register_api_user_register_post */ Components.Schemas.BodyRegisterApiUserRegisterPost;
         namespace Responses {
-            export type $200 = /* CreatedUserResponse */ Components.Schemas.CreatedUserResponse;
+            export type $200 = /* LoginUserResponse */ Components.Schemas.LoginUserResponse;
             export type $422 = /* HTTPValidationError */ Components.Schemas.HTTPValidationError;
         }
     }
@@ -187,6 +179,14 @@ export interface OperationMethods {
     data?: Paths.RegisterApiUserRegisterPost.RequestBody,
     config?: AxiosRequestConfig  
   ): OperationResponse<Paths.RegisterApiUserRegisterPost.Responses.$200>
+  /**
+   * logout_api_user_logout_post - Logout
+   */
+  'logout_api_user_logout_post'(
+    parameters?: Parameters<UnknownParamsObject> | null,
+    data?: any,
+    config?: AxiosRequestConfig  
+  ): OperationResponse<Paths.LogoutApiUserLogoutPost.Responses.$200>
   /**
    * get_me_api_user_me_get - Get Me
    */
@@ -226,6 +226,16 @@ export interface PathsDictionary {
       config?: AxiosRequestConfig  
     ): OperationResponse<Paths.RegisterApiUserRegisterPost.Responses.$200>
   }
+  ['/api/user/logout']: {
+    /**
+     * logout_api_user_logout_post - Logout
+     */
+    'post'(
+      parameters?: Parameters<UnknownParamsObject> | null,
+      data?: any,
+      config?: AxiosRequestConfig  
+    ): OperationResponse<Paths.LogoutApiUserLogoutPost.Responses.$200>
+  }
   ['/api/user/me']: {
     /**
      * get_me_api_user_me_get - Get Me
@@ -252,7 +262,6 @@ export type Client = OpenAPIClient<OperationMethods, PathsDictionary>
 
 export type Body_login_for_access_token_api_user_login_post = Components.Schemas.BodyLoginForAccessTokenApiUserLoginPost;
 export type Body_register_api_user_register_post = Components.Schemas.BodyRegisterApiUserRegisterPost;
-export type CreatedUserResponse = Components.Schemas.CreatedUserResponse;
 export type HTTPValidationError = Components.Schemas.HTTPValidationError;
 export type LoginUserResponse = Components.Schemas.LoginUserResponse;
 export type TokenData = Components.Schemas.TokenData;

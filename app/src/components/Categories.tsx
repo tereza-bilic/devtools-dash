@@ -1,7 +1,7 @@
 import styles from './Categories.module.css';
 import { useNavigate } from 'react-router-dom';
-import { categories, Category } from '../consts/categories';
-import { capitalize } from '../utils/string-functions';
+import { categories, Category } from 'src/consts/categories';
+import { capitalize } from 'src/utils/string-functions';
 import { AuthGuard } from './AuthGuard';
 
 const Categories = () => {
