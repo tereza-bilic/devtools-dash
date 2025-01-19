@@ -1,6 +1,6 @@
 import OpenAPIClientAxios from "openapi-client-axios";
 import type { Server } from "openapi-client-axios";
-import type { Client as DevtoolsDashApi } from "../types/openapi.d.ts";
+import type { Client as DevtoolsDashApi } from "src/types/openapi.d.ts";
 
 const server: Server = {
   url: "http://localhost:5173",

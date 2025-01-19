@@ -35,7 +35,7 @@ async def login_user(session: AsyncSession, nickname: str, password: str) -> Opt
 
     return result
 
-async def create_user(session: AsyncSession, nickname: str, password: str) -> Optional[CreatedUserResponse]:
+async def create_user(session: AsyncSession, nickname: str, password: str) -> Optional[LoginUserResponse]:
     user_with_same_nickname = await get_user_by_nickname(session, nickname)
     if user_with_same_nickname:
         return None
@@ -44,4 +44,6 @@ async def create_user(session: AsyncSession, nickname: str, password: str) -> Op
     user = User(nickname=nickname, password_hash=password_hash)
     user = await create_db_user(session, user)
 
-    return CreatedUserResponse(id=user.id, nickname=user.nickname)
+    access_token = create_access_token(data={"sub": str(user.id), "nick": user.nickname})
+
+    return LoginUserResponse(nickname=user.nickname, access_token=access_token)
