@@ -4,6 +4,7 @@ import LevelGrid from './components/LevelGrid';
 import Login from './pages/login/Login';
 import Signup from './pages/signup/Signup';
 import Layout from './Layout';
+import CompletedLevel from './pages/completed/CompletedLevel';
 
 export const AppRouter = () => {
   return (
@@ -13,6 +14,7 @@ export const AppRouter = () => {
           <Route path="/" element={<Categories />}/>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/completed" element={<CompletedLevel />} />
           <Route path="/categories/:category" element={<LevelGrid />} />
         </Route>
       </Routes>

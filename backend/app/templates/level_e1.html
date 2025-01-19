@@ -1,12 +1,21 @@
 <html>
   <head>
-    <title>Playing level {{ level_session.level_key }}</title>
+    <title>{{ level_session.level_key }}</title>
     <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet" />
   </head>
   <body>
-    You are playing level {{ level_session.level_key }}.<br/>
-    You started it at {{ level_session.started_at }}.<br/>
-    The secret is {{ level_session.finish_secret }}.<br/>
-    The metadata is {{ level_session.level_metadata }}.<br/>
+    <h1>Level {{ level_session.level_key }}</h1>
+
+    <div id="{{ level_session.finish_secret }}">
+      Find my secrets!
+    </div>
+
+    <form method="POST">
+      {% if submitted_secret %}
+        <span>Invalid secret: {{ submitted_secret }}</span>
+      {% endif %}
+      <input type="text" name="secret" />
+      <input type="submit" value="Submit" />
+    </form>
   </body>
 </html>

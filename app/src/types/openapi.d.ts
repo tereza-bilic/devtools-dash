@@ -67,6 +67,36 @@ declare namespace Components {
             client_secret?: /* Client Secret */ string | null;
         }
         /**
+         * Body_submit_api_level_session_play__level_key__post
+         */
+        export interface BodySubmitApiLevelSessionPlayLevelKeyPost {
+            /**
+             * Secret
+             */
+            secret: string;
+        }
+        /**
+         * CompletedLevelResponse
+         */
+        export interface CompletedLevelResponse {
+            /**
+             * Id
+             */
+            id: number;
+            /**
+             * Started At
+             */
+            started_at: string; // date-time
+            /**
+             * Finished At
+             */
+            finished_at: string; // date-time
+            /**
+             * Level Key
+             */
+            level_key: string;
+        }
+        /**
          * HTTPValidationError
          */
         export interface HTTPValidationError {
@@ -121,6 +151,21 @@ declare namespace Components {
     }
 }
 declare namespace Paths {
+    namespace CompletedApiLevelSessionCompletedCompletedIdGet {
+        namespace Parameters {
+            /**
+             * Completed Id
+             */
+            export type CompletedId = number;
+        }
+        export interface PathParameters {
+            completed_id: /* Completed Id */ Parameters.CompletedId;
+        }
+        namespace Responses {
+            export type $200 = /* CompletedLevelResponse */ Components.Schemas.CompletedLevelResponse;
+            export type $422 = /* HTTPValidationError */ Components.Schemas.HTTPValidationError;
+        }
+    }
     namespace GetMeApiUserMeGet {
         namespace Responses {
             export type $200 = /* TokenData */ Components.Schemas.TokenData;
@@ -160,6 +205,22 @@ declare namespace Paths {
             export type $422 = /* HTTPValidationError */ Components.Schemas.HTTPValidationError;
         }
     }
+    namespace SubmitApiLevelSessionPlayLevelKeyPost {
+        namespace Parameters {
+            /**
+             * Level Key
+             */
+            export type LevelKey = string;
+        }
+        export interface PathParameters {
+            level_key: /* Level Key */ Parameters.LevelKey;
+        }
+        export type RequestBody = /* Body_submit_api_level_session_play__level_key__post */ Components.Schemas.BodySubmitApiLevelSessionPlayLevelKeyPost;
+        namespace Responses {
+            export type $200 = any;
+            export type $422 = /* HTTPValidationError */ Components.Schemas.HTTPValidationError;
+        }
+    }
 }
 
 export interface OperationMethods {
@@ -169,7 +230,7 @@ export interface OperationMethods {
   'login_for_access_token_api_user_login_post'(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: Paths.LoginForAccessTokenApiUserLoginPost.RequestBody,
-    config?: AxiosRequestConfig  
+    config?: AxiosRequestConfig
   ): OperationResponse<Paths.LoginForAccessTokenApiUserLoginPost.Responses.$200>
   /**
    * register_api_user_register_post - Register
@@ -177,7 +238,7 @@ export interface OperationMethods {
   'register_api_user_register_post'(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: Paths.RegisterApiUserRegisterPost.RequestBody,
-    config?: AxiosRequestConfig  
+    config?: AxiosRequestConfig
   ): OperationResponse<Paths.RegisterApiUserRegisterPost.Responses.$200>
   /**
    * logout_api_user_logout_post - Logout
@@ -185,7 +246,7 @@ export interface OperationMethods {
   'logout_api_user_logout_post'(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: any,
-    config?: AxiosRequestConfig  
+    config?: AxiosRequestConfig
   ): OperationResponse<Paths.LogoutApiUserLogoutPost.Responses.$200>
   /**
    * get_me_api_user_me_get - Get Me
@@ -193,16 +254,32 @@ export interface OperationMethods {
   'get_me_api_user_me_get'(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: any,
-    config?: AxiosRequestConfig  
+    config?: AxiosRequestConfig
   ): OperationResponse<Paths.GetMeApiUserMeGet.Responses.$200>
+  /**
+   * completed_api_level_session_completed__completed_id__get - Completed
+   */
+  'completed_api_level_session_completed__completed_id__get'(
+    parameters?: Parameters<Paths.CompletedApiLevelSessionCompletedCompletedIdGet.PathParameters> | null,
+    data?: any,
+    config?: AxiosRequestConfig
+  ): OperationResponse<Paths.CompletedApiLevelSessionCompletedCompletedIdGet.Responses.$200>
   /**
    * play_level_api_level_session_play__level_key__get - Play Level
    */
   'play_level_api_level_session_play__level_key__get'(
     parameters?: Parameters<Paths.PlayLevelApiLevelSessionPlayLevelKeyGet.PathParameters> | null,
     data?: any,
-    config?: AxiosRequestConfig  
+    config?: AxiosRequestConfig
   ): OperationResponse<Paths.PlayLevelApiLevelSessionPlayLevelKeyGet.Responses.$200>
+  /**
+   * submit_api_level_session_play__level_key__post - Submit
+   */
+  'submit_api_level_session_play__level_key__post'(
+    parameters?: Parameters<Paths.SubmitApiLevelSessionPlayLevelKeyPost.PathParameters> | null,
+    data?: Paths.SubmitApiLevelSessionPlayLevelKeyPost.RequestBody,
+    config?: AxiosRequestConfig
+  ): OperationResponse<Paths.SubmitApiLevelSessionPlayLevelKeyPost.Responses.$200>
 }
 
 export interface PathsDictionary {
@@ -213,7 +290,7 @@ export interface PathsDictionary {
     'post'(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: Paths.LoginForAccessTokenApiUserLoginPost.RequestBody,
-      config?: AxiosRequestConfig  
+      config?: AxiosRequestConfig
     ): OperationResponse<Paths.LoginForAccessTokenApiUserLoginPost.Responses.$200>
   }
   ['/api/user/register']: {
@@ -223,7 +300,7 @@ export interface PathsDictionary {
     'post'(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: Paths.RegisterApiUserRegisterPost.RequestBody,
-      config?: AxiosRequestConfig  
+      config?: AxiosRequestConfig
     ): OperationResponse<Paths.RegisterApiUserRegisterPost.Responses.$200>
   }
   ['/api/user/logout']: {
@@ -233,7 +310,7 @@ export interface PathsDictionary {
     'post'(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: any,
-      config?: AxiosRequestConfig  
+      config?: AxiosRequestConfig
     ): OperationResponse<Paths.LogoutApiUserLogoutPost.Responses.$200>
   }
   ['/api/user/me']: {
@@ -243,8 +320,18 @@ export interface PathsDictionary {
     'get'(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: any,
-      config?: AxiosRequestConfig  
+      config?: AxiosRequestConfig
     ): OperationResponse<Paths.GetMeApiUserMeGet.Responses.$200>
+  }
+  ['/api/level_session/completed/{completed_id}']: {
+    /**
+     * completed_api_level_session_completed__completed_id__get - Completed
+     */
+    'get'(
+      parameters?: Parameters<Paths.CompletedApiLevelSessionCompletedCompletedIdGet.PathParameters> | null,
+      data?: any,
+      config?: AxiosRequestConfig
+    ): OperationResponse<Paths.CompletedApiLevelSessionCompletedCompletedIdGet.Responses.$200>
   }
   ['/api/level_session/play/{level_key}']: {
     /**
@@ -253,8 +340,16 @@ export interface PathsDictionary {
     'get'(
       parameters?: Parameters<Paths.PlayLevelApiLevelSessionPlayLevelKeyGet.PathParameters> | null,
       data?: any,
-      config?: AxiosRequestConfig  
+      config?: AxiosRequestConfig
     ): OperationResponse<Paths.PlayLevelApiLevelSessionPlayLevelKeyGet.Responses.$200>
+    /**
+     * submit_api_level_session_play__level_key__post - Submit
+     */
+    'post'(
+      parameters?: Parameters<Paths.SubmitApiLevelSessionPlayLevelKeyPost.PathParameters> | null,
+      data?: Paths.SubmitApiLevelSessionPlayLevelKeyPost.RequestBody,
+      config?: AxiosRequestConfig
+    ): OperationResponse<Paths.SubmitApiLevelSessionPlayLevelKeyPost.Responses.$200>
   }
 }
 
@@ -262,6 +357,8 @@ export type Client = OpenAPIClient<OperationMethods, PathsDictionary>
 
 export type Body_login_for_access_token_api_user_login_post = Components.Schemas.BodyLoginForAccessTokenApiUserLoginPost;
 export type Body_register_api_user_register_post = Components.Schemas.BodyRegisterApiUserRegisterPost;
+export type Body_submit_api_level_session_play__level_key__post = Components.Schemas.BodySubmitApiLevelSessionPlayLevelKeyPost;
+export type CompletedLevelResponse = Components.Schemas.CompletedLevelResponse;
 export type HTTPValidationError = Components.Schemas.HTTPValidationError;
 export type LoginUserResponse = Components.Schemas.LoginUserResponse;
 export type TokenData = Components.Schemas.TokenData;
