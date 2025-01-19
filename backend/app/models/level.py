@@ -4,7 +4,9 @@ import enum
 
 class CategoryEnum(enum.Enum):
     Elements = "Elements"
+    Console = "Console"
     Network = "Network"
+    Sources = "Sources"
 
 LevelKey = Literal['e1', 'e2', 'n1']
 
@@ -19,11 +21,11 @@ levels: list[Level] = [
     Level(key="e2", category=CategoryEnum.Elements, order_in_category=2, difficulty=1),
 ]
 
-def getLevelByKey(key: str) -> Optional[Level]:
+def get_level_by_key(key: str) -> Optional[Level]:
     for level in levels:
         if level.key == key:
             return level
     return None
 
-def getLevelsByCategory(category: CategoryEnum) -> list[Level]:
+def get_levels_by_category(category: CategoryEnum) -> list[Level]:
     return [level for level in levels if level.category == category]

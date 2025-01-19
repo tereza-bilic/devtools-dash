@@ -1,2 +1,3 @@
-export const categories = ['elements', 'console', 'network', 'sources'];
-export type Category = typeof categories[number];
+import { CategoryEnum } from "src/types/openapi";
+
+export const categories: CategoryEnum[] = ['Elements', 'Console', 'Network', 'Sources'];

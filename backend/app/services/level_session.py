@@ -4,7 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 import random, string
 
 from app.core.config import logger
-from app.models.level import getLevelByKey
+from app.models.level import get_level_by_key
 from app.models.level_session import LevelSession, create_level_session, get_level_session_by_id, get_level_session_by_user_and_key, get_level_sessions_by_user_id, update_level_session
 from app.errors.not_found_error import NotFoundError
 from app.errors.forbidden_error import ForbiddenError
@@ -23,7 +23,7 @@ async def get_completed(db_session: AsyncSession, user_id: int, id: int) -> Comp
         level_key=level_session.level_key)
 
 async def start_level(db_session: AsyncSession, user_id: int, level_key: str) -> LevelSession:
-    level = getLevelByKey(level_key)
+    level = get_level_by_key(level_key)
     if not level:
         logger.warning(f"Did not find level with key {level_key} while starting level")
         raise NotFoundError(f"Level with key {level_key} does not exist")
@@ -50,7 +50,7 @@ async def start_level(db_session: AsyncSession, user_id: int, level_key: str) ->
     return level_session
 
 async def submit_level(db_session: AsyncSession, user_id: int, level_key: str, level_secret: str) -> LevelSession:
-    level = getLevelByKey(level_key)
+    level = get_level_by_key(level_key)
     if not level:
         logger.warning(f"Did not find level with key {level_key} while starting level")
         raise NotFoundError(f"Level with key {level_key} does not exist")
