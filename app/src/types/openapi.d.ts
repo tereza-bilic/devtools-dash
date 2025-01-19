@@ -76,6 +76,10 @@ declare namespace Components {
             secret: string;
         }
         /**
+         * CategoryEnum
+         */
+        export type CategoryEnum = "Elements" | "Console" | "Network" | "Sources";
+        /**
          * CompletedLevelResponse
          */
         export interface CompletedLevelResponse {
@@ -104,6 +108,32 @@ declare namespace Components {
              * Detail
              */
             detail?: /* ValidationError */ ValidationError[];
+        }
+        /**
+         * LevelResponse
+         */
+        export interface LevelResponse {
+            /**
+             * Level Key
+             */
+            level_key: string;
+            category: /* CategoryEnum */ CategoryEnum;
+            /**
+             * Order In Category
+             */
+            order_in_category: number;
+            /**
+             * Difficulty
+             */
+            difficulty: number;
+            /**
+             * Completed
+             */
+            completed: boolean;
+            /**
+             * In Progress
+             */
+            in_progress: boolean;
         }
         /**
          * LoginUserResponse
@@ -163,6 +193,21 @@ declare namespace Paths {
         }
         namespace Responses {
             export type $200 = /* CompletedLevelResponse */ Components.Schemas.CompletedLevelResponse;
+            export type $422 = /* HTTPValidationError */ Components.Schemas.HTTPValidationError;
+        }
+    }
+    namespace GetByCategoryApiLevelLevelCategoryGet {
+        namespace Parameters {
+            export type LevelCategory = /* CategoryEnum */ Components.Schemas.CategoryEnum;
+        }
+        export interface PathParameters {
+            level_category: Parameters.LevelCategory;
+        }
+        namespace Responses {
+            /**
+             * Response Get By Category Api Level  Level Category  Get
+             */
+            export type $200 = /* LevelResponse */ Components.Schemas.LevelResponse[];
             export type $422 = /* HTTPValidationError */ Components.Schemas.HTTPValidationError;
         }
     }
@@ -230,7 +275,7 @@ export interface OperationMethods {
   'login_for_access_token_api_user_login_post'(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: Paths.LoginForAccessTokenApiUserLoginPost.RequestBody,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig  
   ): OperationResponse<Paths.LoginForAccessTokenApiUserLoginPost.Responses.$200>
   /**
    * register_api_user_register_post - Register
@@ -238,7 +283,7 @@ export interface OperationMethods {
   'register_api_user_register_post'(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: Paths.RegisterApiUserRegisterPost.RequestBody,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig  
   ): OperationResponse<Paths.RegisterApiUserRegisterPost.Responses.$200>
   /**
    * logout_api_user_logout_post - Logout
@@ -246,7 +291,7 @@ export interface OperationMethods {
   'logout_api_user_logout_post'(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: any,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig  
   ): OperationResponse<Paths.LogoutApiUserLogoutPost.Responses.$200>
   /**
    * get_me_api_user_me_get - Get Me
@@ -254,7 +299,7 @@ export interface OperationMethods {
   'get_me_api_user_me_get'(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: any,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig  
   ): OperationResponse<Paths.GetMeApiUserMeGet.Responses.$200>
   /**
    * completed_api_level_session_completed__completed_id__get - Completed
@@ -262,7 +307,7 @@ export interface OperationMethods {
   'completed_api_level_session_completed__completed_id__get'(
     parameters?: Parameters<Paths.CompletedApiLevelSessionCompletedCompletedIdGet.PathParameters> | null,
     data?: any,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig  
   ): OperationResponse<Paths.CompletedApiLevelSessionCompletedCompletedIdGet.Responses.$200>
   /**
    * play_level_api_level_session_play__level_key__get - Play Level
@@ -270,7 +315,7 @@ export interface OperationMethods {
   'play_level_api_level_session_play__level_key__get'(
     parameters?: Parameters<Paths.PlayLevelApiLevelSessionPlayLevelKeyGet.PathParameters> | null,
     data?: any,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig  
   ): OperationResponse<Paths.PlayLevelApiLevelSessionPlayLevelKeyGet.Responses.$200>
   /**
    * submit_api_level_session_play__level_key__post - Submit
@@ -278,8 +323,16 @@ export interface OperationMethods {
   'submit_api_level_session_play__level_key__post'(
     parameters?: Parameters<Paths.SubmitApiLevelSessionPlayLevelKeyPost.PathParameters> | null,
     data?: Paths.SubmitApiLevelSessionPlayLevelKeyPost.RequestBody,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig  
   ): OperationResponse<Paths.SubmitApiLevelSessionPlayLevelKeyPost.Responses.$200>
+  /**
+   * get_by_category_api_level__level_category__get - Get By Category
+   */
+  'get_by_category_api_level__level_category__get'(
+    parameters?: Parameters<Paths.GetByCategoryApiLevelLevelCategoryGet.PathParameters> | null,
+    data?: any,
+    config?: AxiosRequestConfig  
+  ): OperationResponse<Paths.GetByCategoryApiLevelLevelCategoryGet.Responses.$200>
 }
 
 export interface PathsDictionary {
@@ -290,7 +343,7 @@ export interface PathsDictionary {
     'post'(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: Paths.LoginForAccessTokenApiUserLoginPost.RequestBody,
-      config?: AxiosRequestConfig
+      config?: AxiosRequestConfig  
     ): OperationResponse<Paths.LoginForAccessTokenApiUserLoginPost.Responses.$200>
   }
   ['/api/user/register']: {
@@ -300,7 +353,7 @@ export interface PathsDictionary {
     'post'(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: Paths.RegisterApiUserRegisterPost.RequestBody,
-      config?: AxiosRequestConfig
+      config?: AxiosRequestConfig  
     ): OperationResponse<Paths.RegisterApiUserRegisterPost.Responses.$200>
   }
   ['/api/user/logout']: {
@@ -310,7 +363,7 @@ export interface PathsDictionary {
     'post'(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: any,
-      config?: AxiosRequestConfig
+      config?: AxiosRequestConfig  
     ): OperationResponse<Paths.LogoutApiUserLogoutPost.Responses.$200>
   }
   ['/api/user/me']: {
@@ -320,7 +373,7 @@ export interface PathsDictionary {
     'get'(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: any,
-      config?: AxiosRequestConfig
+      config?: AxiosRequestConfig  
     ): OperationResponse<Paths.GetMeApiUserMeGet.Responses.$200>
   }
   ['/api/level_session/completed/{completed_id}']: {
@@ -330,7 +383,7 @@ export interface PathsDictionary {
     'get'(
       parameters?: Parameters<Paths.CompletedApiLevelSessionCompletedCompletedIdGet.PathParameters> | null,
       data?: any,
-      config?: AxiosRequestConfig
+      config?: AxiosRequestConfig  
     ): OperationResponse<Paths.CompletedApiLevelSessionCompletedCompletedIdGet.Responses.$200>
   }
   ['/api/level_session/play/{level_key}']: {
@@ -340,7 +393,7 @@ export interface PathsDictionary {
     'get'(
       parameters?: Parameters<Paths.PlayLevelApiLevelSessionPlayLevelKeyGet.PathParameters> | null,
       data?: any,
-      config?: AxiosRequestConfig
+      config?: AxiosRequestConfig  
     ): OperationResponse<Paths.PlayLevelApiLevelSessionPlayLevelKeyGet.Responses.$200>
     /**
      * submit_api_level_session_play__level_key__post - Submit
@@ -348,8 +401,18 @@ export interface PathsDictionary {
     'post'(
       parameters?: Parameters<Paths.SubmitApiLevelSessionPlayLevelKeyPost.PathParameters> | null,
       data?: Paths.SubmitApiLevelSessionPlayLevelKeyPost.RequestBody,
-      config?: AxiosRequestConfig
+      config?: AxiosRequestConfig  
     ): OperationResponse<Paths.SubmitApiLevelSessionPlayLevelKeyPost.Responses.$200>
+  }
+  ['/api/level/{level_category}']: {
+    /**
+     * get_by_category_api_level__level_category__get - Get By Category
+     */
+    'get'(
+      parameters?: Parameters<Paths.GetByCategoryApiLevelLevelCategoryGet.PathParameters> | null,
+      data?: any,
+      config?: AxiosRequestConfig  
+    ): OperationResponse<Paths.GetByCategoryApiLevelLevelCategoryGet.Responses.$200>
   }
 }
 
@@ -358,8 +421,10 @@ export type Client = OpenAPIClient<OperationMethods, PathsDictionary>
 export type Body_login_for_access_token_api_user_login_post = Components.Schemas.BodyLoginForAccessTokenApiUserLoginPost;
 export type Body_register_api_user_register_post = Components.Schemas.BodyRegisterApiUserRegisterPost;
 export type Body_submit_api_level_session_play__level_key__post = Components.Schemas.BodySubmitApiLevelSessionPlayLevelKeyPost;
+export type CategoryEnum = Components.Schemas.CategoryEnum;
 export type CompletedLevelResponse = Components.Schemas.CompletedLevelResponse;
 export type HTTPValidationError = Components.Schemas.HTTPValidationError;
+export type LevelResponse = Components.Schemas.LevelResponse;
 export type LoginUserResponse = Components.Schemas.LoginUserResponse;
 export type TokenData = Components.Schemas.TokenData;
 export type ValidationError = Components.Schemas.ValidationError;
