@@ -1,0 +1,23 @@
+{% extends "level.html" %}
+{% set title = level_session.level_key %}
+{% set secret = level_session.finish_secret %}
+
+{% block head %}
+  <script defer src="{{ url_path_for('get_level_js', level_key='e2') }}"></script>
+{% endblock %}
+
+{% block content %}
+  <h1>Welcome to My App</h1>
+
+  <div class="box1">
+    box 1
+  </div>
+
+  <div class="box2" id="box2">
+    box 2
+  </div>
+
+  <div class="box3" id="box3">
+    box 3
+  </div>
+{% endblock %}

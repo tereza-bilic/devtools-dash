@@ -1,0 +1,5 @@
+fetch("/api/okgjdflgisdhugih")
+fetch("/api/gkljdt/")
+fetch("{{ url_path_for('get_n1_response') }}")
+fetch("/api/lkdhgm/")
+fetch("/api/ghjrt/")

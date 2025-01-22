@@ -1,6 +1,6 @@
-from typing import Annotated
+from typing import Annotated, Any
 from fastapi import APIRouter, Depends, Form, HTTPException, Request, Response, status
-from fastapi.responses import RedirectResponse
+from fastapi.responses import PlainTextResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -12,9 +12,15 @@ from app.models.level import LevelKey
 from app.errors.not_found_error import NotFoundError
 from app.schemas.level_session import CompletedLevelResponse
 from app.errors.http_code_base_error import HttpCodeBaseError
+from app.utils.js_obfuscator import obfuscate
 
 router = APIRouter()
-templates = Jinja2Templates(directory="app/templates")
+
+def level_session_templates_context(request: Request) -> dict[str, Any]:
+    return {'url_path_for': lambda *a, **kw: request.url_for(*a, **kw).path}
+
+
+templates = Jinja2Templates(directory="app/templates", context_processors=[level_session_templates_context])
 
 @router.get("/completed/{completed_id}", response_model=CompletedLevelResponse)
 async def completed(
@@ -40,7 +46,7 @@ async def play_level(
         level_session = await start_level(db_session, current_user.user_id, level_key)
         return templates.TemplateResponse(
             request=request,
-            name=f"level_{level_key}.html",
+            name=f"level_{level_key}/{level_key}.html",
             context={"level_session": level_session})
     except NotFoundError as e:
         response.status_code = e.status_code
@@ -60,8 +66,34 @@ async def submit(
             return RedirectResponse(url=f'/completed?completed_id={level_session.id}', status_code=status.HTTP_303_SEE_OTHER)
         return templates.TemplateResponse(
             request=request,
-            name=f"level_{level_key}.html",
+            name=f"level_{level_key}/{level_key}.html",
             context={"level_session": level_session, "submitted_secret": secret})
     except NotFoundError as e:
         response.status_code = e.status_code
         return templates.TemplateResponse(request=request, name=f"{e.status_code}.html", context={"message": e.message})
+
+@router.get("/js/{level_key}.js", response_class=PlainTextResponse)
+async def get_level_js(request: Request,
+    response: Response,
+    level_key: LevelKey,
+    db_session: AsyncSession = Depends(get_db),
+    current_user: TokenData = Depends(get_current_user)):
+    try:
+        level_session = await start_level(db_session, current_user.user_id, level_key)
+        rendered = templates.TemplateResponse(request=request, name=f"level_{level_key}/{level_key}.js", context={"level_session": level_session})
+        obfuscated = obfuscate(str(rendered.body, 'utf-8'))
+        response.headers['Content-Type'] = 'application/javascript'
+        return obfuscated
+    except NotFoundError as e:
+        response.status_code = e.status_code
+        return templates.TemplateResponse(request=request, name=f"{e.status_code}.html", context={"message": e.message})
+
+@router.get("/n1_message")
+async def get_n1_response(
+    db_session: AsyncSession = Depends(get_db),
+    current_user: TokenData = Depends(get_current_user)):
+    try:
+        level_session = await start_level(db_session, current_user.user_id, "n1")
+        return {"message": "Hello Stranger", "secret": f"{level_session.finish_secret}, keep it secret, keep it safe"}
+    except NotFoundError as e:
+        raise HTTPException(status_code=e.status_code, detail=e.message)

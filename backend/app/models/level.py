@@ -19,6 +19,7 @@ class Level(BaseModel):
 levels: list[Level] = [
     Level(key="e1", category=CategoryEnum.Elements, order_in_category=1, difficulty=1),
     Level(key="e2", category=CategoryEnum.Elements, order_in_category=2, difficulty=1),
+    Level(key="n1", category=CategoryEnum.Network, order_in_category=1, difficulty=1),
 ]
 
 def get_level_by_key(key: str) -> Optional[Level]:
