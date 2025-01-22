@@ -1,5 +1,5 @@
 from typing import Annotated, Any
-from fastapi import APIRouter, Depends, Form, HTTPException, Request, Response, status
+from fastapi import APIRouter, Depends, Form, HTTPException, Query, Request, Response, status
 from fastapi.responses import PlainTextResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -76,12 +76,14 @@ async def submit(
 async def get_level_js(request: Request,
     response: Response,
     level_key: LevelKey,
+    should_obfuscate: Annotated[bool, Query()] = True,
     db_session: AsyncSession = Depends(get_db),
     current_user: TokenData = Depends(get_current_user)):
     try:
         level_session = await start_level(db_session, current_user.user_id, level_key)
-        rendered = templates.TemplateResponse(request=request, name=f"level_{level_key}/{level_key}.js", context={"level_session": level_session})
-        obfuscated = obfuscate(str(rendered.body, 'utf-8'))
+        obfuscated_files_suffix = "_obfuscated" if should_obfuscate else ""
+        rendered = templates.TemplateResponse(request=request, name=f"level_{level_key}/{level_key}{obfuscated_files_suffix}.js", context={"level_session": level_session})
+        obfuscated = obfuscate(str(rendered.body, 'utf-8')) if should_obfuscate else rendered.body
         response.headers['Content-Type'] = 'application/javascript'
         return obfuscated
     except NotFoundError as e:

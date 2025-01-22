@@ -44,6 +44,10 @@ async def start_level(db_session: AsyncSession, user_id: int, level_key: str) ->
         started_at=datetime.now(),
         finish_secret=level_secret
     )
+
+    if level.session_factory:
+        logger.info(f"Initializing level session for user {user_id} and level {level_key}")
+        level.session_factory(level_session)
     logger.info(f"Creating new session for user {user_id} and level {level_key}")
     await create_level_session(db_session, level_session)
     logger.info(f"Created new session for user {user_id} and level {level_key}")
