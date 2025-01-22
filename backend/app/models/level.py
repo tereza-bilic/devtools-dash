@@ -10,7 +10,7 @@ class CategoryEnum(enum.Enum):
     Network = "Network"
     Sources = "Sources"
 
-LevelKey = Literal["e1", "e2", "n1", "s1"]
+LevelKey = Literal["e1", "e2", "n1", "s1", "c1"]
 
 class Level(BaseModel):
     key: LevelKey
@@ -24,7 +24,8 @@ levels: list[Level] = [
     Level(key="e1", category=CategoryEnum.Elements, order_in_category=1, difficulty=1),
     Level(key="e2", category=CategoryEnum.Elements, order_in_category=2, difficulty=1),
     Level(key="n1", category=CategoryEnum.Network, order_in_category=1, difficulty=1),
-    Level(key="s1", category=CategoryEnum.Sources, order_in_category=1, difficulty=1, session_factory=s1_intialize_level)
+    Level(key="s1", category=CategoryEnum.Sources, order_in_category=1, difficulty=1, session_factory=s1_intialize_level),
+    Level(key="c1", category=CategoryEnum.Console, order_in_category=1, difficulty=1),
 ]
 
 def get_level_by_key(key: str) -> Optional[Level]:
