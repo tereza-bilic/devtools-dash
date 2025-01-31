@@ -17,7 +17,7 @@ const Layout = () => {
             <button onClick={logout}>Logout</button>
           </>
         ) : (
-          <div>Layout: Not logged in</div>
+          <div>Please login or signup</div>
       )}
         <Outlet />
     </div>

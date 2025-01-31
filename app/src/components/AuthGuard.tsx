@@ -9,7 +9,6 @@ export const AuthGuard = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(me)
     if (me === null) {
       navigate('/login')
     }

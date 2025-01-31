@@ -1,3 +1,52 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 85vh;
+}
+
+main {
+  height: 100%;
+  padding: 24px;
+}
+
+.header {
+  background-color: #f1f1f1;
+  padding: 16px;
+}
+
+.submit-form {
+  display: flex;
+  gap: 10px;
+  padding: 0 10px;
+}
+
+.submit-form input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.submit-form input[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+
+
+
+
+
 .box2 {
   display: none;
   margin: 30px;

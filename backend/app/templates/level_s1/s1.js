@@ -6,6 +6,6 @@ const hashFunction = (num) => {
 }
 
 setTimeout(() => {
-  const y = hashFunction("{{level_session.level_metadata.input_number}}");
-  return y;
+  const secret = hashFunction("{{level_session.level_metadata.input_number}}");
+  return secret;
 }, 1000);

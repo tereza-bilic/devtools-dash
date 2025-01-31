@@ -1,0 +1,19 @@
+{% extends "level.html" %}
+{% set title = level_session.level_key %}
+{% set secret = level_session.finish_secret %}
+
+{% block head %}
+  <script defer src="{{ url_path_for('get_level_js', level_key='e3')}}"></script>
+{% endblock %}
+
+{% block content %}
+  <h1>Hey I don't see too well, could you tell me what's in the finish element</h1>
+
+  <div id="1" aria-label="yellow">element 1</div>
+  <div id="2" aria-label="red">element 2</div>
+
+  <div id="finish"> Label me with my friends </div>
+
+  <input type="text" id="3" placeholder="Enter your name" value = "lory">
+  <input type="text" id="4" placeholder="Enter your name" value = "lory">
+{% endblock %}

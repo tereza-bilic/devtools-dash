@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { AuthGuard } from "src/components/AuthGuard";
 import { CompletedLevelResponse } from "src/types/openapi";
 import { axiosClient } from "src/util/axiosClient";
@@ -29,6 +29,7 @@ const CompletedLevel = () => {
                   <div>
                       <div>Level: {completedLevel.level_key}</div>
                       <div>Time: {timeDelta} seconds </div>
+                      <div> go back to <Link to="/">Levels</Link></div>
                   </div>
               ) : (
                   <div>Loading...</div>

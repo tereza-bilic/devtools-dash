@@ -6,16 +6,19 @@
 
   </head>
   <body>
-    <h1>Level {{ title }}</h1>
+    <div class="header">
+      <h1>Level {{ title }}</h1>
+    </div>
+
     <main>
     {% block content%} {% endblock %}
     </main>
 
-    <form method="POST">
+    <form method="POST" class="submit-form">
       {% if submitted_secret %}
         <span>Invalid secret: {{ submitted_secret }}</span>
       {% endif %}
-      <input type="text" name="secret" />
+      <input type="text" name="secret" placeholder="secret key" autocomplete="off"/>
       <input type="submit" value="Submit" />
     </form>
   </body>

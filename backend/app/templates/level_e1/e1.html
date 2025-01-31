@@ -1,21 +1,13 @@
-<html>
-  <head>
-    <title>{{ level_session.level_key }}</title>
-    <link href="{{ url_path_for('static', path='/styles.css') }}" rel="stylesheet" />
-  </head>
-  <body>
-    <h1>Level {{ level_session.level_key }}</h1>
+{% extends "level.html" %}
+{% set title = level_session.level_key %}
+{% set secret = level_session.finish_secret %}
 
-    <div id="{{ level_session.finish_secret }}">
-      Find my secrets!
-    </div>
+{% block head %}
+{% endblock %}
 
-    <form method="POST">
-      {% if submitted_secret %}
-        <span>Invalid secret: {{ submitted_secret }}</span>
-      {% endif %}
-      <input type="text" name="secret" />
-      <input type="submit" value="Submit" />
-    </form>
-  </body>
-</html>
+{% block content %}
+  <div id="{{ level_session.finish_secret }}">
+    Find my secrets!
+  </div>
+
+{% endblock %}

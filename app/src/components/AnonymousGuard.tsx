@@ -9,7 +9,6 @@ export const AnonymousGuard = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(me)
     if (me) {
       navigate('/')
     }
