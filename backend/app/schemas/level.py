@@ -10,3 +10,7 @@ class LevelResponse(BaseModel):
     completed: bool
     in_progress: bool
 
+class CategoryResponse(BaseModel):
+    name: str
+    completed_count: int
+    total_count: int
