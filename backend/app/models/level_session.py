@@ -4,7 +4,8 @@ from sqlalchemy import DateTime, ForeignKey, JSON, Integer, String, select
 from sqlalchemy.orm import relationship, mapped_column, Mapped
 from app.db.base import Base
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.models.level import LevelKey
+from app.models.level import CategoryEnum, LevelKey
+from app.models.level import get_levels_by_category
 
 class LevelSession(Base):
     __tablename__ = "level_session"
@@ -34,6 +35,11 @@ async def get_level_session_by_user_and_key(session: AsyncSession, user_id: int,
 
 async def get_level_sessions_by_user_id(session: AsyncSession, user_id: int) -> list[LevelSession]:
     return list((await session.scalars(select(LevelSession).filter(LevelSession.user_id == user_id))).all())
+
+async def get_level_sessions_by_user_and_category(session: AsyncSession, user_id: int, category: CategoryEnum) -> list[LevelSession]:
+    user_level_sessions = await get_level_sessions_by_user_id(session, user_id)
+    category_levels = list(map(lambda level: level.key, get_levels_by_category(category)))
+    return list(filter(lambda level_session: level_session.level_key in category_levels, user_level_sessions))
 
 async def create_level_session(session: AsyncSession, levelSession: LevelSession) -> LevelSession:
     session.add(levelSession)

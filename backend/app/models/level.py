@@ -9,6 +9,7 @@ class CategoryEnum(enum.Enum):
     Console = "Console"
     Network = "Network"
     Sources = "Sources"
+    Performance = "Performance"
 
 LevelKey = Literal["e1", "e2", "e3", "n1", "s1", "c1", "c2"]
 

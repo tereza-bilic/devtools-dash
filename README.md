@@ -41,3 +41,4 @@ Primjer: U nivou s1 (kategorija Sources) šifra može biti skrivena u komentaru 
 Unesite pronađenu šifru u polje za unos i potvrdite je. Ako je točna, nivo će biti označen kao dovršen, a napredak će biti vidljiv na glavnoj stranici.
 
 Ponovno igranje: Možete ponovno pokrenuti nivo da biste isprobali alternativna rješenja.
+

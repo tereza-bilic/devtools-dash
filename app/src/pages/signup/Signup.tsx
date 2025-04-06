@@ -5,6 +5,10 @@ import { useAuth } from 'src/context/AuthContext';
 import { AnonymousGuard } from 'src/components/AnonymousGuard';
 import { isAxiosError } from 'axios';
 import { Link } from 'react-router-dom';
+import Input from 'src/components/form/input/Input';
+import Button from 'src/components/form/button/Button';
+
+import styles from './Signup.module.css';
 
 const Signup = () => {
   const [nickname, setNickname] = useState('');
@@ -34,25 +38,20 @@ const Signup = () => {
 
   return (
     <AnonymousGuard>
-      <div>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Nickname"
-            value={nickname}
-            onChange={(e) => setNickname(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button type="submit">Signup</button>
-          {error && <div>{error}</div>}
-        </form>
-      </div>
-      <Link to="/login">Login</Link>
+      <form onSubmit={handleSubmit} className={styles.signup}>
+        <Input label="Nickname" type="text" value={nickname} onChange={(e) => setNickname(e.target.value)} />
+        <Input label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+
+        <div className={styles.buttonWrapper}>
+          <span className="small">Already have an account?
+            <Link to="/login"> Login</Link>
+          </span>
+
+          <Button type="submit">Signup</Button>
+        </div>
+
+        {error && <div className={styles.error}>{error}</div>}
+      </form>
     </AnonymousGuard>
   );
 }

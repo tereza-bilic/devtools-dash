@@ -1,9 +1,11 @@
-import { AuthGuard } from './AuthGuard';
 import styles from './LevelGrid.module.css';
+
+import { AuthGuard } from 'src/components/AuthGuard';
 import { axiosClient } from 'src/util/axiosClient';
 import { useNavigate, useParams } from 'react-router-dom';
 import { CategoryEnum, LevelResponse } from 'src/types/openapi';
 import { useEffect, useState } from 'react';
+import Button from 'src/components/form/button/Button';
 
 const LevelGrid = () => {
   const navigate = useNavigate();
@@ -28,15 +30,21 @@ const LevelGrid = () => {
 
   return (
     <AuthGuard>
-      <div>
-        <button onClick={() => navigate('/')}>back</button>
-      </div>
-      <div className={styles.levels}>
-        {levels.map((level, index) => (
-          <button key={level.level_key} className={styles.level} onClick={() => handleLevelClick(level)}>
-            {level.order_in_category}
-          </button>
-        ))}
+      <div className={styles.container}>
+        <div className={styles.levels}>
+          <div className={styles.header}>
+            <h2>{category}</h2>
+            <Button type="button" onClick={() => navigate('/')}>back</Button>
+          </div>
+
+          <div className={styles.levelGrid}>
+            {levels.map((level, index) => (
+              <button key={level.level_key} className={styles.level} onClick={() => handleLevelClick(level)}>
+                {level.order_in_category}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
     </AuthGuard>
   );

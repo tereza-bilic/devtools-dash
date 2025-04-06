@@ -1,0 +1,44 @@
+.button {
+  padding: 12px 16px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: ease-in 0.2s;
+  margin-left: 8px;
+}
+
+.button:disabled {
+  background-color: var(--color-blue-light);
+  cursor: not-allowed;
+}
+
+.blue {
+  background-color: var(--color-blue);
+}
+
+.blue:hover {
+  background-color: var(--color-blue-hover);
+}
+
+.yellow {
+  background-color: var(--color-yellow);
+}
+
+
+.green {
+  background-color: var(--color-green);
+}
+
+.orange {
+  background-color: var(--color-orange);
+}
+
+.orange:hover {
+  background-color: var(--color-orange-hover);
+}
+
+.yellow:hover {
+  background-color: var(--color-yellow-hover);
+}

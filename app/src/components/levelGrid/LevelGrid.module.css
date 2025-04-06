@@ -1,0 +1,53 @@
+.levels {
+  background-color: var(--color-background);
+  padding: 32px;
+  border-radius: 16px;
+}
+
+
+.level {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: var(--color-blue-light);
+    border: 0;
+    border-bottom: 4px solid var(--color-blue);
+    border-radius: 24px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    padding: 10px 18px;
+    aspect-ratio: 1/1;
+    max-width: 120px;
+}
+
+.level:hover {
+  background-color: var(--color-blue);
+}
+
+.levelGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin: 0 2rem;
+}
+
+.container {
+  padding: 32px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  color: var(--color-blue);
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}

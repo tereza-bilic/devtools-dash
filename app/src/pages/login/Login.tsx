@@ -6,6 +6,8 @@ import { AnonymousGuard } from 'src/components/AnonymousGuard';
 import { isAxiosError } from 'axios';
 import { Link } from 'react-router-dom';
 import styles from './Login.module.css';
+import Input from 'src/components/form/input/Input';
+import Button from 'src/components/form/button/Button';
 
 
 const Login = () => {
@@ -36,23 +38,19 @@ const Login = () => {
   return (
     <AnonymousGuard>
       <form onSubmit={handleSubmit} className={styles.login}>
-        <input
-          type="text"
-          placeholder="Nickname"
-          value={nickname}
-          onChange={(e) => setNickname(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Login</button>
-        {error && <div>{error}</div>}
+        <Input label="Nickname" type="text" value={nickname} onChange={(e) => setNickname(e.target.value)} />
+        <Input label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+
+        <div className={styles.buttonWrapper}>
+          <span className="small">Don't have an account?
+            <Link to="/signup"> Sign up</Link>
+          </span>
+
+          <Button type="submit">Login</Button>
+        </div>
+
+        {error && <div className={styles.error}>{error}</div>}
       </form>
-      or
-      <Link to="/signup"> Signup</Link>
     </AnonymousGuard>
   );
 }

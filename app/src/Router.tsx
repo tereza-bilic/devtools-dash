@@ -1,10 +1,10 @@
-import Categories from './components/Categories'
+import Categories from 'src/components/categoriesList/Categories'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LevelGrid from './components/LevelGrid';
-import Login from './pages/login/Login';
-import Signup from './pages/signup/Signup';
-import Layout from './Layout';
-import CompletedLevel from './pages/completed/CompletedLevel';
+import LevelGrid from 'src/components/levelGrid/LevelGrid';
+import Login from 'src/pages/login/Login';
+import Signup from 'src/pages/signup/Signup';
+import Layout from 'src/Layout';
+import CompletedLevel from 'src/pages/completed/CompletedLevel';
 
 export const AppRouter = () => {
   return (
@@ -15,7 +15,7 @@ export const AppRouter = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/completed" element={<CompletedLevel />} />
-          <Route path="/categories/:category" element={<LevelGrid />} />
+          <Route path="/categories/:category" element={<LevelGrid/>} />
         </Route>
       </Routes>
     </Router>

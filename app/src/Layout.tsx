@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
-import { useAuth } from "./context/AuthContext";
-import { axiosClient } from "./util/axiosClient";
+import { useAuth } from "src/context/AuthContext";
+import { axiosClient } from "src/util/axiosClient";
+import Navigation from "src/components/Navigation/Navigation";
 
 const Layout = () => {
   const { user, refresh } = useAuth();
@@ -13,12 +14,11 @@ const Layout = () => {
     <div>
       {user ? (
           <>
-            <div>Welcome {user.user_nickname}</div>
-            <button onClick={logout}>Logout</button>
+            <Navigation user={user} logout={logout} />
           </>
         ) : (
-          <div>Please login or signup</div>
-      )}
+          <div></div>
+        )}
         <Outlet />
     </div>
   );
