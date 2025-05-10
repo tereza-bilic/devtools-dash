@@ -72,7 +72,7 @@ const Categories = () => {
               <div className={styles.categoryTitle + " large"}>
                 {capitalize(category.name)}
                 {category.completed_count > 0  &&
-                  <ProgressBar progress={progress(category)} />
+                  <ProgressBar total={category.total_count} completed={category.completed_count} />
                 }
               </div>
                 <Button type="button" onClick={() => handleCategoryClick(category)} color={buttonColor(category)}>

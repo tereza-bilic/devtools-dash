@@ -9,5 +9,27 @@
 .progress {
   background-color: #30d048;
   height: 100%;
-  transition: width 0.3s ease-in-out,
+  width: 0;
+  animation: progress 1s ease-in-out forwards;
+}
+
+@keyframes progress {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: var(--width)
+  }
+}
+
+.progressBarContainer {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.progressText {
+  font-size: 1rem;
+  width: 40px;
+  margin-left: 8px;
 }

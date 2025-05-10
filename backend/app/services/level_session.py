@@ -5,13 +5,13 @@ import random, string
 
 from app.core.config import logger
 from app.models.level import get_level_by_key
-from app.models.level_session import LevelSession, create_level_session, get_level_session_by_id, get_level_session_by_user_and_key, get_level_sessions_by_user_id, update_level_session
+from app.models.level_session import LevelSession, create_level_session, get_last_completed_level_session, get_level_session_by_user_and_key, get_level_sessions_by_user_id, update_level_session
 from app.errors.not_found_error import NotFoundError
 from app.errors.forbidden_error import ForbiddenError
 from app.schemas.level_session import CompletedLevelResponse
 
-async def get_completed(db_session: AsyncSession, user_id: int, id: int) -> CompletedLevelResponse:
-    level_session = await get_level_session_by_id(db_session, id)
+async def get_completed(db_session: AsyncSession, user_id: int, key: str) -> CompletedLevelResponse:
+    level_session = await get_last_completed_level_session(db_session, user_id, key)
     if not level_session or not level_session.completed or not level_session.finished_at:
         raise NotFoundError(f"Level session with id {id} not found or not completed")
     if level_session.user_id != user_id:

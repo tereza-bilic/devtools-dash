@@ -11,6 +11,11 @@ export default defineConfig({
   },
   server: {
     proxy: {
+      '/api/level_session/level_n2_ws': {
+        target: 'ws://localhost:8000',
+        rewriteWsOrigin: true,
+        ws: true,
+      },
       '/api': {
         target: 'http://localhost:8000',
         changeOrigin: true,

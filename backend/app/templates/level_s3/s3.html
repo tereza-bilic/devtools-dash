@@ -1,0 +1,13 @@
+{% extends "level.html" %}
+{% set title = level_session.level_key %}
+{% set secret = level_session.finish_secret %}
+
+{% block head %}
+  <script type="module" src="{{ url_path_for('get_level_js', level_key='s3')}}"></script>
+
+{% endblock %}
+
+{% block content %}
+  <h1> I have an error, please fix me </h1>
+  <input type="text" id="fix" placeholder="Type here..." />
+{% endblock %}

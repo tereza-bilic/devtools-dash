@@ -1,0 +1,22 @@
+{% extends "level.html" %}
+{% set title = level_session.level_key %}
+{% set secret = level_session.finish_secret %}
+
+{% block head %}
+  <script>
+      {%for possible_secret in level_utils['s2']['all_combinations']() %}
+          class SecretRevealer_{{possible_secret}}{
+              say() {
+                  alert("Hey I'm a class which can reveal the secret!");
+              }
+          }
+      {% endfor %}
+  </script>
+  <script defer src="{{ url_path_for('get_level_js', level_key='s2')}}?should_obfuscate=True"></script>
+{% endblock %}
+
+{% block content %}
+  <h1>Find the Secret Handler!</h1>
+  <p>Many classes know how to reveal the secret. But only one of them is the correct one.</p>
+  <p>Use the Event Listener Breakpoints in DevTools to find out which class is responsible for revealing the secret.</p>
+{% endblock %}

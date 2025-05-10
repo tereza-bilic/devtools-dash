@@ -1,0 +1,15 @@
+<html>
+<head>
+  <script src="{{ url_path_for('get_level_js', level_key='c3') }}?different_filename=iframe"></script>
+  <script defer>
+    setTimeout(() => {
+    console.log('Hello from the iframe! I\'m hashing the window.my_code variable. to get a secret:');
+    const secret = hashFunction(window.my_code);
+    console.log(secret);
+    }, 1000);
+  </script>
+</head>
+<body>
+I'm an iframe, and I'm calling the parent window function with my code to get a secret.
+</body>
+</html>

@@ -6,11 +6,35 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { CategoryEnum, LevelResponse } from 'src/types/openapi';
 import { useEffect, useState } from 'react';
 import Button from 'src/components/form/button/Button';
+import StarIcon from '../StarIcon';
 
 const LevelGrid = () => {
   const navigate = useNavigate();
   const { category } = useParams<{ category: CategoryEnum }>();
   const [levels, setLevels] = useState<LevelResponse[]>([]);
+
+  const [currentLevel, setCurrentLevel] = useState<LevelResponse | null>(null);
+  const [windowProxy, setWindowProxy] = useState<Window | null>(null);
+  const [intervalId, setIntervalId] = useState<number | undefined>(undefined);
+
+  useEffect(() => {
+    if (windowProxy) {
+      const interval =
+      setInterval(() => {
+        if (windowProxy.closed) {
+          clearInterval(interval);
+          setWindowProxy(null);
+          navigate('/completed?completed_id=' + currentLevel?.level_key);
+        }
+      }, 500) as unknown as number
+      setIntervalId(interval);
+    }
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [windowProxy]);
   const fetchLevels = async () => {
     if (!category) {
       return;
@@ -25,7 +49,8 @@ const LevelGrid = () => {
   }, []);
 
   const handleLevelClick = async (level: LevelResponse) => {
-    window.open('/api/level_session/play/' + level.level_key, '_blank');
+    setCurrentLevel(level);
+    setWindowProxy(window.open('/api/level_session/play/' + level.level_key, '_blank'));
   }
 
   return (
@@ -39,7 +64,12 @@ const LevelGrid = () => {
 
           <div className={styles.levelGrid}>
             {levels.map((level, index) => (
-              <button key={level.level_key} className={styles.level} onClick={() => handleLevelClick(level)}>
+              <button key={level.level_key} className={styles.level + " " + (level.completed && styles.completed)} onClick={() => handleLevelClick(level)}>
+                {level.completed && (
+                  <div className={styles.completedIcon}>
+                    <StarIcon width='30px' height='30px'/>
+                  </div>
+                )}
                 {level.order_in_category}
               </button>
             ))}

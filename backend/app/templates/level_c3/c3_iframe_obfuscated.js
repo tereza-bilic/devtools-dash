@@ -1,0 +1,1 @@
+window.my_code = "{{level_session.level_metadata.input_number}}";

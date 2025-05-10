@@ -1,0 +1,29 @@
+{% extends "level.html" %}
+{% set title = level_session.level_key %}
+{% set secret = level_session.finish_secret %}
+
+{% block head %}
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat({{level_utils['e4']['matrix_secret'](secret)[0] | length}}, 1fr);
+  }
+  .cell {
+    width: 10px;
+    height: 15px;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+  <div class="grid">
+    {%for row in level_utils['e4']['matrix_secret'](secret) %}
+      {% for cell in row %}
+        <div class="cell{%if cell %} cell-red{% endif %}">
+        </div>
+      {% endfor %}
+    {% endfor %}
+  </div>
+
+{% endblock %}
+

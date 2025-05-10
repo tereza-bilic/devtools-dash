@@ -28,6 +28,11 @@ async def get_level_session_by_id(session: AsyncSession, id: int) -> Optional[Le
     return (await session.scalars(select(LevelSession).filter(LevelSession.id == id).limit(1))).first()
 
 
+async def get_last_completed_level_session(session: AsyncSession, user_id: int, key: str) -> Optional[LevelSession]:
+    return (await session.scalars(
+        select(LevelSession).filter(LevelSession.user_id == user_id, LevelSession.level_key == key, LevelSession.completed == True).order_by(LevelSession.finished_at.desc()).limit(1)
+        )).first()
+
 async def get_level_session_by_user_and_key(session: AsyncSession, user_id: int, level_key: str) -> Optional[LevelSession]:
     return (await session.scalars(
         select(LevelSession).filter(LevelSession.user_id == user_id, LevelSession.level_key == level_key, LevelSession.completed == False).limit(1)

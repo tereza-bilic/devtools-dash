@@ -1,0 +1,44 @@
+.container {
+  background-color: var(--color-background);
+  padding: 32px;
+  border-radius: 16px;
+  color: var(--color-blue);
+}
+
+.divider {
+  border: 1px solid var(--color-blue-light);
+  margin: 2rem 0;
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 1rem 0;
+}
+
+.stat {
+  font-weight: 600;
+}
+
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.starContainer {
+  animation: starAnimation 1s ease-in-out;
+}
+
+@keyframes starAnimation {
+  0% {
+    transform: rotate(0deg) scale(0);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+
+}

@@ -78,7 +78,24 @@ declare namespace Components {
         /**
          * CategoryEnum
          */
-        export type CategoryEnum = "Elements" | "Console" | "Network" | "Sources";
+        export type CategoryEnum = "Elements" | "Console" | "Network" | "Sources" | "Performance";
+        /**
+         * CategoryResponse
+         */
+        export interface CategoryResponse {
+            /**
+             * Name
+             */
+            name: string;
+            /**
+             * Completed Count
+             */
+            completed_count: number;
+            /**
+             * Total Count
+             */
+            total_count: number;
+        }
         /**
          * CompletedLevelResponse
          */
@@ -186,7 +203,7 @@ declare namespace Paths {
             /**
              * Completed Id
              */
-            export type CompletedId = number;
+            export type CompletedId = string;
         }
         export interface PathParameters {
             completed_id: /* Completed Id */ Parameters.CompletedId;
@@ -211,9 +228,44 @@ declare namespace Paths {
             export type $422 = /* HTTPValidationError */ Components.Schemas.HTTPValidationError;
         }
     }
+    namespace GetCategoriesApiLevelCategoriesGet {
+        namespace Responses {
+            /**
+             * Response Get Categories Api Level Categories Get
+             */
+            export type $200 = /* CategoryResponse */ Components.Schemas.CategoryResponse[];
+        }
+    }
+    namespace GetLevelJsApiLevelSessionJsLevelKeyJsGet {
+        namespace Parameters {
+            /**
+             * Level Key
+             */
+            export type LevelKey = "e1" | "e2" | "e3" | "e4" | "n1" | "s1" | "s2" | "c1" | "c2";
+            /**
+             * Should Obfuscate
+             */
+            export type ShouldObfuscate = boolean;
+        }
+        export interface PathParameters {
+            level_key: /* Level Key */ Parameters.LevelKey;
+        }
+        export interface QueryParameters {
+            should_obfuscate?: /* Should Obfuscate */ Parameters.ShouldObfuscate;
+        }
+        namespace Responses {
+            export type $200 = string;
+            export type $422 = /* HTTPValidationError */ Components.Schemas.HTTPValidationError;
+        }
+    }
     namespace GetMeApiUserMeGet {
         namespace Responses {
             export type $200 = /* TokenData */ Components.Schemas.TokenData;
+        }
+    }
+    namespace GetN1ResponseApiLevelSessionN1MessageGet {
+        namespace Responses {
+            export type $200 = any;
         }
     }
     namespace LoginForAccessTokenApiUserLoginPost {
@@ -267,6 +319,7 @@ declare namespace Paths {
         }
     }
 }
+
 
 export interface OperationMethods {
   /**
@@ -325,6 +378,30 @@ export interface OperationMethods {
     data?: Paths.SubmitApiLevelSessionPlayLevelKeyPost.RequestBody,
     config?: AxiosRequestConfig  
   ): OperationResponse<Paths.SubmitApiLevelSessionPlayLevelKeyPost.Responses.$200>
+  /**
+   * get_level_js_api_level_session_js__level_key__js_get - Get Level Js
+   */
+  'get_level_js_api_level_session_js__level_key__js_get'(
+    parameters?: Parameters<Paths.GetLevelJsApiLevelSessionJsLevelKeyJsGet.QueryParameters & Paths.GetLevelJsApiLevelSessionJsLevelKeyJsGet.PathParameters> | null,
+    data?: any,
+    config?: AxiosRequestConfig  
+  ): OperationResponse<Paths.GetLevelJsApiLevelSessionJsLevelKeyJsGet.Responses.$200>
+  /**
+   * get_n1_response_api_level_session_n1_message_get - Get N1 Response
+   */
+  'get_n1_response_api_level_session_n1_message_get'(
+    parameters?: Parameters<UnknownParamsObject> | null,
+    data?: any,
+    config?: AxiosRequestConfig  
+  ): OperationResponse<Paths.GetN1ResponseApiLevelSessionN1MessageGet.Responses.$200>
+  /**
+   * get_categories_api_level_categories_get - Get Categories
+   */
+  'get_categories_api_level_categories_get'(
+    parameters?: Parameters<UnknownParamsObject> | null,
+    data?: any,
+    config?: AxiosRequestConfig  
+  ): OperationResponse<Paths.GetCategoriesApiLevelCategoriesGet.Responses.$200>
   /**
    * get_by_category_api_level__level_category__get - Get By Category
    */
@@ -404,6 +481,36 @@ export interface PathsDictionary {
       config?: AxiosRequestConfig  
     ): OperationResponse<Paths.SubmitApiLevelSessionPlayLevelKeyPost.Responses.$200>
   }
+  ['/api/level_session/js/{level_key}.js']: {
+    /**
+     * get_level_js_api_level_session_js__level_key__js_get - Get Level Js
+     */
+    'get'(
+      parameters?: Parameters<Paths.GetLevelJsApiLevelSessionJsLevelKeyJsGet.QueryParameters & Paths.GetLevelJsApiLevelSessionJsLevelKeyJsGet.PathParameters> | null,
+      data?: any,
+      config?: AxiosRequestConfig  
+    ): OperationResponse<Paths.GetLevelJsApiLevelSessionJsLevelKeyJsGet.Responses.$200>
+  }
+  ['/api/level_session/n1_message']: {
+    /**
+     * get_n1_response_api_level_session_n1_message_get - Get N1 Response
+     */
+    'get'(
+      parameters?: Parameters<UnknownParamsObject> | null,
+      data?: any,
+      config?: AxiosRequestConfig  
+    ): OperationResponse<Paths.GetN1ResponseApiLevelSessionN1MessageGet.Responses.$200>
+  }
+  ['/api/level/categories']: {
+    /**
+     * get_categories_api_level_categories_get - Get Categories
+     */
+    'get'(
+      parameters?: Parameters<UnknownParamsObject> | null,
+      data?: any,
+      config?: AxiosRequestConfig  
+    ): OperationResponse<Paths.GetCategoriesApiLevelCategoriesGet.Responses.$200>
+  }
   ['/api/level/{level_category}']: {
     /**
      * get_by_category_api_level__level_category__get - Get By Category
@@ -418,10 +525,12 @@ export interface PathsDictionary {
 
 export type Client = OpenAPIClient<OperationMethods, PathsDictionary>
 
+
 export type Body_login_for_access_token_api_user_login_post = Components.Schemas.BodyLoginForAccessTokenApiUserLoginPost;
 export type Body_register_api_user_register_post = Components.Schemas.BodyRegisterApiUserRegisterPost;
 export type Body_submit_api_level_session_play__level_key__post = Components.Schemas.BodySubmitApiLevelSessionPlayLevelKeyPost;
 export type CategoryEnum = Components.Schemas.CategoryEnum;
+export type CategoryResponse = Components.Schemas.CategoryResponse;
 export type CompletedLevelResponse = Components.Schemas.CompletedLevelResponse;
 export type HTTPValidationError = Components.Schemas.HTTPValidationError;
 export type LevelResponse = Components.Schemas.LevelResponse;
