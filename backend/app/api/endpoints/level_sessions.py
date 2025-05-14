@@ -168,3 +168,20 @@ async def get_n1_response(
         return {"message": "Hello Stranger", "secret": f"{level_session.finish_secret}, keep it secret, keep it safe"}
     except NotFoundError as e:
         raise HTTPException(status_code=e.status_code, detail=e.message)
+
+@router.get("/n3_response")
+async def get_n3_response(
+    request: Request,
+    reveal_secret: Annotated[bool, Query()] = False,
+    db_session: AsyncSession = Depends(get_db),
+    current_user: TokenData = Depends(get_current_user)):
+    try:
+        level_session = await start_level(db_session, current_user.user_id, "n3")
+    
+        
+        # Create response with money amount
+        response = {"money": 300}
+        
+        return response
+    except NotFoundError as e:
+        raise HTTPException(status_code=e.status_code, detail=e.message)

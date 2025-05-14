@@ -1,0 +1,99 @@
+{% extends "level.html" %}
+{% set title = level_session.level_key %}
+{% set secret = level_session.finish_secret %}
+
+{% block head %}
+  <script src="{{ url_path_for('get_level_js', level_key='n3')}}"></script>
+  <style>
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .instruction-panel {
+      background-color: #f9f9f9;
+      border-left: 4px solid #3498db;
+      padding: 15px;
+      margin-bottom: 30px;
+      border-radius: 4px;
+    }
+    
+    .money-display {
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      margin: 20px 0;
+    }
+    
+    .money-symbol {
+      color: #27ae60;
+    }
+    
+    .progress-container {
+      background-color: #f3f3f3;
+      border-radius: 8px;
+      padding: 3px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+    
+    .progress-bar {
+      height: 30px;
+      border-radius: 5px;
+      background-color: #4caf50;
+      background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+      background-size: 40px 40px;
+      transition: width 0.8s ease;
+      text-align: center;
+      line-height: 30px;
+      color: white;
+      font-weight: bold;
+    }
+    
+    .secret-reveal {
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      padding: 20px;
+      text-align: center;
+      margin-top: 20px;
+      border-radius: 8px;
+      display: none;
+    }
+    
+    .secret-code {
+      font-family: monospace;
+      font-size: 24px;
+      color: #e74c3c;
+      padding: 10px;
+      background-color: #f1f1f1;
+      border-radius: 4px;
+      display: inline-block;
+    }
+    
+  </style>
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="instruction-panel">
+      <h2>Money Challenge</h2>
+      <p>Your task is to modify the network request to increase your money.</p>
+      <p>You need to reach <strong>$1000</strong> to reveal the secret code.</p>
+
+    </div>
+    
+    <div class="money-display">
+      Current Balance: <span class="money-symbol">$</span><span id="money-amount">0</span>
+    </div>
+    
+    <div class="progress-container">
+      <div id="progress-bar" class="progress-bar" style="width: 0%">0%</div>
+    </div>
+
+    <div class="secret-reveal" id="secret-reveal">
+      Thanks for your help! The secret code is: <span id="secret-code"></span>
+    </div>
+    
+  </div>
+{% endblock %}
