@@ -9,6 +9,7 @@ class LevelResponse(BaseModel):
     difficulty: int
     completed: bool
     in_progress: bool
+    duration: int | None = None  # Duration in seconds, optional for in-progress levels
 
 class CategoryResponse(BaseModel):
     name: str

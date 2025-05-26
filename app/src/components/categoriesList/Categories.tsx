@@ -4,19 +4,10 @@ import { capitalize } from 'src/utils/string-functions';
 import { AuthGuard } from '../AuthGuard';
 import { CategoryResponse } from 'src/types/openapi';
 import ProgressBar from 'src/components/progressBar/ProgressBar';
-import Elements from 'src/components/icons/Elements';
-import Console from 'src/components/icons/Console';
 import React, { useEffect, useState } from 'react';
-import Network from 'src/components/icons/Network';
 import Button from '../form/button/Button';
 import { axiosClient } from 'src/util/axiosClient';
-
-const categoryIconMap: Record<string, () => JSX.Element> = {
-  'Elements': Elements,
-  'Console': Console,
-  'Network': Network,
-  'Sources': () => <div>Sources</div>,
-};
+import { categoryIconMap } from 'src/consts/categories';
 
 const Categories = () => {
   const navigate = useNavigate();

@@ -6,3 +6,12 @@ class CompletedLevelResponse(BaseModel):
     started_at: datetime
     finished_at: datetime
     level_key: str
+
+
+class LevelSessionResponse(BaseModel):
+    id: int
+    started_at: datetime
+    finished_at: datetime | None
+    completed: bool
+    level_key: str
+    try_count: int | None = 0

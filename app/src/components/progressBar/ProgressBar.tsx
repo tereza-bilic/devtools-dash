@@ -18,9 +18,9 @@ const ProgressBar = ({ completed, total }: {completed: number, total: number}) =
           style={style}
         ></div>
       </div>
-      <span className={styles.progressText}>
+      <div className={styles.progressText}>
         {completed} / {total}
-      </span>
+      </div>
     </div>
   );
 };

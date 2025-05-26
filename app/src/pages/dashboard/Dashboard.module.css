@@ -1,0 +1,106 @@
+.dashboard {
+  display: grid;
+  grid-template-columns: 30% 70%;
+}
+
+.leftDashboard {
+  padding: 20px;
+  border-right: 1px solid #ccc;
+  margin-right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.dataBox {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.dataBox div {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.categoryProgress {
+  display: grid;
+  width: 70%;
+  grid-template-columns: 1fr 1fr 1fr;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.categoryBox {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userIconWrapper {
+  /* border: 1px solid var(--color-blue-light); */
+  background-color: var(--color-background);
+  padding: 20px;
+  color: var(--color-blue);
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  height: fit-content;
+}
+
+.userName {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-top: 10px;
+  color: var(--color-blue);
+}
+
+.divider {
+  border: 0.5px solid #ccc;
+  width: 100%;
+  margin: 20px 0;
+}
+
+.badgeWrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.badgeIcon {
+  position: absolute;
+}
+
+.achievements {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}

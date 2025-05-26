@@ -5,13 +5,13 @@ import random, string
 
 from app.core.config import logger
 from app.models.level import get_level_by_key
-from app.models.level_session import LevelSession, create_level_session, get_last_completed_level_session, get_level_session_by_user_and_key, get_level_sessions_by_user_id, update_level_session
+from app.models.level_session import LevelSession, create_level_session, get_level_session_by_id, get_level_session_by_user_and_key, get_level_sessions_by_user_id, update_level_session
 from app.errors.not_found_error import NotFoundError
 from app.errors.forbidden_error import ForbiddenError
-from app.schemas.level_session import CompletedLevelResponse
+from app.schemas.level_session import CompletedLevelResponse, LevelSessionResponse
 
-async def get_completed(db_session: AsyncSession, user_id: int, key: str) -> CompletedLevelResponse:
-    level_session = await get_last_completed_level_session(db_session, user_id, key)
+async def get_completed(db_session: AsyncSession, user_id: int, id: int) -> CompletedLevelResponse:
+    level_session = await get_level_session_by_id(db_session, id)
     if not level_session or not level_session.completed or not level_session.finished_at:
         raise NotFoundError(f"Level session with id {id} not found or not completed")
     if level_session.user_id != user_id:
@@ -21,6 +21,16 @@ async def get_completed(db_session: AsyncSession, user_id: int, key: str) -> Com
         started_at=level_session.started_at,
         finished_at=level_session.finished_at,
         level_key=level_session.level_key)
+
+async def start_level_public(db_session: AsyncSession, user_id: int, level_key: str) -> LevelSessionResponse:
+    level_session = await start_level(db_session, user_id, level_key)
+    return LevelSessionResponse(
+        id=level_session.id,
+        started_at=level_session.started_at,
+        finished_at=level_session.finished_at,
+        completed=level_session.completed,
+        level_key=level_session.level_key
+    )
 
 async def start_level(db_session: AsyncSession, user_id: int, level_key: str) -> LevelSession:
     level = get_level_by_key(level_key)
@@ -66,12 +76,32 @@ async def submit_level(db_session: AsyncSession, user_id: int, level_key: str, l
         logger.warning(f"Did not find existing session for user {user_id} and level {level_key}")
         raise NotFoundError(f"No session found for user {user_id} and level {level_key}")
 
+    # Increment the try count for each submission
+    if existing_session.try_count is None:
+        existing_session.try_count = 1
+    else:
+        existing_session.try_count += 1
+
     if existing_session.finish_secret == level_secret:
         existing_session.completed = True
         existing_session.finished_at = datetime.now()
         await update_level_session(db_session, existing_session)
         logger.info(f"Updated session for user {user_id} and level {level_key}")
     else:
+        # Even if the solution is incorrect, we still update the try count
+        await update_level_session(db_session, existing_session)
         logger.warning(f"Invalid secret for user {user_id} and level {level_key}, user submitted {level_secret}, expected {existing_session.finish_secret}")
 
     return existing_session
+
+async def get_by_user(db_session: AsyncSession, user_id: int) -> list[LevelSessionResponse]:
+    level_sessions = await get_level_sessions_by_user_id(db_session, user_id)
+    return [
+        LevelSessionResponse(
+            id=session.id,
+            started_at=session.started_at,
+            finished_at=session.finished_at,
+            completed=session.completed,
+            level_key=session.level_key
+        ) for session in level_sessions
+    ]

@@ -127,6 +127,40 @@ declare namespace Components {
             detail?: /* ValidationError */ ValidationError[];
         }
         /**
+         * LeaderboardResponse
+         */
+        export interface LeaderboardResponse {
+            /**
+             * Users
+             */
+            users: /* LeaderboardUserEntry */ LeaderboardUserEntry[];
+        }
+        /**
+         * LeaderboardUserEntry
+         */
+        export interface LeaderboardUserEntry {
+            /**
+             * User Id
+             */
+            user_id: number;
+            /**
+             * User Nickname
+             */
+            user_nickname: string;
+            /**
+             * Total Points
+             */
+            total_points: number;
+            /**
+             * Levels Completed
+             */
+            levels_completed: number;
+            /**
+             * Level Points
+             */
+            level_points: /* UserLevelPoints */ UserLevelPoints[];
+        }
+        /**
          * LevelResponse
          */
         export interface LevelResponse {
@@ -151,6 +185,39 @@ declare namespace Components {
              * In Progress
              */
             in_progress: boolean;
+            /**
+             * Duration
+             */
+            duration?: /* Duration */ number | null;
+        }
+        /**
+         * LevelSessionResponse
+         */
+        export interface LevelSessionResponse {
+            /**
+             * Id
+             */
+            id: number;
+            /**
+             * Started At
+             */
+            started_at: string; // date-time
+            /**
+             * Finished At
+             */
+            finished_at: /* Finished At */ string /* date-time */ | null;
+            /**
+             * Completed
+             */
+            completed: boolean;
+            /**
+             * Level Key
+             */
+            level_key: string;
+            /**
+             * Try Count
+             */
+            try_count?: /* Try Count */ number | null;
         }
         /**
          * LoginUserResponse
@@ -179,6 +246,39 @@ declare namespace Components {
             user_nickname: string;
         }
         /**
+         * UserLevelPoints
+         */
+        export interface UserLevelPoints {
+            /**
+             * Level Key
+             */
+            level_key: string;
+            /**
+             * Level Name
+             */
+            level_name: string;
+            /**
+             * Difficulty
+             */
+            difficulty: number;
+            /**
+             * Points
+             */
+            points: number;
+            /**
+             * Best Time
+             */
+            best_time: number;
+            /**
+             * User Best Time
+             */
+            user_best_time: number;
+            /**
+             * Completed Sessions
+             */
+            completed_sessions: number;
+        }
+        /**
          * ValidationError
          */
         export interface ValidationError {
@@ -198,12 +298,27 @@ declare namespace Components {
     }
 }
 declare namespace Paths {
+    namespace ApiStartLevelApiLevelSessionStartLevelKeyPost {
+        namespace Parameters {
+            /**
+             * Level Key
+             */
+            export type LevelKey = string;
+        }
+        export interface PathParameters {
+            level_key: /* Level Key */ Parameters.LevelKey;
+        }
+        namespace Responses {
+            export type $200 = /* LevelSessionResponse */ Components.Schemas.LevelSessionResponse;
+            export type $422 = /* HTTPValidationError */ Components.Schemas.HTTPValidationError;
+        }
+    }
     namespace CompletedApiLevelSessionCompletedCompletedIdGet {
         namespace Parameters {
             /**
              * Completed Id
              */
-            export type CompletedId = string;
+            export type CompletedId = number;
         }
         export interface PathParameters {
             completed_id: /* Completed Id */ Parameters.CompletedId;
@@ -211,6 +326,14 @@ declare namespace Paths {
         namespace Responses {
             export type $200 = /* CompletedLevelResponse */ Components.Schemas.CompletedLevelResponse;
             export type $422 = /* HTTPValidationError */ Components.Schemas.HTTPValidationError;
+        }
+    }
+    namespace GetAllLevelsApiLevelGet {
+        namespace Responses {
+            /**
+             * Response Get All Levels Api Level  Get
+             */
+            export type $200 = /* LevelResponse */ Components.Schemas.LevelResponse[];
         }
     }
     namespace GetByCategoryApiLevelLevelCategoryGet {
@@ -236,12 +359,61 @@ declare namespace Paths {
             export type $200 = /* CategoryResponse */ Components.Schemas.CategoryResponse[];
         }
     }
-    namespace GetLevelJsApiLevelSessionJsLevelKeyJsGet {
+    namespace GetLeaderboardEndpointApiLevelSessionLeaderboardGet {
+        namespace Responses {
+            export type $200 = /* LeaderboardResponse */ Components.Schemas.LeaderboardResponse;
+        }
+    }
+    namespace GetLevelCssApiLevelSessionCssLevelKeyFilenameCssGet {
         namespace Parameters {
+            /**
+             * Filename
+             */
+            export type Filename = string;
             /**
              * Level Key
              */
-            export type LevelKey = "e1" | "e2" | "e3" | "e4" | "n1" | "s1" | "s2" | "c1" | "c2";
+            export type LevelKey = "e1" | "e2" | "e3" | "e4" | "e5" | "e6" | "n1" | "n2" | "n3" | "s1" | "s2" | "s3" | "c1" | "c2" | "c3";
+        }
+        export interface PathParameters {
+            level_key: /* Level Key */ Parameters.LevelKey;
+            filename: /* Filename */ Parameters.Filename;
+        }
+        namespace Responses {
+            export type $200 = string;
+            export type $422 = /* HTTPValidationError */ Components.Schemas.HTTPValidationError;
+        }
+    }
+    namespace GetLevelHtmlApiLevelSessionHtmlLevelKeyFilenameHtmlGet {
+        namespace Parameters {
+            /**
+             * Filename
+             */
+            export type Filename = string;
+            /**
+             * Level Key
+             */
+            export type LevelKey = "e1" | "e2" | "e3" | "e4" | "e5" | "e6" | "n1" | "n2" | "n3" | "s1" | "s2" | "s3" | "c1" | "c2" | "c3";
+        }
+        export interface PathParameters {
+            level_key: /* Level Key */ Parameters.LevelKey;
+            filename: /* Filename */ Parameters.Filename;
+        }
+        namespace Responses {
+            export type $200 = string;
+            export type $422 = /* HTTPValidationError */ Components.Schemas.HTTPValidationError;
+        }
+    }
+    namespace GetLevelJsApiLevelSessionJsLevelKeyJsGet {
+        namespace Parameters {
+            /**
+             * Different Filename
+             */
+            export type DifferentFilename = string;
+            /**
+             * Level Key
+             */
+            export type LevelKey = "e1" | "e2" | "e3" | "e4" | "e5" | "e6" | "n1" | "n2" | "n3" | "s1" | "s2" | "s3" | "c1" | "c2" | "c3";
             /**
              * Should Obfuscate
              */
@@ -251,11 +423,20 @@ declare namespace Paths {
             level_key: /* Level Key */ Parameters.LevelKey;
         }
         export interface QueryParameters {
+            different_filename?: /* Different Filename */ Parameters.DifferentFilename;
             should_obfuscate?: /* Should Obfuscate */ Parameters.ShouldObfuscate;
         }
         namespace Responses {
             export type $200 = string;
             export type $422 = /* HTTPValidationError */ Components.Schemas.HTTPValidationError;
+        }
+    }
+    namespace GetLevelSessionsApiLevelSessionAllGet {
+        namespace Responses {
+            /**
+             * Response Get Level Sessions Api Level Session All Get
+             */
+            export type $200 = /* LevelSessionResponse */ Components.Schemas.LevelSessionResponse[];
         }
     }
     namespace GetMeApiUserMeGet {
@@ -266,6 +447,21 @@ declare namespace Paths {
     namespace GetN1ResponseApiLevelSessionN1MessageGet {
         namespace Responses {
             export type $200 = any;
+        }
+    }
+    namespace GetN3ResponseApiLevelSessionN3ResponseGet {
+        namespace Parameters {
+            /**
+             * Reveal Secret
+             */
+            export type RevealSecret = boolean;
+        }
+        export interface QueryParameters {
+            reveal_secret?: /* Reveal Secret */ Parameters.RevealSecret;
+        }
+        namespace Responses {
+            export type $200 = any;
+            export type $422 = /* HTTPValidationError */ Components.Schemas.HTTPValidationError;
         }
     }
     namespace LoginForAccessTokenApiUserLoginPost {
@@ -363,6 +559,30 @@ export interface OperationMethods {
     config?: AxiosRequestConfig  
   ): OperationResponse<Paths.CompletedApiLevelSessionCompletedCompletedIdGet.Responses.$200>
   /**
+   * get_level_sessions_api_level_session_all_get - Get Level Sessions
+   */
+  'get_level_sessions_api_level_session_all_get'(
+    parameters?: Parameters<UnknownParamsObject> | null,
+    data?: any,
+    config?: AxiosRequestConfig  
+  ): OperationResponse<Paths.GetLevelSessionsApiLevelSessionAllGet.Responses.$200>
+  /**
+   * get_leaderboard_endpoint_api_level_session_leaderboard_get - Get Leaderboard Endpoint
+   */
+  'get_leaderboard_endpoint_api_level_session_leaderboard_get'(
+    parameters?: Parameters<UnknownParamsObject> | null,
+    data?: any,
+    config?: AxiosRequestConfig  
+  ): OperationResponse<Paths.GetLeaderboardEndpointApiLevelSessionLeaderboardGet.Responses.$200>
+  /**
+   * api_start_level_api_level_session_start__level_key__post - Api Start Level
+   */
+  'api_start_level_api_level_session_start__level_key__post'(
+    parameters?: Parameters<Paths.ApiStartLevelApiLevelSessionStartLevelKeyPost.PathParameters> | null,
+    data?: any,
+    config?: AxiosRequestConfig  
+  ): OperationResponse<Paths.ApiStartLevelApiLevelSessionStartLevelKeyPost.Responses.$200>
+  /**
    * play_level_api_level_session_play__level_key__get - Play Level
    */
   'play_level_api_level_session_play__level_key__get'(
@@ -387,6 +607,22 @@ export interface OperationMethods {
     config?: AxiosRequestConfig  
   ): OperationResponse<Paths.GetLevelJsApiLevelSessionJsLevelKeyJsGet.Responses.$200>
   /**
+   * get_level_css_api_level_session_css__level_key___filename__css_get - Get Level Css
+   */
+  'get_level_css_api_level_session_css__level_key___filename__css_get'(
+    parameters?: Parameters<Paths.GetLevelCssApiLevelSessionCssLevelKeyFilenameCssGet.PathParameters> | null,
+    data?: any,
+    config?: AxiosRequestConfig  
+  ): OperationResponse<Paths.GetLevelCssApiLevelSessionCssLevelKeyFilenameCssGet.Responses.$200>
+  /**
+   * get_level_html_api_level_session_html__level_key___filename__html_get - Get Level Html
+   */
+  'get_level_html_api_level_session_html__level_key___filename__html_get'(
+    parameters?: Parameters<Paths.GetLevelHtmlApiLevelSessionHtmlLevelKeyFilenameHtmlGet.PathParameters> | null,
+    data?: any,
+    config?: AxiosRequestConfig  
+  ): OperationResponse<Paths.GetLevelHtmlApiLevelSessionHtmlLevelKeyFilenameHtmlGet.Responses.$200>
+  /**
    * get_n1_response_api_level_session_n1_message_get - Get N1 Response
    */
   'get_n1_response_api_level_session_n1_message_get'(
@@ -394,6 +630,14 @@ export interface OperationMethods {
     data?: any,
     config?: AxiosRequestConfig  
   ): OperationResponse<Paths.GetN1ResponseApiLevelSessionN1MessageGet.Responses.$200>
+  /**
+   * get_n3_response_api_level_session_n3_response_get - Get N3 Response
+   */
+  'get_n3_response_api_level_session_n3_response_get'(
+    parameters?: Parameters<Paths.GetN3ResponseApiLevelSessionN3ResponseGet.QueryParameters> | null,
+    data?: any,
+    config?: AxiosRequestConfig  
+  ): OperationResponse<Paths.GetN3ResponseApiLevelSessionN3ResponseGet.Responses.$200>
   /**
    * get_categories_api_level_categories_get - Get Categories
    */
@@ -410,6 +654,14 @@ export interface OperationMethods {
     data?: any,
     config?: AxiosRequestConfig  
   ): OperationResponse<Paths.GetByCategoryApiLevelLevelCategoryGet.Responses.$200>
+  /**
+   * get_all_levels_api_level__get - Get All Levels
+   */
+  'get_all_levels_api_level__get'(
+    parameters?: Parameters<UnknownParamsObject> | null,
+    data?: any,
+    config?: AxiosRequestConfig  
+  ): OperationResponse<Paths.GetAllLevelsApiLevelGet.Responses.$200>
 }
 
 export interface PathsDictionary {
@@ -463,6 +715,36 @@ export interface PathsDictionary {
       config?: AxiosRequestConfig  
     ): OperationResponse<Paths.CompletedApiLevelSessionCompletedCompletedIdGet.Responses.$200>
   }
+  ['/api/level_session/all']: {
+    /**
+     * get_level_sessions_api_level_session_all_get - Get Level Sessions
+     */
+    'get'(
+      parameters?: Parameters<UnknownParamsObject> | null,
+      data?: any,
+      config?: AxiosRequestConfig  
+    ): OperationResponse<Paths.GetLevelSessionsApiLevelSessionAllGet.Responses.$200>
+  }
+  ['/api/level_session/leaderboard']: {
+    /**
+     * get_leaderboard_endpoint_api_level_session_leaderboard_get - Get Leaderboard Endpoint
+     */
+    'get'(
+      parameters?: Parameters<UnknownParamsObject> | null,
+      data?: any,
+      config?: AxiosRequestConfig  
+    ): OperationResponse<Paths.GetLeaderboardEndpointApiLevelSessionLeaderboardGet.Responses.$200>
+  }
+  ['/api/level_session/start/{level_key}']: {
+    /**
+     * api_start_level_api_level_session_start__level_key__post - Api Start Level
+     */
+    'post'(
+      parameters?: Parameters<Paths.ApiStartLevelApiLevelSessionStartLevelKeyPost.PathParameters> | null,
+      data?: any,
+      config?: AxiosRequestConfig  
+    ): OperationResponse<Paths.ApiStartLevelApiLevelSessionStartLevelKeyPost.Responses.$200>
+  }
   ['/api/level_session/play/{level_key}']: {
     /**
      * play_level_api_level_session_play__level_key__get - Play Level
@@ -491,6 +773,26 @@ export interface PathsDictionary {
       config?: AxiosRequestConfig  
     ): OperationResponse<Paths.GetLevelJsApiLevelSessionJsLevelKeyJsGet.Responses.$200>
   }
+  ['/api/level_session/css/{level_key}/{filename}.css']: {
+    /**
+     * get_level_css_api_level_session_css__level_key___filename__css_get - Get Level Css
+     */
+    'get'(
+      parameters?: Parameters<Paths.GetLevelCssApiLevelSessionCssLevelKeyFilenameCssGet.PathParameters> | null,
+      data?: any,
+      config?: AxiosRequestConfig  
+    ): OperationResponse<Paths.GetLevelCssApiLevelSessionCssLevelKeyFilenameCssGet.Responses.$200>
+  }
+  ['/api/level_session/html/{level_key}/{filename}.html']: {
+    /**
+     * get_level_html_api_level_session_html__level_key___filename__html_get - Get Level Html
+     */
+    'get'(
+      parameters?: Parameters<Paths.GetLevelHtmlApiLevelSessionHtmlLevelKeyFilenameHtmlGet.PathParameters> | null,
+      data?: any,
+      config?: AxiosRequestConfig  
+    ): OperationResponse<Paths.GetLevelHtmlApiLevelSessionHtmlLevelKeyFilenameHtmlGet.Responses.$200>
+  }
   ['/api/level_session/n1_message']: {
     /**
      * get_n1_response_api_level_session_n1_message_get - Get N1 Response
@@ -500,6 +802,16 @@ export interface PathsDictionary {
       data?: any,
       config?: AxiosRequestConfig  
     ): OperationResponse<Paths.GetN1ResponseApiLevelSessionN1MessageGet.Responses.$200>
+  }
+  ['/api/level_session/n3_response']: {
+    /**
+     * get_n3_response_api_level_session_n3_response_get - Get N3 Response
+     */
+    'get'(
+      parameters?: Parameters<Paths.GetN3ResponseApiLevelSessionN3ResponseGet.QueryParameters> | null,
+      data?: any,
+      config?: AxiosRequestConfig  
+    ): OperationResponse<Paths.GetN3ResponseApiLevelSessionN3ResponseGet.Responses.$200>
   }
   ['/api/level/categories']: {
     /**
@@ -521,6 +833,16 @@ export interface PathsDictionary {
       config?: AxiosRequestConfig  
     ): OperationResponse<Paths.GetByCategoryApiLevelLevelCategoryGet.Responses.$200>
   }
+  ['/api/level/']: {
+    /**
+     * get_all_levels_api_level__get - Get All Levels
+     */
+    'get'(
+      parameters?: Parameters<UnknownParamsObject> | null,
+      data?: any,
+      config?: AxiosRequestConfig  
+    ): OperationResponse<Paths.GetAllLevelsApiLevelGet.Responses.$200>
+  }
 }
 
 export type Client = OpenAPIClient<OperationMethods, PathsDictionary>
@@ -533,7 +855,11 @@ export type CategoryEnum = Components.Schemas.CategoryEnum;
 export type CategoryResponse = Components.Schemas.CategoryResponse;
 export type CompletedLevelResponse = Components.Schemas.CompletedLevelResponse;
 export type HTTPValidationError = Components.Schemas.HTTPValidationError;
+export type LeaderboardResponse = Components.Schemas.LeaderboardResponse;
+export type LeaderboardUserEntry = Components.Schemas.LeaderboardUserEntry;
 export type LevelResponse = Components.Schemas.LevelResponse;
+export type LevelSessionResponse = Components.Schemas.LevelSessionResponse;
 export type LoginUserResponse = Components.Schemas.LoginUserResponse;
 export type TokenData = Components.Schemas.TokenData;
+export type UserLevelPoints = Components.Schemas.UserLevelPoints;
 export type ValidationError = Components.Schemas.ValidationError;

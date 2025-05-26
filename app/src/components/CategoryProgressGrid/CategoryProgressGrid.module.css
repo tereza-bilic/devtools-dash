@@ -1,0 +1,23 @@
+.categoryProgress {
+  display: grid;
+  width: 70%;
+  grid-template-columns: 1fr 1fr 1fr;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.categoryBox {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.categoryName {
+  margin-bottom: 8px;
+}
+
+.loading {
+  text-align: center;
+  padding: 20px;
+}

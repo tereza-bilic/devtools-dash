@@ -51,3 +51,6 @@ def get_level_by_key(key: str) -> Optional[Level]:
 
 def get_levels_by_category(category: CategoryEnum) -> list[Level]:
     return [level for level in levels if level.category == category]
+
+def get_levels() -> list[Level]:
+    return levels

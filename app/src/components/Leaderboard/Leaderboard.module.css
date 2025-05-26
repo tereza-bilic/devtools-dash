@@ -1,0 +1,147 @@
+.leaderboard {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.leaderboard h1 {
+  color: #333;
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.table th,
+.table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #495057;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+}
+
+.table tr:hover {
+  background-color: #f5f5f5;
+  cursor: pointer;
+}
+
+.table td:first-child {
+  font-weight: bold;
+  color: #505050;
+}
+
+.expanded {
+  background-color: #e6f7ff;
+}
+
+.detailsRow {
+  background-color: #f9f9f9;
+}
+
+.detailsRow:hover {
+  background-color: #f9f9f9;
+  cursor: default;
+}
+
+.levelDetails {
+  padding: 15px;
+}
+
+.levelDetails h3 {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+.detailsTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  margin-top: 10px;
+}
+
+.detailsTable th,
+.detailsTable td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.detailsTable th {
+  background-color: #f0f0f0;
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Style for top 3 ranks */
+.table tr:nth-child(1) td:first-child {
+  color: gold;
+}
+
+.table tr:nth-child(2) td:first-child {
+  color: silver;
+}
+
+.table tr:nth-child(3) td:first-child {
+  color: #cd7f32; /* bronze */
+}
+
+@media (max-width: 768px) {
+  .table th,
+  .table td {
+    padding: 8px;
+  }
+}
+
+.currentUser {
+  background-color: #e8f5ff;
+}
+
+.currentUser:hover {
+  background-color: #d0ebff;
+}
+
+.youBadge {
+  display: inline-block;
+  background-color: #4a90e2;
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 5px;
+  border-radius: 3px;
+  margin-left: 5px;
+  font-weight: bold;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+/* Other rows should not show a pointer cursor */
+.table tr:not(.clickable):not(.detailsRow) {
+  cursor: default;
+}

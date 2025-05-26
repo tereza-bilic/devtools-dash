@@ -22,7 +22,7 @@ const CompletedLevel = () => {
 
   useEffect(() => {
     if (searchParams.has("completed_id")) {
-      const completed_id = String(searchParams.get("completed_id"));
+      const completed_id = Number(searchParams.get("completed_id")) || -1;
       axiosClient.completed_api_level_session_completed__completed_id__get({completed_id}).then((res) => {
         setCompletedLevel(res.data);
       });

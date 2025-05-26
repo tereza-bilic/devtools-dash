@@ -9,15 +9,17 @@ from app.core.config import logger
 from app.schemas.user import TokenData
 from app.db.session import get_db
 from app.api.utils import get_current_user
-from app.services.level_session import get_completed, submit_level, start_level
+from app.services.level_session import get_by_user, get_completed, submit_level, start_level, start_level_public
+from app.services.leaderboard import get_leaderboard
 from app.models.level import LevelKey
 from app.errors.not_found_error import NotFoundError
-from app.schemas.level_session import CompletedLevelResponse
+from app.schemas.level_session import CompletedLevelResponse, LevelSessionResponse
+from app.schemas.leaderboard import LeaderboardResponse
 from app.errors.http_code_base_error import HttpCodeBaseError
 from app.utils.js_obfuscator import obfuscate
 from app.utils.level.elements.e4_helpers import convert_to_ascii_matrix
 from app.utils.level.sources.s2_helpers import s2_all_combinations
-from app.models.level_session import get_level_session_by_id
+from app.models.level_session import get_level_session_by_id, get_level_sessions_by_user_id
 
 router = APIRouter()
 
@@ -42,7 +44,7 @@ templates = Jinja2Templates(directory="app/templates", context_processors=[level
 async def completed(
     request: Request,
     response: Response,
-    completed_id: str,
+    completed_id: int,
     db_session: AsyncSession = Depends(get_db),
     current_user: TokenData = Depends(get_current_user)):
     try:
@@ -50,6 +52,46 @@ async def completed(
         return level_session
     except HttpCodeBaseError as e:
         raise HTTPException(status_code=e.status_code, detail=e.message)
+
+@router.get("/all", response_model=list[LevelSessionResponse])
+async def get_level_sessions(
+    request: Request,
+    response: Response,
+    db_session: AsyncSession = Depends(get_db),
+    current_user: TokenData = Depends(get_current_user)):
+    try:
+        level_sessions = await get_by_user(db_session, current_user.user_id)
+        return level_sessions
+    except HttpCodeBaseError as e:
+        raise HTTPException(status_code=e.status_code, detail=e.message)
+
+
+@router.get("/leaderboard", response_model=LeaderboardResponse)
+async def get_leaderboard_endpoint(
+    request: Request,
+    response: Response,
+    db_session: AsyncSession = Depends(get_db),
+    current_user: TokenData = Depends(get_current_user)):
+    try:
+        leaderboard = await get_leaderboard(db_session)
+        return leaderboard
+    except HttpCodeBaseError as e:
+        raise HTTPException(status_code=e.status_code, detail=e.message)
+
+@router.post("/start/{level_key}", response_model=LevelSessionResponse)
+async def api_start_level(
+    request: Request,
+    response: Response,
+    level_key: str,
+    db_session: AsyncSession = Depends(get_db),
+    current_user: TokenData = Depends(get_current_user)):
+    try:
+        level_session = await start_level_public(db_session, current_user.user_id, level_key)
+        return level_session
+    except NotFoundError as e:
+        response.status_code = e.status_code
+        return templates.TemplateResponse(request=request, name=f"{e.status_code}.html", context={"message": e.message})
+
 
 @router.get("/play/{level_key}")
 async def play_level(
@@ -109,7 +151,7 @@ async def get_level_js(request: Request,
     except NotFoundError as e:
         response.status_code = e.status_code
         return templates.TemplateResponse(request=request, name=f"{e.status_code}.html", context={"message": e.message})
-    
+
 @router.get("/css/{level_key}/{filename}.css", response_class=PlainTextResponse)
 async def get_level_css(request: Request,
     response: Response,
@@ -125,7 +167,7 @@ async def get_level_css(request: Request,
     except NotFoundError as e:
         response.status_code = e.status_code
         return templates.TemplateResponse(request=request, name=f"{e.status_code}.html", context={"message": e.message})
-    
+
 @router.get("/html/{level_key}/{filename}.html", response_class=HTMLResponse)
 async def get_level_html(request: Request,
     response: Response,
@@ -140,7 +182,7 @@ async def get_level_html(request: Request,
     except NotFoundError as e:
         response.status_code = e.status_code
         return templates.TemplateResponse(request=request, name=f"{e.status_code}.html", context={"message": e.message})
-    
+
 @router.websocket("/level_n2_ws")
 async def websocket_endpoint_n2(
     websocket: WebSocket,
@@ -157,7 +199,10 @@ async def websocket_endpoint_n2(
     _ = await websocket.receive_text()
     await websocket.send_text("{\"message\": \"Sure I know the secret. I will send it to you\"}")
     await asyncio.sleep(2)
-    await websocket.send_text("{\"secret\": \"" + level_session.finish_secret + "\"}")
+    if level_session.finish_secret:
+        await websocket.send_text("{\"secret\": \"" + level_session.finish_secret + "\"}")
+    else:
+        await websocket.send_text("{\"secret\": \"\"}")
 
 @router.get("/n1_message")
 async def get_n1_response(
@@ -177,11 +222,11 @@ async def get_n3_response(
     current_user: TokenData = Depends(get_current_user)):
     try:
         level_session = await start_level(db_session, current_user.user_id, "n3")
-    
-        
+
+
         # Create response with money amount
         response = {"money": 300}
-        
+
         return response
     except NotFoundError as e:
         raise HTTPException(status_code=e.status_code, detail=e.message)

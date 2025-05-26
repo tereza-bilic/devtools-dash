@@ -1,6 +1,6 @@
 from datetime import datetime
-from typing import Optional
-from sqlalchemy import DateTime, ForeignKey, JSON, Integer, String, select
+from typing import Optional, List, Dict, Any
+from sqlalchemy import DateTime, ForeignKey, JSON, Integer, String, select, func, and_, tuple_
 from sqlalchemy.orm import relationship, mapped_column, Mapped
 from app.db.base import Base
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -17,6 +17,7 @@ class LevelSession(Base):
     finished_at: Mapped[Optional[datetime]]
     level_key: Mapped[LevelKey] = mapped_column(String, nullable=False)
     level_metadata: Mapped[JSON] = mapped_column(JSON)
+    try_count: Mapped[int] = mapped_column(Integer, default=0)
 
     # Foreign keys
     user_id: Mapped[int] = mapped_column(Integer, ForeignKey("user.id"), nullable=False)
@@ -56,3 +57,32 @@ async def update_level_session(session: AsyncSession, levelSession: LevelSession
     await session.commit()
     await session.refresh(levelSession)
     return levelSession
+
+async def get_completed_sessions_for_leaderboard(session: AsyncSession) -> list:
+    """
+    Get completed level sessions data for leaderboard calculations.
+    Returns data needed for calculating the leaderboard.
+    """
+    from app.models.user import User
+    from sqlalchemy import select, func, and_
+
+    # Get all completed level sessions with their duration and user nickname
+    stmt = (
+        select(
+            LevelSession.user_id,
+            LevelSession.level_key,
+            LevelSession.try_count,
+            func.extract('epoch', LevelSession.finished_at - LevelSession.started_at).label('duration'),
+            User.nickname.label('user_nickname')
+        )
+        .join(User, LevelSession.user_id == User.id)
+        .where(
+            and_(
+                LevelSession.completed == True,
+                LevelSession.finished_at != None
+            )
+        )
+    )
+
+    result = await session.execute(stmt)
+    return list(result.fetchall())

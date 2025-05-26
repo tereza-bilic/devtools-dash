@@ -3,7 +3,7 @@ import styles from './LevelGrid.module.css';
 import { AuthGuard } from 'src/components/AuthGuard';
 import { axiosClient } from 'src/util/axiosClient';
 import { useNavigate, useParams } from 'react-router-dom';
-import { CategoryEnum, LevelResponse } from 'src/types/openapi';
+import { CategoryEnum, LevelResponse, LevelSessionResponse } from 'src/types/openapi';
 import { useEffect, useState } from 'react';
 import Button from 'src/components/form/button/Button';
 import StarIcon from '../StarIcon';
@@ -13,7 +13,7 @@ const LevelGrid = () => {
   const { category } = useParams<{ category: CategoryEnum }>();
   const [levels, setLevels] = useState<LevelResponse[]>([]);
 
-  const [currentLevel, setCurrentLevel] = useState<LevelResponse | null>(null);
+  const [currentLevel, setCurrentLevel] = useState<LevelSessionResponse | null>(null);
   const [windowProxy, setWindowProxy] = useState<Window | null>(null);
   const [intervalId, setIntervalId] = useState<number | undefined>(undefined);
 
@@ -24,7 +24,9 @@ const LevelGrid = () => {
         if (windowProxy.closed) {
           clearInterval(interval);
           setWindowProxy(null);
-          navigate('/completed?completed_id=' + currentLevel?.level_key);
+          axiosClient.completed_api_level_session_completed__completed_id__get({completed_id: currentLevel?.id || -1}).then(() => {
+            navigate('/completed?completed_id=' + currentLevel?.id);
+          });
         }
       }, 500) as unknown as number
       setIntervalId(interval);
@@ -49,7 +51,10 @@ const LevelGrid = () => {
   }, []);
 
   const handleLevelClick = async (level: LevelResponse) => {
-    setCurrentLevel(level);
+    const startResponse = await axiosClient.api_start_level_api_level_session_start__level_key__post({
+      level_key: level.level_key,
+    })
+    setCurrentLevel(startResponse.data);
     setWindowProxy(window.open('/api/level_session/play/' + level.level_key, '_blank'));
   }
 

@@ -2,11 +2,29 @@ import { TokenData } from 'src/types/openapi';
 import styles from './Navigation.module.css';
 import { useState } from 'react';
 import StarIcon from 'src/components/StarIcon';
+import Button from '../form/button/Button';
 
 const Navigation = (props: {user: TokenData, logout: () => void}) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className={styles.container}>
+      <Button
+        type='button'
+        onClick={() => {
+          window.location.href = '/dashboard';
+        }}
+      >
+        My Stats
+      </Button>
+
+      <Button
+        type='button'
+        onClick={() => {
+          window.location.href = '/';
+        }}
+      >
+        Categories
+      </Button>
       <StarIcon/>
       <div
         onMouseEnter={() => setIsOpen(true)}

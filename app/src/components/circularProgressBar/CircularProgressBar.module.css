@@ -1,0 +1,48 @@
+.circularProgressContainer {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circularProgressBar {
+  transform: rotate(-90deg);
+}
+
+.circleBackground {
+  fill: none;
+  stroke: #E5E7EB;
+}
+
+.circleProgress {
+  fill: none;
+  transition: stroke-dashoffset 1s ease-in-out;
+  animation: progress 1s ease-in-out forwards;
+}
+
+.progressText {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.progressValue {
+  margin-right: 2px;
+}
+
+.progressSeparator {
+  margin: 0 2px;
+}
+
+.progressTotal {
+  margin-left: 2px;
+}
+
+@keyframes progress {
+  0% {
+    stroke-dashoffset: 100%;
+  }
+}
