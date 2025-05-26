@@ -1,0 +1,20 @@
+{% extends "level.html" %}
+{% set title = level_session.level_key %}
+{% set secret = level_session.finish_secret %}
+
+{% block head %}
+  <script defer src="{{ url_path_for('get_level_js', level_key='n4')}}"></script>
+  <script defer src="{{url_path_for('get_level_js', level_key='n4') }}?different_filename=secret"></script>
+{% endblock %}
+
+{% block content %}
+  <h2>Throttle to Reveal</h2>
+  <p>
+    The secret is hidden behind a slow network. Try to fetch it!
+  </p>
+  <button id="fetchSecretBtn">Fetch Secret</button>
+  <div id="secretResult"></div>
+  <script>
+
+  </script>
+{% endblock %}

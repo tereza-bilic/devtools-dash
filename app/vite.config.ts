@@ -11,7 +11,7 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api/level_session/level_n2_ws': {
+      '/api/level/network/level_n2_ws': {
         target: 'ws://localhost:8000',
         rewriteWsOrigin: true,
         ws: true,
