@@ -1,0 +1,16 @@
+{% extends "level.html" %}
+{% set title = level_session.level_key %}
+{% set secret = level_session.finish_secret %}
+
+{% block head %}
+  <script defer src="{{ url_path_for('get_n6_secret_js') }}")></script>
+{% endblock %}
+
+{% block content %}
+
+  <h1> Cache me if you can </h1>
+  <p>Old things sometimes linger…</p>
+
+  <div id="secret"></div>
+
+{% endblock %}

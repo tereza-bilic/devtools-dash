@@ -24,6 +24,9 @@ from app.models.level_session import get_level_session_by_id, get_level_sessions
 
 router = APIRouter()
 
+templates = Jinja2Templates(directory="app/templates")
+
+
 
 @router.websocket("/level_n2_ws")
 async def websocket_endpoint_n2(
@@ -101,3 +104,36 @@ async def get_n5_response(
     )
 
     return response
+
+@router.get("/n6/js/secret.js", response_class=PlainTextResponse) # return cached js file
+async def get_n6_secret_js(
+    request: Request,
+    db_session: AsyncSession = Depends(get_db),
+    current_user: TokenData = Depends(get_current_user)):
+
+    level_session = await start_level(db_session, current_user.user_id, "n6")
+    if not level_session:
+        raise NotFoundError("Level session not found")
+
+    if not level_session.finish_secret:
+        raise NotFoundError("Level session finish secret not found")
+
+    cache_control = request.headers.get("cache-control", "")
+
+    if "no-cache" in cache_control or "no-store" in cache_control:
+        # When DevTools disables cache, send clean version
+        headers = {
+            "Cache-Control": "no-store"
+        }
+        response = templates.TemplateResponse(request=request, name=f"level_n6/n6_script_clean.js", context={"secret": level_session.finish_secret})
+        response.headers['Content-Type'] = 'application/javascript'
+        return response
+    else:
+        # Otherwise send the version with the secret
+        headers = {
+            "Cache-Control": "public, max-age=3600"
+        }
+        #return last 3 characters of the finish_secret
+        response = templates.TemplateResponse(request=request, name=f"level_n6/n6_script.js")
+        response.headers['Content-Type'] = 'application/javascript'
+        return response
