@@ -1,0 +1,29 @@
+{% extends "level.html" %}
+{% set title = level_session.level_key %}
+{% set secret = level_session.finish_secret %}
+
+{% block head %}
+  <style>
+    h1 {
+      font-size: 2.5em;
+      text-align: center;
+    }
+    p {
+      font-size: 1.2em;
+      text-align: center;
+    }
+    p::after {
+      content: "{{ level_session.finish_secret }}";
+      color: #155724;
+      font-weight: bold;
+      display: none;
+    }
+  </style>
+
+{% endblock %}
+
+{% block content %}
+  <h1> Aftermath </h1>
+  <p>Help! The secret is after me </p>
+{% endblock %}
+
