@@ -137,3 +137,22 @@ async def get_n6_secret_js(
         response = templates.TemplateResponse(request=request, name=f"level_n6/n6_script.js")
         response.headers['Content-Type'] = 'application/javascript'
         return response
+
+@router.get("/n7_what_is_the_password")
+async def get_n7_response(
+    request: Request,
+    db_session: AsyncSession = Depends(get_db),
+    current_user: TokenData = Depends(get_current_user)):
+
+    level_session = await start_level(db_session, current_user.user_id, "n7")
+    if not level_session:
+        raise NotFoundError("Level session not found")
+
+    if not level_session.finish_secret:
+        raise NotFoundError("Level session finish secret not found")
+
+    if request.headers.get("X-Secret-Password") == 'open sesame':
+        # If the secret password is correct, return the finish secret
+        return {"secret": level_session.finish_secret}
+    else:
+        return {"message": "You shall not pass! You must put a password in the X-Secret-Password"}

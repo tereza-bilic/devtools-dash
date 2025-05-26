@@ -1,0 +1,15 @@
+{% extends "level.html" %}
+{% set title = level_session.level_key %}
+{% set secret = level_session.finish_secret %}
+
+{% block head %}
+  <script src="{{ url_path_for('get_level_js', level_key='n7')}}"></script>
+{% endblock %}
+
+{% block content %}
+  <h1>The API guards a secret code, you can only get it if you send the secret password.</h1>
+  <p> Luckily we prepared it for you: open sesame</p>
+
+  <div id="secret"></div>
+
+{% endblock %}
