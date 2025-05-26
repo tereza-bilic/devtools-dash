@@ -82,3 +82,22 @@ async def get_n4_secret(
     await asyncio.sleep(0.5)  # Simulate some processing delay
 
     return "Was it slow enough?"
+
+@router.get("/n5_response")
+async def get_n5_response(
+    request: Request,
+    db_session: AsyncSession = Depends(get_db),
+    current_user: TokenData = Depends(get_current_user)):
+
+    level_session = await start_level(db_session, current_user.user_id, "n5")
+    if not level_session:
+        raise NotFoundError("Level session not found")
+    if not level_session.finish_secret:
+        raise NotFoundError("Level session finish secret not found")
+    # add custom header to the response
+    response = PlainTextResponse(
+        content="Your secret is in my head",
+        headers={"X-Secret-Header": "secret: " + level_session.finish_secret}
+    )
+
+    return response

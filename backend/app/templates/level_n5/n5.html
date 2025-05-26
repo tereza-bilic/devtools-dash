@@ -1,0 +1,15 @@
+{% extends "level.html" %}
+{% set title = level_session.level_key %}
+{% set secret = level_session.finish_secret %}
+
+{% block head %}
+  <script>
+  fetch("{{ url_path_for('get_n5_response') }}")
+  </script>
+{% endblock %}
+
+{% block content %}
+
+  <h1> The secret is stuck in my head(er) </h1>
+
+{% endblock %}
