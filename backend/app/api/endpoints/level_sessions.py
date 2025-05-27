@@ -121,9 +121,11 @@ async def submit(
     try:
         level_session = await submit_level(db_session, current_user.user_id, level_key, secret)
         if level_session.completed:
+            logger.info(f"User {current_user.user_id} completed level {level_key} with secret {secret}, redirecting")
             return templates.TemplateResponse(
                 request=request,
                 name="close.html")
+        logger.info(f"User {current_user.user_id} submitted level {level_key} with secret {secret}, showing level again")
         return templates.TemplateResponse(
             request=request,
             name=f"level_{level_key}/{level_key}.html",

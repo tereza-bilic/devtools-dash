@@ -42,7 +42,7 @@ async def start_level(db_session: AsyncSession, user_id: int, level_key: str) ->
     existing_sessions = await get_level_sessions_by_user_id(db_session, user_id)
     for session in existing_sessions:
         if session.level_key == level_key and not session.completed:
-            logger.info(f"Found existing session for user {user_id} and level {level_key}")
+            logger.info(f"Found existing session for user {user_id} and level {level_key}, secret is {session.finish_secret}")
             return session
 
     level_secret = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
@@ -76,11 +76,8 @@ async def submit_level(db_session: AsyncSession, user_id: int, level_key: str, l
         logger.warning(f"Did not find existing session for user {user_id} and level {level_key}")
         raise NotFoundError(f"No session found for user {user_id} and level {level_key}")
 
-    # Increment the try count for each submission
-    if existing_session.try_count is None:
-        existing_session.try_count = 1
-    else:
-        existing_session.try_count += 1
+
+    existing_session.try_count += 1
 
     if existing_session.finish_secret == level_secret:
         existing_session.completed = True
