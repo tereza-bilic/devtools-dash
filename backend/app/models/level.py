@@ -15,7 +15,7 @@ class CategoryEnum(enum.Enum):
     Sources = "Sources"
     Performance = "Performance"
 
-LevelKey = Literal["e1", "e2", "e3", "e4", "e5", "e6", "e7", "n1", "n2", "n3", "n4", "n5", "n6", "n7", "s1", "s2", "s3", "c1", "c2", "c3"]
+LevelKey = Literal["e1", "e2", "e3", "e4", "e5", "e6", "e7", "n1", "n2", "n3", "n4", "n5", "n6", "n7", "s1", "s2", "s3", "c1", "c2", "c3", "s4"]
 
 class Level(BaseModel):
     key: LevelKey
@@ -43,6 +43,7 @@ levels: list[Level] = [
     Level(key="s1", category=CategoryEnum.Sources, order_in_category=1, difficulty=1, session_factory=s1_initialize_level),
     Level(key="s2", category=CategoryEnum.Sources, order_in_category=2, difficulty=2, session_factory=s2_initialize_level),
     Level(key="s3", category=CategoryEnum.Sources, order_in_category=3, difficulty=2),
+    Level(key="s4", category=CategoryEnum.Sources, order_in_category=4, difficulty=2),
     Level(key="c1", category=CategoryEnum.Console, order_in_category=1, difficulty=1),
     Level(key="c2", category=CategoryEnum.Console, order_in_category=2, difficulty=2),
     Level(key="c3", category=CategoryEnum.Console, order_in_category=3, difficulty=2, session_factory=c3_initialize_level),

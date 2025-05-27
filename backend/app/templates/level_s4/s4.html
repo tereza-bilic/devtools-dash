@@ -1,0 +1,14 @@
+{# filepath: /Users/tere/DIPL/devtools-dash/backend/app/templates/level_s4/s4.html #}
+{% extends "level.html" %}
+{% set title = level_session.level_key %}
+{% set secret = level_session.finish_secret %}
+
+{% block head %}
+  <script defer src="{{ url_path_for('get_level_js', level_key='s4') }}"></script>
+  <script defer src="{{ url_path_for('get_level_js', level_key='s4') }}?different_filename=catcher&should_obfuscate=False"></script>
+{% endblock %}
+
+{% block content %}
+  <h1> Catch me if you can </h1>
+  <p> im in the errors our developers cought </p>
+{% endblock %}
