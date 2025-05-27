@@ -14,7 +14,15 @@ app.include_router(level_sessions_router, prefix="/api/level_session", tags=["Le
 app.include_router(network_levels_router, prefix="/api/level/network", tags=["Levels - network"])
 app.include_router(level_router, prefix="/api/level", tags=["Level"])
 
+app.mount("/assets", StaticFiles(directory="app/static/assets"), name="static_assets")
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
+@app.get("/{full_path:path}", response_class=HTMLResponse)
+async def fallback(request: Request, full_path: str):
+    file_path = "app/static/index.html"
+    with open(file_path, "r") as file:
+        content = file.read()
+    return HTMLResponse(content=content)
+
 
 import logging
 logging.basicConfig()

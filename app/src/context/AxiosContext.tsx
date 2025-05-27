@@ -4,12 +4,12 @@ import type { Client as DevtoolsDashApi } from "src/types/openapi.d.ts";
 import { createContext, useContext, useEffect, useState } from "react";
 
 const server: Server = {
-  url: "http://localhost:5173",
+  url: "/",
   description: "Devtools Dash API",
 }
 
 const api = new OpenAPIClientAxios({
-  definition: 'http://localhost:5173/openapi.json',
+  definition: '/openapi.json',
   withServer: server,
 });
 const axiosClientPromise = () => api.getClient<DevtoolsDashApi>();
