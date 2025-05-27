@@ -29,9 +29,9 @@ console = Console()
 # Custom prompt function with choices support
 T = TypeVar("T")
 def prompt(
-    message: str, 
-    type: Any = str, 
-    choices: Optional[List[str]] = None, 
+    message: str,
+    type: Any = str,
+    choices: Optional[List[str]] = None,
     default: Optional[T] = None
 ) -> Union[T, str]:
     """Custom prompt function with choices support."""
@@ -82,20 +82,20 @@ def get_next_level_key(category: str) -> str:
     """Generate the next available level key for the given category."""
     category_prefix = category[0].lower()
     existing_keys = get_existing_level_keys()
-    
+
     # Filter keys for this category and extract numbers
     category_keys = [key for key in existing_keys if key.startswith(category_prefix)]
     numbers = [int(key[1:]) for key in category_keys]
-    
+
     if numbers:
         next_number = max(numbers) + 1
     else:
         next_number = 1
-    
+
     return f"{category_prefix}{next_number}"
 
 
-def update_level_model(level_key: str, category: CategoryEnum, order: int, difficulty: int) -> bool:
+def update_level_model(level_key: str, title: str, category: CategoryEnum, order: int, difficulty: int) -> bool:
     """Update the level.py file with the new level."""
     with open(LEVEL_MODEL_PATH, "r") as f:
         content = f.read()
@@ -129,8 +129,8 @@ def update_level_model(level_key: str, category: CategoryEnum, order: int, diffi
     
     # Update levels list
     levels_list_pattern = r'(levels\s*:\s*list\[Level\]\s*=\s*\[)([^\]]*?)(\])'
-    new_level = f'Level(key="{level_key}", category=CategoryEnum.{proper_case_category}, order_in_category={order}, difficulty={difficulty})'
-    
+    new_level = f'Level(key="{level_key}", title="{title}", category=CategoryEnum.{proper_case_category}, order_in_category={order}, difficulty={difficulty})'
+
     if category_levels:
         # Find the last level in this category
         last_level = category_levels[-1]
@@ -157,24 +157,24 @@ def update_level_model(level_key: str, category: CategoryEnum, order: int, diffi
                 lambda m: f'{m.group(1)}{m.group(2)}\n    {new_level},\n{m.group(3)}',
                 content
             )
-    
+
     # Write the updated content back to the file
     with open(LEVEL_MODEL_PATH, "w") as f:
         f.write(content)
-    
+
     return True
 
 
-def create_html_template(level_dir: Path, level_key: str, js_files: List[str], css_files: List[str]) -> None:
+def create_html_template(level_dir: Path, level_key: str, title: str, js_files: List[str], css_files: List[str]) -> None:
     """Create the HTML template for the level."""
     template = f"""{{# filepath: {level_dir}/{level_key}.html #}}
 {{% extends "level.html" %}}
-{{% set title = level_session.level_key %}}
+{{% set title = "{title}" %}}
 {{% set secret = level_session.finish_secret %}}
 
 {{% block head %}}
 """
-    
+
     # Add JS references - Always use dynamic routes
     for js_file in js_files:
         js_name = js_file.replace(".js", "")
@@ -183,24 +183,21 @@ def create_html_template(level_dir: Path, level_key: str, js_files: List[str], c
         else:
             # Use query parameters for different_filename and should_obfuscate
             template += f'  <script defer src="{{{{ url_path_for(\'get_level_js\', level_key=\'{level_key}\') }}}}?different_filename={js_name}&should_obfuscate=False"></script>\n'
-    
+
     # Add CSS references - Always use dynamic routes
     for css_file in css_files:
         css_name = css_file.replace(".css", "")
         template += f'  <link rel="stylesheet" href="{{{{ url_path_for(\'get_level_css\', level_key=\'{level_key}\', filename=\'{css_name}\') }}}}">\n'
-    
+
     template += f"""{{% endblock %}}
 
 {{% block content %}}
-  <h1>Level {level_key}</h1>
+  <h1></h1>
   <p>Complete this level to find the secret...</p>
-  
-  <div id="game-area">
-    <!-- Level-specific content goes here -->
-  </div>
+
 {{% endblock %}}
 """
-    
+
     html_path = level_dir / f"{level_key}.html"
     with open(html_path, "w") as f:
         f.write(template)
@@ -210,29 +207,13 @@ def create_js_file(level_dir: Path, level_key: str, filename: str, obfuscated: b
     """Create a JavaScript file for the level."""
     # All JS files should go in the templates directory using the dynamic routing system
     js_path = level_dir / filename
-    
+
     template = f"""// JavaScript for level {level_key}
 // Filename: {filename}
 
-document.addEventListener('DOMContentLoaded', function() {{
-  console.log('Level {level_key} loaded');
-  
-  // Your level code goes here
-  const gameArea = document.getElementById('game-area');
-  
-  // Example: Add content to the game area
-  gameArea.innerHTML = `
-    <div class="level-content">
-      <p>This is level {level_key}. Use DevTools to find the secret!</p>
-      <div id="secret-container"></div>
-    </div>
-  `;
-  
-  // Secret logic goes here
-  // ...
 }});
 """
-    
+
     with open(js_path, "w") as f:
         f.write(template)
 
@@ -241,34 +222,12 @@ def create_css_file(level_dir: Path, level_key: str, filename: str) -> None:
     """Create a CSS file for the level."""
     # CSS files should go in the templates directory, not in static
     css_path = level_dir / filename
-    
+
     template = f"""/* CSS for level {level_key} */
 /* Filename: {filename} */
 
-#game-area {{
-  width: 100%;
-  min-height: 300px;
-  padding: 20px;
-  margin: 20px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}}
-
-.level-content {{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}}
-
-#secret-container {{
-  margin-top: 20px;
-  padding: 10px;
-  border: 1px dashed #999;
-  border-radius: 4px;
-  min-height: 30px;
-}}
 """
-    
+
     with open(css_path, "w") as f:
         f.write(template)
 
@@ -281,12 +240,12 @@ def create_level():
         "Create a new level with all necessary files",
         title="Welcome"
     ))
-    
+
     # Select category
     categories = [c.value for c in CategoryEnum]
     category_name = prompt("Select category", choices=categories)
     category = CategoryEnum(category_name)
-    
+
     # Get difficulty
     difficulty_str = prompt("Difficulty (1-3)")
     try:
@@ -297,16 +256,16 @@ def create_level():
     except ValueError:
         console.print("[bold yellow]Invalid difficulty input, setting to 1[/]")
         difficulty = 1
-    
+
     # Get level key
     suggested_key = get_next_level_key(category_name)
     use_suggested = confirm(f"Use suggested level key: '{suggested_key}'?", default=True)
-    
+
     if use_suggested:
         level_key = suggested_key
     else:
         level_key = prompt("Enter custom level key")
-    
+
     # Get order in category
     order_str = prompt("Order position in category")
     try:
@@ -314,7 +273,10 @@ def create_level():
     except ValueError:
         console.print("[bold yellow]Invalid order input, setting to 1[/]")
         order = 1
-    
+        
+    # Get level title
+    title = prompt("Enter a short, fun title for the level")
+
     # Create level directory
     level_dir = TEMPLATES_DIR / f"level_{level_key}"
     if level_dir.exists():
@@ -323,60 +285,60 @@ def create_level():
             console.print("[bold red]Aborted.[/]")
             return
         shutil.rmtree(level_dir)
-    
+
     os.makedirs(level_dir, exist_ok=True)
-    
+
     # Standard level creation flow
     # JavaScript files
     js_files = []
-    
+
     # Always add the main obfuscated JS file
     main_js_file = f"{level_key}_obfuscated.js"
     js_files.append(main_js_file)
     create_js_file(level_dir, level_key, main_js_file, True)
-    
+
     # Ask for additional JS files
     while confirm("Add another JavaScript file?", default=False):
         js_name = prompt("JavaScript filename (without level key prefix and with .js extension)")
         if not js_name.endswith('.js'):
             js_name += '.js'
-        
+
         # Automatically add the level key as a prefix if it's not already there
         if not js_name.startswith(f"{level_key}_"):
             js_name = f"{level_key}_{js_name}"
-            
+
         js_obfuscate = confirm("Should this JavaScript file be obfuscated?", default=False)
         js_files.append(js_name)
         create_js_file(level_dir, level_key, js_name, js_obfuscate)
-    
+
     # CSS files
     css_files = []
     need_css = confirm("Add CSS file(s)?", default=True)
-    
+
     if need_css:
         # Main CSS file
         main_css = f"{level_key}.css"
         css_files.append(main_css)
         create_css_file(level_dir, level_key, main_css)
-        
+
         # Additional CSS files
         while confirm("Add another CSS file?", default=False):
             css_name = prompt("CSS filename (without level key prefix and with .css extension)")
             if not css_name.endswith('.css'):
                 css_name += '.css'
-            
+
             # Automatically add the level key as a prefix if it's not already there
             if not css_name.startswith(f"{level_key}_"):
                 css_name = f"{level_key}_{css_name}"
-                
+
             css_files.append(css_name)
             create_css_file(level_dir, level_key, css_name)
-    
+
     # Create HTML template
-    create_html_template(level_dir, level_key, js_files, css_files)
-    
+    create_html_template(level_dir, level_key, title, js_files, css_files)
+
     # Update level model
-    if update_level_model(level_key, category, order, difficulty):
+    if update_level_model(level_key, title, category, order, difficulty):
         console.print(f"[bold green]✓ Level '{level_key}' created successfully![/]")
         console.print(f"[cyan]Level directory:[/] {level_dir}")
         console.print(f"[cyan]JavaScript files:[/] {', '.join(js_files)}")

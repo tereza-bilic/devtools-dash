@@ -1,6 +1,7 @@
 {% extends "level.html" %}
-{% set title = level_session.level_key %}
+{% set key = level_session.level_key %}
 {% set secret = level_session.finish_secret %}
+{% set title = level_session.level.title %}
 
 {% block head %}
   <script src="{{ url_path_for('get_level_js', level_key='n3')}}"></script>
@@ -10,7 +11,7 @@
       margin: 0 auto;
       padding: 20px;
     }
-    
+
     .instruction-panel {
       background-color: #f9f9f9;
       border-left: 4px solid #3498db;
@@ -18,18 +19,18 @@
       margin-bottom: 30px;
       border-radius: 4px;
     }
-    
+
     .money-display {
       font-size: 24px;
       font-weight: bold;
       text-align: center;
       margin: 20px 0;
     }
-    
+
     .money-symbol {
       color: #27ae60;
     }
-    
+
     .progress-container {
       background-color: #f3f3f3;
       border-radius: 8px;
@@ -37,7 +38,7 @@
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
       margin-bottom: 20px;
     }
-    
+
     .progress-bar {
       height: 30px;
       border-radius: 5px;
@@ -50,7 +51,7 @@
       color: white;
       font-weight: bold;
     }
-    
+
     .secret-reveal {
       background-color: #f9f9f9;
       border: 1px solid #ddd;
@@ -60,7 +61,7 @@
       border-radius: 8px;
       display: none;
     }
-    
+
     .secret-code {
       font-family: monospace;
       font-size: 24px;
@@ -70,23 +71,25 @@
       border-radius: 4px;
       display: inline-block;
     }
-    
+
   </style>
+{% endblock %}
+
+{% block hint%}
+  Inspect the network request to find the endpoint that updates your money.
+  Modify the request to increase your balance to $1000.
+{% endblock %}
+
+{% block description %}
+  Pay us $1000 to reveal the secret code.
 {% endblock %}
 
 {% block content %}
   <div class="container">
-    <div class="instruction-panel">
-      <h2>Money Challenge</h2>
-      <p>Your task is to modify the network request to increase your money.</p>
-      <p>You need to reach <strong>$1000</strong> to reveal the secret code.</p>
-
-    </div>
-    
     <div class="money-display">
       Current Balance: <span class="money-symbol">$</span><span id="money-amount">0</span>
     </div>
-    
+
     <div class="progress-container">
       <div id="progress-bar" class="progress-bar" style="width: 0%">0%</div>
     </div>
@@ -94,6 +97,6 @@
     <div class="secret-reveal" id="secret-reveal">
       Thanks for your help! The secret code is: <span id="secret-code"></span>
     </div>
-    
+
   </div>
 {% endblock %}

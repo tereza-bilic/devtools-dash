@@ -1,6 +1,7 @@
 {% extends "level.html" %}
-{% set title = level_session.level_key %}
+{% set key = level_session.level_key %}
 {% set secret = level_session.finish_secret %}
+{% set title = level_session.level.title %}
 
 {% block head %}
 <link rel="stylesheet" href="{{ url_path_for('get_level_css', level_key='e6', filename='my_bootstrap.min') }}">

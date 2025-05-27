@@ -1,6 +1,7 @@
 {% extends "level.html" %}
-{% set title = level_session.level_key %}
+{% set key = level_session.level_key %}
 {% set secret = level_session.finish_secret %}
+{% set title = level_session.level.title %}
 
 {% block head %}
   <script defer src="{{ url_path_for('get_level_js', level_key='e2') }}"></script>

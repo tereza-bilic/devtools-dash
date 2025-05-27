@@ -19,6 +19,7 @@ LevelKey = Literal["e1", "e2", "e3", "e4", "e5", "e6", "e7", "n1", "n2", "n3", "
 
 class Level(BaseModel):
     key: LevelKey
+    title: str
     category: CategoryEnum
     order_in_category: int
     difficulty: int
@@ -26,27 +27,27 @@ class Level(BaseModel):
 
 
 levels: list[Level] = [
-    Level(key="e1", category=CategoryEnum.Elements, order_in_category=1, difficulty=1),
-    Level(key="e2", category=CategoryEnum.Elements, order_in_category=2, difficulty=1),
-    Level(key="e3", category=CategoryEnum.Elements, order_in_category=3, difficulty=2),
-    Level(key="e4", category=CategoryEnum.Elements, order_in_category=4, difficulty=1, session_factory=e4_initialize_level),
-    Level(key="e5", category=CategoryEnum.Elements, order_in_category=5, difficulty=1, session_factory=e4_initialize_level),
-    Level(key="e6", category=CategoryEnum.Elements, order_in_category=6, difficulty=1, session_factory=e6_initialize_level),
-    Level(key="e7", category=CategoryEnum.Elements, order_in_category=7, difficulty=2),
-    Level(key="n1", category=CategoryEnum.Network, order_in_category=1, difficulty=1),
-    Level(key="n2", category=CategoryEnum.Network, order_in_category=2, difficulty=2),
-    Level(key="n3", category=CategoryEnum.Network, order_in_category=3, difficulty=3),
-    Level(key="n4", category=CategoryEnum.Network, order_in_category=4, difficulty=2),
-    Level(key="n5", category=CategoryEnum.Network, order_in_category=5, difficulty=1),
-    Level(key="n6", category=CategoryEnum.Network, order_in_category=6, difficulty=2),
-    Level(key="n7", category=CategoryEnum.Network, order_in_category=7, difficulty=2),
-    Level(key="s1", category=CategoryEnum.Sources, order_in_category=1, difficulty=1, session_factory=s1_initialize_level),
-    Level(key="s2", category=CategoryEnum.Sources, order_in_category=2, difficulty=2, session_factory=s2_initialize_level),
-    Level(key="s3", category=CategoryEnum.Sources, order_in_category=3, difficulty=2),
-    Level(key="s4", category=CategoryEnum.Sources, order_in_category=4, difficulty=2),
-    Level(key="c1", category=CategoryEnum.Console, order_in_category=1, difficulty=1),
-    Level(key="c2", category=CategoryEnum.Console, order_in_category=2, difficulty=2),
-    Level(key="c3", category=CategoryEnum.Console, order_in_category=3, difficulty=2, session_factory=c3_initialize_level),
+    Level(key="e1", title="Hidden in Plain Sight", category=CategoryEnum.Elements, order_in_category=1, difficulty=1),
+    Level(key="e2", title="Phantom Elements", category=CategoryEnum.Elements, order_in_category=2, difficulty=1),
+    Level(key="e3", title="Labeling Friends", category=CategoryEnum.Elements, order_in_category=3, difficulty=2),
+    Level(key="e4", title="Matrix Blues", category=CategoryEnum.Elements, order_in_category=4, difficulty=1, session_factory=e4_initialize_level),
+    Level(key="e5", title="Pixel Cipher", category=CategoryEnum.Elements, order_in_category=5, difficulty=1, session_factory=e4_initialize_level),
+    Level(key="e6", title="Colorful Secrets", category=CategoryEnum.Elements, order_in_category=6, difficulty=1, session_factory=e6_initialize_level),
+    Level(key="e7", title="Aftermath", category=CategoryEnum.Elements, order_in_category=7, difficulty=2),
+    Level(key="n1", title="Message in Transit", category=CategoryEnum.Network, order_in_category=1, difficulty=1),
+    Level(key="n2", title="WebSocket Whispers", category=CategoryEnum.Network, order_in_category=2, difficulty=2),
+    Level(key="n3", title="Digital Fortune", category=CategoryEnum.Network, order_in_category=3, difficulty=3),
+    Level(key="n4", title="Slow Connection", category=CategoryEnum.Network, order_in_category=4, difficulty=2),
+    Level(key="n5", title="Head Case", category=CategoryEnum.Network, order_in_category=5, difficulty=1),
+    Level(key="n6", title="Cache Me If You Can", category=CategoryEnum.Network, order_in_category=6, difficulty=2),
+    Level(key="n7", title="Password Protected", category=CategoryEnum.Network, order_in_category=7, difficulty=2),
+    Level(key="s1", title="Vanishing Act", category=CategoryEnum.Sources, order_in_category=1, difficulty=1, session_factory=s1_initialize_level),
+    Level(key="s2", title="Event Horizon", category=CategoryEnum.Sources, order_in_category=2, difficulty=2, session_factory=s2_initialize_level),
+    Level(key="s3", title="Bug Bounty", category=CategoryEnum.Sources, order_in_category=3, difficulty=2),
+    Level(key="s4", title="Error Tracker", category=CategoryEnum.Sources, order_in_category=4, difficulty=2),
+    Level(key="c1", title="Console Chronicles", category=CategoryEnum.Console, order_in_category=1, difficulty=1),
+    Level(key="c2", title="Silent Conversation", category=CategoryEnum.Console, order_in_category=2, difficulty=2),
+    Level(key="c3", title="Frame Whisperer", category=CategoryEnum.Console, order_in_category=3, difficulty=2, session_factory=c3_initialize_level),
 ]
 
 def get_level_by_key(key: str) -> Optional[Level]:

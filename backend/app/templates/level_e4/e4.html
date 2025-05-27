@@ -1,6 +1,7 @@
 {% extends "level.html" %}
-{% set title = level_session.level_key %}
+{% set key = level_session.level_key %}
 {% set secret = level_session.finish_secret %}
+{% set title = level_session.level.title %}
 
 {% block head %}
 <style>
@@ -16,6 +17,14 @@
     background-color: bule;
   }
 </style>
+{% endblock %}
+
+{% block hint %}
+  Fix the background color of the blue cells in the grid
+{% endblock %}
+
+{% block description%}
+  <p>Some of these cells are different from the others. </p>
 {% endblock %}
 
 {% block content %}

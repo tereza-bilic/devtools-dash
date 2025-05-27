@@ -1,74 +1,239 @@
+/* Global styles for DevTools Dash */
+:root {
+  --primary-color: #5B86D7;
+  --primary-light: #6C9DF8;
+  --primary-dark: #4a6bbf;
+  --color-orange: #FE8D59;
+  --color-orange-hover: #ed5b21;
+  --text-color: #333;
+  --bg-color: #f9f9f9;
+  --card-bg: #ffffff;
+  --success-color: #5cb85c;
+  --error-color: #d35454;
+  --border-radius: 6px;
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
-  height: 80vh;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 main {
-  height: 100%;
-  padding: 24px 36px;
-  box-sizing: border-box;
+  flex: 1;
+  padding: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
 }
 
-.header {
+/* Level-specific components */
+.level-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 24px;
-  background-color: #EBF3FB;
-  border-bottom: 1px solid #d3e0f4;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 1rem;
+}
+
+.level-badge {
+  background-color: var(--primary-light);
+  opacity: 50%;
+  color: white;
+  padding: 2px 4px;
+  border-radius: 6px;
+  font-size: small;
+  width: fit-content;
+  height: fit-content;
+  display: inline;
+}
+
+/* Level hint styles */
+.level-hint {
+  position: relative;
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: var(--color-orange);
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  line-height: 28px;
+  cursor: help;
+  user-select: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.level-hint:hover {
+  background-color: var(--color-orange-hover);
+}
+
+/* Only pulse during the waiting period before hint appears */
+.level-hint.pulsing {
+  animation: pulse 1s ease-in;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.level-hint::after {
+  content: attr(data-hint);
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 250px;
+  padding: 12px;
+  border-radius: var(--border-radius);
+  background-color: #333;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: normal;
+  line-height: 1.5;
+  text-align: left;
+  z-index: 10;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    visibility 0s linear 0.3s;
+  pointer-events: none;
+  /* Add a subtle border for better readability */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.level-hint::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+
+.level-hint:hover::before {
+  border-color: var(--color-orange);
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.level-hint:hover::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(5px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    visibility 0s linear;
+  transition-delay: 1s; /* Delay before showing the hint - increased to 1 second */
+}
+
+.level-title {
+  color: var(--primary-color);
+  font-size: 1.75rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.level-description {
+  margin-bottom: 2rem;
+  color: #666;
+  font-size: 1rem;
+}
+
+.level-content {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  border: 1px solid #eee;
+  margin-bottom: 2rem;
+  min-height: 200px;
 }
 
 .submit-form {
   display: flex;
-  width: 50%;
-  gap: 12px;
-  padding: 0 24px;
-  margin: 0 auto;
+  gap: 0.75rem;
+  max-width: 500px;
+  margin: 2rem auto 0;
+  align-items: center;
 }
 
 .submit-form input[type="text"] {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
+  flex: 1;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+  font-size: 0.95rem;
+  background-color: #fff;
 }
 
 .submit-form input[type="text"]:focus {
-  border-color: #5B86D7;
+  border-color: var(--primary-color);
   outline: none;
+  box-shadow: 0 0 0 2px rgba(90, 105, 135, 0.15);
 }
 
-
 .submit-form input[type="submit"] {
-  background-color: #5B86D7;
+  background-color: var(--primary-color);
   color: white;
-  padding: 14px 20px;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
+  padding: 0.6rem 1rem;
+  font-size: 0.95rem;
   cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
 }
 
 .submit-form input[type="submit"]:hover {
-  background-color: #6C9DF8;
+  background-color: var(--primary-dark);
 }
+
 .submit-form input[type="submit"]:active {
-  background-color: #6C9DF8;
+  transform: translateY(1px);
 }
 
+.submit-form input[type="submit"]:active {
+  background-color: var(--primary-dark);
+  transform: translateY(1px);
+}
 
-
-
-
-
+/* Box styles and hover interactions for E2 level */
 .box2 {
   display: none;
   margin: 30px;
@@ -84,10 +249,54 @@ main {
   margin: 30px;
 }
 
-.box1:hover  + .box2 {
+.box1:hover + .box2 {
   display: block;
 }
 
 .box2:hover + .box3 {
   display: block;
+}
+
+
+/* Responsive helper classes */
+@media (max-width: 768px) {
+  .hide-on-mobile {
+    display: none !important;
+  }
+
+  .grid-2, .grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .submit-form {
+    flex-direction: column;
+  }
+
+  .submit-form input[type="text"],
+  .submit-form input[type="submit"] {
+    width: 100%;
+  }
+
+  .level-header {
+    padding: 0.75rem 1rem;
+  }
+
+  main {
+    padding: 1rem;
+  }
+
+  .level-hint::after {
+    width: 200px;
+    right: -80px;
+  }
+
+  /* Make hint visible with a short tap on mobile */
+  .level-hint:active::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(5px);
+    transition-delay: 0s;
+  }
+
+  /* No animation adjustments needed for mobile as we handle it with JS */
 }

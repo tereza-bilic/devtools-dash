@@ -1,6 +1,7 @@
 {% extends "level.html" %}
-{% set title = level_session.level_key %}
+{% set key = level_session.level_key %}
 {% set secret = level_session.finish_secret %}
+{% set title = level_session.level.title %}
 
 {% block head %}
   <script defer src="{{ url_path_for('get_level_js', level_key='n2') }}?should_obfuscate=False"></script>
@@ -14,7 +15,7 @@
       background-color: #fff;
       overflow: hidden;
     }
-    
+
     .chat-header {
       background-color: #4a76a8;
       color: white;
@@ -23,40 +24,40 @@
       border-bottom: 1px solid #3a5a78;
       text-align: center;
     }
-    
+
     .chat-messages {
       height: 350px;
       overflow-y: auto;
       padding: 15px;
       background-color: #f5f8fa;
     }
-    
+
     .message {
       margin-bottom: 15px;
       max-width: 80%;
     }
-    
+
     .message-content {
       padding: 10px 15px;
       border-radius: 18px;
       display: inline-block;
     }
-    
+
     .user-message {
       text-align: right;
       margin-left: auto;
     }
-    
+
     .user-message .message-content {
       background-color: #0084ff;
       color: white;
     }
-    
+
     .system-message .message-content {
       background-color: #e5e5ea;
       color: black;
     }
-    
+
     .error-message {
       background-color: #ffebee;
       border-left: 4px solid #f44336;
@@ -66,13 +67,13 @@
       border-radius: 4px;
       font-family: monospace;
     }
-    
+
     .chat-input {
       display: flex;
       padding: 15px;
       border-top: 1px solid #e6ecf0;
     }
-    
+
     #message-input {
       flex: 1;
       padding: 10px;
@@ -80,7 +81,7 @@
       border-radius: 20px;
       margin-right: 10px;
     }
-    
+
     #send-button {
       padding: 10px 20px;
       background-color: #4a76a8;
@@ -89,12 +90,12 @@
       border-radius: 20px;
       cursor: pointer;
     }
-    
+
     #send-button:disabled {
       background-color: #cccccc;
       cursor: not-allowed;
     }
-    
+
     .connection-status {
       padding: 8px 15px;
       text-align: center;
@@ -102,22 +103,22 @@
       background-color: #f8f9fa;
       border-top: 1px solid #e6ecf0;
     }
-    
+
     .status-connected {
       color: green;
       font-weight: bold;
     }
-    
+
     .status-connecting {
       color: orange;
       font-weight: bold;
     }
-    
+
     .status-disconnected {
       color: red;
       font-weight: bold;
     }
-    
+
     .level-intro {
       max-width: 600px;
       margin: 0 auto 20px;
@@ -129,26 +130,26 @@
   </style>
 {% endblock %}
 
-{% block content %}
-  <div class="level-intro">
-    <h2>WebSocket Communication Challenge</h2>
-    <p>You've connected to a chat service that might know the secret for this level.</p>
-    <p>Try to interact with the chat service and see if you can extract the secret. Be careful, there might be some errors along the way!</p>
-    <p><strong>Hint:</strong> Check the Network tab in your browser's developer tools to see what's happening behind the scenes.</p>
-  </div>
+{% block hint %}
+  Find the socket request and read through the messages
+{% endblock %}
 
+{% block description %}
+  <p></p>
+{% endblock %}
+{% block content %}
   <div class="chat-container">
-    <div class="chat-header">WebSocket Chat</div>
-    
+    <div class="chat-header">Chat</div>
+
     <div class="chat-messages" id="messages">
       <!-- Messages will be added here dynamically -->
     </div>
-    
+
     <div class="chat-input">
       <input type="text" id="message-input" placeholder="Type a message..." disabled>
       <button id="send-button" disabled>Send</button>
     </div>
-    
+
     <div class="connection-status">
       Status: <span id="connection-status" class="status-connecting">Connecting...</span>
     </div>

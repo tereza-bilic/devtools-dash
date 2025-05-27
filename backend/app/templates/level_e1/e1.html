@@ -1,13 +1,18 @@
 {% extends "level.html" %}
-{% set title = level_session.level_key %}
+{% set key = level_session.level_key %}
 {% set secret = level_session.finish_secret %}
+{% set title = level_session.level.title %}
 
 {% block head %}
 {% endblock %}
 
+{% block hint %}
+  Find the six digit code in the id of the <div> element
+{% endblock %}
+
+
 {% block content %}
   <div id="{{ level_session.finish_secret }}">
-    Find my secrets!
+    I identify as a level secret 🆔
   </div>
-
 {% endblock %}

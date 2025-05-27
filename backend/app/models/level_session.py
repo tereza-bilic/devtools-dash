@@ -5,7 +5,7 @@ from sqlalchemy.orm import relationship, mapped_column, Mapped
 from app.db.base import Base
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.models.level import CategoryEnum, LevelKey
-from app.models.level import get_levels_by_category
+from app.models.level import get_levels_by_category, get_level_by_key
 
 class LevelSession(Base):
     __tablename__ = "level_session"
@@ -24,6 +24,10 @@ class LevelSession(Base):
 
     # Relationships
     user = relationship("User", back_populates="level_sessions")
+
+    @property
+    def level(self):
+        return get_level_by_key(self.level_key)
 
 async def get_level_session_by_id(session: AsyncSession, id: int) -> Optional[LevelSession]:
     return (await session.scalars(select(LevelSession).filter(LevelSession.id == id).limit(1))).first()

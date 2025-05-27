@@ -1,28 +1,43 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <title>{{ title }}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} | DevTools Dash</title>
     <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet" />
     {% block head%} {% endblock %}
-
   </head>
   <body>
-    <div class="header">
-      <h1>Level {{ title }}</h1>
-    </div>
-
     <main>
-      <h1>
-      {% block title%} {% endblock %}
-      </h1>
-    {% block content%} {% endblock %}
+      <div class="level-header">
+        <h1 class="level-title">
+          <div class="level-badge">#{{ key }}</div>
+          {{ title }}
+        </h1>
+        <div class="level-hint"
+            tabindex="0"
+            role="tooltip"
+            aria-label="Hint"
+            data-hint="{% block hint %}Think about what DevTools feature this level might be testing.{% endblock %}">?</div>
+      </div>
+      <div class="level-description">
+        {% block description %}
+
+        {% endblock %}
+      </div>
+
+      <div class="level-content">
+        {% block content%} {% endblock %}
+      </div>
+
+      <form method="POST" class="submit-form">
+        {% if submitted_secret %}
+          <div class="error-message">Invalid secret: {{ submitted_secret }}</div>
+        {% endif %}
+        <input type="text" name="secret" placeholder="Enter secret key" autocomplete="off"/>
+        <input type="submit" value=">" />
+      </form>
     </main>
 
-    <form method="POST" class="submit-form">
-      {% if submitted_secret %}
-        <span>Invalid secret: {{ submitted_secret }}</span>
-      {% endif %}
-      <input type="text" name="secret" placeholder="secret key" autocomplete="off"/>
-      <input type="submit" value="Submit" />
-    </form>
   </body>
 </html>
