@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { AuthGuard } from 'src/components/AuthGuard';
+import { AuthGuard } from 'src/guards/AuthGuard';
 import { LevelResponse, LevelSessionResponse } from 'src/types/openapi';
-import { axiosClient } from 'src/util/axiosClient';
+import { useAxiosClient } from 'src/context/AxiosContext';
 import { intervalToDuration } from "date-fns";
 import { RadarChart } from 'src/components/RadarChart/RadarChart';
 import { CalendarChart } from 'src/components/CalendarChart/CalendarChart';
@@ -19,7 +19,8 @@ import LeaderboardMinimized from 'src/components/LeaderboardMinimized/Leaderboar
 import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
-    const { user } = useAuth();
+  const axiosClient = useAxiosClient();
+  const { user } = useAuth();
 
   const [levels, setLevels] = useState<LevelResponse[]>([]);
   const [loadingLevels, setLoadingLevels] = useState(true);

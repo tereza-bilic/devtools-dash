@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { TokenData } from 'src/types/openapi';
-import { axiosClient } from 'src/util/axiosClient';
+import { useAxiosClient } from 'src/context/AxiosContext';
 
 type AuthContextType = {
   user: TokenData | null | undefined;
@@ -11,6 +11,7 @@ const AuthContext = createContext<AuthContextType>({ user: undefined, refresh: (
 export const useAuth = () => useContext(AuthContext)
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const axiosClient = useAxiosClient();
   const [me, setMe] = useState<TokenData | null | undefined>(undefined);
   const [refresh, setRefresh] = useState<Date>(new Date());
 
@@ -20,7 +21,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }).catch(() => {
       setMe(null)
     })
-  }, [refresh])
+  }, [refresh, axiosClient])
 
   return (
     <AuthContext.Provider value={{user: me, refresh: () => setRefresh(new Date())}}>

@@ -1,15 +1,16 @@
 import styles from './Categories.module.css';
 import { useNavigate } from 'react-router-dom';
 import { capitalize } from 'src/utils/string-functions';
-import { AuthGuard } from '../AuthGuard';
+import { AuthGuard } from '../../guards/AuthGuard';
 import { CategoryResponse } from 'src/types/openapi';
 import ProgressBar from 'src/components/progressBar/ProgressBar';
 import React, { useEffect, useState } from 'react';
 import Button from '../form/button/Button';
-import { axiosClient } from 'src/util/axiosClient';
 import { categoryIconMap } from 'src/consts/categories';
+import { useAxiosClient } from 'src/context/AxiosContext';
 
 const Categories = () => {
+  const axiosClient = useAxiosClient();
   const navigate = useNavigate();
 
   const [categories, setCategories] = useState<CategoryResponse[]>([]);
@@ -25,10 +26,6 @@ const Categories = () => {
 
   const handleCategoryClick = (category: CategoryResponse) => {
     navigate(`/categories/${category.name}`);
-  };
-
-  const progress = (category: CategoryResponse) => {
-    return (category.completed_count / category.total_count) * 100;
   };
 
   const categoryClass = (category: CategoryResponse) => {

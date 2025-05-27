@@ -1,7 +1,7 @@
 import styles from './LevelGrid.module.css';
 
-import { AuthGuard } from 'src/components/AuthGuard';
-import { axiosClient } from 'src/util/axiosClient';
+import { AuthGuard } from 'src/guards/AuthGuard';
+import { useAxiosClient } from 'src/context/AxiosContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import { CategoryEnum, LevelResponse, LevelSessionResponse } from 'src/types/openapi';
 import { useEffect, useState } from 'react';
@@ -9,6 +9,7 @@ import Button from 'src/components/form/button/Button';
 import StarIcon from '../StarIcon';
 
 const LevelGrid = () => {
+  const axiosClient = useAxiosClient();
   const navigate = useNavigate();
   const { category } = useParams<{ category: CategoryEnum }>();
   const [levels, setLevels] = useState<LevelResponse[]>([]);
@@ -68,7 +69,7 @@ const LevelGrid = () => {
           </div>
 
           <div className={styles.levelGrid}>
-            {levels.map((level, index) => (
+            {levels.map((level) => (
               <button key={level.level_key} className={styles.level + " " + (level.completed && styles.completed)} onClick={() => handleLevelClick(level)}>
                 {level.completed && (
                   <div className={styles.completedIcon}>

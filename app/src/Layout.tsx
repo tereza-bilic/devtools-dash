@@ -1,9 +1,10 @@
 import { Outlet } from "react-router-dom";
 import { useAuth } from "src/context/AuthContext";
-import { axiosClient } from "src/util/axiosClient";
+import { useAxiosClient } from "src/context/AxiosContext";
 import Navigation from "src/components/Navigation/Navigation";
 
 const Layout = () => {
+  const axiosClient = useAxiosClient();
   const { user, refresh } = useAuth();
   const logout = async () => {
     await axiosClient.logout_api_user_logout_post()

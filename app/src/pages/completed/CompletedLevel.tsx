@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { AuthGuard } from "src/components/AuthGuard";
+import { AuthGuard } from "src/guards/AuthGuard";
 import { CompletedLevelResponse } from "src/types/openapi";
-import { axiosClient } from "src/util/axiosClient";
+import { useAxiosClient } from "src/context/AxiosContext";
 
 import styles from "./CompletedLevel.module.css";
 import Button from "src/components/form/button/Button";
 import StarIcon from "src/components/StarIcon";
 
 const CompletedLevel = () => {
+  const axiosClient = useAxiosClient();
   const [searchParams] = useSearchParams();
   const [completedLevel, setCompletedLevel] = useState<CompletedLevelResponse | null>(null);
 

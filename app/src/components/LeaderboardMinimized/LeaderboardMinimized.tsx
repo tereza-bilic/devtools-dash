@@ -1,14 +1,14 @@
 // leaderboard component
 
 import { useEffect, useState } from 'react';
-import { axiosClient } from 'src/util/axiosClient';
+import { useAxiosClient } from 'src/context/AxiosContext';
 import styles from './LeaderboardMinimized.module.css';
 import { LeaderboardUserEntry } from 'src/types/openapi';
-import { AuthGuard } from 'src/components/AuthGuard';
 import { useAuth } from 'src/context/AuthContext';
 
 
 const LeaderboardMinimized = () => {
+  const axiosClient = useAxiosClient();
   const [leaderboard, setLeaderboard] = useState<LeaderboardUserEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();

@@ -1,8 +1,8 @@
 // login form with fields nickname and password
 import { useState, FormEvent } from 'react';
-import { axiosClient } from 'src/util/axiosClient';
+import { useAxiosClient } from 'src/context/AxiosContext';
 import { useAuth } from 'src/context/AuthContext';
-import { AnonymousGuard } from 'src/components/AnonymousGuard';
+import { AnonymousGuard } from 'src/guards/AnonymousGuard';
 import { isAxiosError } from 'axios';
 import { Link } from 'react-router-dom';
 import Input from 'src/components/form/input/Input';
@@ -11,6 +11,7 @@ import Button from 'src/components/form/button/Button';
 import styles from './Signup.module.css';
 
 const Signup = () => {
+  const axiosClient = useAxiosClient();
   const [nickname, setNickname] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');

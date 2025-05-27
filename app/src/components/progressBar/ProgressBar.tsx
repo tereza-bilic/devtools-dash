@@ -1,9 +1,8 @@
-import { useState } from 'react';
 import styles from './ProgressBar.module.css';
 
 const ProgressBar = ({ completed, total }: {completed: number, total: number}) => {
 
-  const [progress, setProgress] = useState(completed / total * 100);
+  const progress = completed / total * 100;
 
   const style = {
     width: `${progress}%`,

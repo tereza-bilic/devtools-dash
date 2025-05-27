@@ -1,14 +1,15 @@
 // leaderboard component
 
 import React, { useEffect, useState } from 'react';
-import { axiosClient } from 'src/util/axiosClient';
+import { useAxiosClient } from 'src/context/AxiosContext';
 import styles from './Leaderboard.module.css';
 import { LeaderboardUserEntry, UserLevelPoints } from 'src/types/openapi';
-import { AuthGuard } from 'src/components/AuthGuard';
+import { AuthGuard } from 'src/guards/AuthGuard';
 import { useAuth } from 'src/context/AuthContext';
 
 
 const Leaderboard = () => {
+  const axiosClient = useAxiosClient();
   const [leaderboard, setLeaderboard] = useState<LeaderboardUserEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [expandedUserId, setExpandedUserId] = useState<number | null>(null);
