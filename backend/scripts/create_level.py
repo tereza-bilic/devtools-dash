@@ -99,18 +99,18 @@ def update_level_model(level_key: str, title: str, category: CategoryEnum, order
     """Update the level.py file with the new level."""
     with open(LEVEL_MODEL_PATH, "r") as f:
         content = f.read()
-    
+
     # Get the proper case for the category enum
     # Map our enum values to the actual enum values in level.py
     category_map = {
         "ELEMENTS": "Elements",
-        "CONSOLE": "Console", 
+        "CONSOLE": "Console",
         "NETWORK": "Network",
         "SOURCES": "Sources",
         "PERFORMANCE": "Performance"
     }
     proper_case_category = category_map.get(category.name, category.name)
-    
+
     # Update LevelKey type
     literal_pattern = r'(LevelKey\s*=\s*Literal\[)([^\]]*?)(\])'
     if re.search(literal_pattern, content):
@@ -122,11 +122,11 @@ def update_level_model(level_key: str, title: str, category: CategoryEnum, order
     else:
         console.print("[bold red]Could not find LevelKey type definition in level.py[/]")
         return False
-    
+
     # Find the existing levels in the same category
     category_pattern = re.compile(fr'Level\(key="([^"]+)", category=CategoryEnum\.{proper_case_category}')
     category_levels = category_pattern.findall(content)
-    
+
     # Update levels list
     levels_list_pattern = r'(levels\s*:\s*list\[Level\]\s*=\s*\[)([^\]]*?)(\])'
     new_level = f'Level(key="{level_key}", title="{title}", category=CategoryEnum.{proper_case_category}, order_in_category={order}, difficulty={difficulty})'
@@ -165,11 +165,12 @@ def update_level_model(level_key: str, title: str, category: CategoryEnum, order
     return True
 
 
-def create_html_template(level_dir: Path, level_key: str, title: str, js_files: List[str], css_files: List[str]) -> None:
+def create_html_template(level_dir: Path, level_key: str, title: str, hint: str, js_files: List[str], css_files: List[str]) -> None:
     """Create the HTML template for the level."""
     template = f"""{{# filepath: {level_dir}/{level_key}.html #}}
 {{% extends "level.html" %}}
-{{% set title = "{title}" %}}
+{{% set key = level_session.level_key %}}
+{{% set title = level_session.level.title %}}
 {{% set secret = level_session.finish_secret %}}
 
 {{% block head %}}
@@ -191,10 +192,20 @@ def create_html_template(level_dir: Path, level_key: str, title: str, js_files: 
 
     template += f"""{{% endblock %}}
 
-{{% block content %}}
-  <h1></h1>
-  <p>Complete this level to find the secret...</p>
+{{% block hint %}}
+  {{# Add a hint for this level here - it will be shown when hovering over the '?' icon #}}
+  {hint}
+{{% endblock %}}
 
+{{% block description %}}
+  {{# Add your level description here - explain what the user needs to do #}}
+{{% endblock %}}
+
+{{% block content %}}
+  {{# Your level content goes here #}}
+  <div class="level-container">
+    <p>Complete this level to find the secret...</p>
+  </div>
 {{% endblock %}}
 """
 
@@ -210,6 +221,11 @@ def create_js_file(level_dir: Path, level_key: str, filename: str, obfuscated: b
 
     template = f"""// JavaScript for level {level_key}
 // Filename: {filename}
+
+document.addEventListener('DOMContentLoaded', () => {{
+  console.log('Level {level_key} loaded');
+
+  // Your level code here
 
 }});
 """
@@ -273,9 +289,12 @@ def create_level():
     except ValueError:
         console.print("[bold yellow]Invalid order input, setting to 1[/]")
         order = 1
-        
+
     # Get level title
     title = prompt("Enter a short, fun title for the level")
+
+    # Get level hint (optional)
+    hint = prompt("Enter a hint for the level (optional, press Enter to skip)", default="")
 
     # Create level directory
     level_dir = TEMPLATES_DIR / f"level_{level_key}"
@@ -335,7 +354,7 @@ def create_level():
             create_css_file(level_dir, level_key, css_name)
 
     # Create HTML template
-    create_html_template(level_dir, level_key, title, js_files, css_files)
+    create_html_template(level_dir, level_key, title, hint, js_files, css_files)
 
     # Update level model
     if update_level_model(level_key, title, category, order, difficulty):

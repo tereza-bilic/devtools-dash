@@ -43,7 +43,7 @@ All files are served using dynamic routes, with:
 - Additional JavaScript files accessible via `url_path_for('get_level_js', level_key='key')?different_filename=filename&should_obfuscate=False`
 - CSS files accessible via `url_path_for('get_level_css', level_key='key', filename='filename')`
 
-Note: 
+Note:
 - `different_filename` and `should_obfuscate` are query parameters, not route parameters.
 - By default, JavaScript files are obfuscated.
 - All additional JS and CSS files are automatically prefixed with the level key (e.g., entering "iframe.js" will create "c3_iframe.js" for level with key "c3").
@@ -147,11 +147,11 @@ The following CSS variables are available for consistent styling:
 ```html
 <div class="level-content">
   <h2 class="text-center mb-3">My Challenge</h2>
-  
+
   <div class="info-message mb-3">
     This level requires inspecting network requests.
   </div>
-  
+
   <div class="subtle-card mb-3">
     <p class="mb-2">Here's a challenge description with some <strong>important</strong> details.</p>
     <div class="flex justify-between align-center">
@@ -159,7 +159,7 @@ The following CSS variables are available for consistent styling:
       <button class="button button-accent" id="hint-button">Show Hint</button>
     </div>
   </div>
-  
+
   <div class="code-block mb-3">
     <pre>function findSecret() {
   return fetch('/api/secret')
@@ -167,12 +167,12 @@ The following CSS variables are available for consistent styling:
     .then(data => console.log(data));
 }</pre>
   </div>
-  
+
   <div class="flex gap-2 justify-center">
     <button class="button">Try Request</button>
     <button class="button button-secondary">Reset</button>
   </div>
-  
+
   <div id="success-message" class="success-message mt-3" style="display: none;">
     Great job! You found the secret!
   </div>
