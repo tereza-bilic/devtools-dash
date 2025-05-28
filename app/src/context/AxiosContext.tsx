@@ -1,6 +1,6 @@
 import OpenAPIClientAxios from "openapi-client-axios";
 import type { Server } from "openapi-client-axios";
-import type { Client as DevtoolsDashApi } from "src/types/openapi.d.ts";
+import type { Client as DevtoolsDashApi } from "@devtools-dash/types/openapi.d.ts";
 import { createContext, useContext, useEffect, useState } from "react";
 
 const server: Server = {

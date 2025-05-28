@@ -1,10 +1,10 @@
 // leaderboard component
 
 import { useEffect, useState } from 'react';
-import { useAxiosClient } from 'src/context/AxiosContext';
+import { useAxiosClient } from '@devtools-dash/context/AxiosContext';
 import styles from './LeaderboardMinimized.module.css';
-import { LeaderboardUserEntry } from 'src/types/openapi';
-import { useAuth } from 'src/context/AuthContext';
+import { LeaderboardUserEntry } from '@devtools-dash/types/openapi';
+import { useAuth } from '@devtools-dash/context/AuthContext';
 
 
 const LeaderboardMinimized = () => {

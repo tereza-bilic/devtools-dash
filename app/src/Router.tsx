@@ -1,12 +1,12 @@
-import Categories from 'src/components/CategoriesList/Categories'
+import Categories from '@devtools-dash/components/CategoriesList/Categories'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LevelGrid from 'src/components/levelGrid/LevelGrid';
-import Login from 'src/pages/login/Login';
-import Signup from 'src/pages/signup/Signup';
-import Layout from 'src/Layout';
-import CompletedLevel from 'src/pages/completed/CompletedLevel';
-import Dashboard from 'src/pages/dashboard/Dashboard';
-import Leaderboard from './components/Leaderboard/Leaderboard';
+import LevelGrid from '@devtools-dash/components/levelGrid/LevelGrid';
+import Login from '@devtools-dash/pages/login/Login';
+import Signup from '@devtools-dash/pages/signup/Signup';
+import Layout from '@devtools-dash/Layout';
+import CompletedLevel from '@devtools-dash/pages/completed/CompletedLevel';
+import Dashboard from '@devtools-dash/pages/dashboard/Dashboard';
+import Leaderboard from '@devtools-dash/components/Leaderboard/Leaderboard';
 
 export const AppRouter = () => {
   return (

@@ -1,4 +1,4 @@
-import { CategoryEnum, LevelResponse } from "src/types/openapi";
+import { CategoryEnum, LevelResponse } from "@devtools-dash/types/openapi";
 import CircularProgressBar from "../circularProgressBar/CircularProgressBar";
 import styles from "./CategoryProgressGrid.module.css";
 

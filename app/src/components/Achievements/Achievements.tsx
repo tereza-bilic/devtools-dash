@@ -1,7 +1,7 @@
 import React from 'react';
-import { Badge } from 'src/consts/badge';
-import BadgeBackground from 'src/components/BadgeBackground/BadgeBackground';
-import { categoryIconMap } from 'src/consts/categories';
+import { Badge } from '@devtools-dash/consts/badge';
+import BadgeBackground from '@devtools-dash/components/BadgeBackground/BadgeBackground';
+import { categoryIconMap } from '@devtools-dash/consts/categories';
 import styles from './Achievements.module.css';
 
 interface AchievementsProps {

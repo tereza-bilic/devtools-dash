@@ -1,6 +1,6 @@
 import { ResponsiveRadar } from '@nivo/radar';
-import { categories } from 'src/consts/categories';
-import { LevelResponse } from 'src/types/openapi';
+import { categories } from '@devtools-dash/consts/categories';
+import { LevelResponse } from '@devtools-dash/types/openapi';
 
 interface RadarChartProps {
   levels: LevelResponse[];

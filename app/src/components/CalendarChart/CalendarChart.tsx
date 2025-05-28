@@ -1,5 +1,5 @@
 import { ResponsiveCalendar } from '@nivo/calendar';
-import { LevelSessionResponse } from 'src/types/openapi';
+import { LevelSessionResponse } from '@devtools-dash/types/openapi';
 
 interface CalendarChartProps {
   levelSessions: LevelSessionResponse[];

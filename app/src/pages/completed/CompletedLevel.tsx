@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { AuthGuard } from "src/guards/AuthGuard";
-import { CompletedLevelResponse } from "src/types/openapi";
-import { useAxiosClient } from "src/context/AxiosContext";
+import { AuthGuard } from "@devtools-dash/guards/AuthGuard";
+import { CompletedLevelResponse } from "@devtools-dash/types/openapi";
+import { useAxiosClient } from "@devtools-dash/context/AxiosContext";
 
 import styles from "./CompletedLevel.module.css";
-import Button from "src/components/form/button/Button";
-import StarIcon from "src/components/StarIcon";
+import Button from "@devtools-dash/components/form/button/Button";
+import StarIcon from "@devtools-dash/components/StarIcon";
 
 const CompletedLevel = () => {
   const axiosClient = useAxiosClient();

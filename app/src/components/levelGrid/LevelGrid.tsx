@@ -1,11 +1,11 @@
 import styles from './LevelGrid.module.css';
 
-import { AuthGuard } from 'src/guards/AuthGuard';
-import { useAxiosClient } from 'src/context/AxiosContext';
+import { AuthGuard } from '@devtools-dash/guards/AuthGuard';
+import { useAxiosClient } from '@devtools-dash/context/AxiosContext';
 import { useNavigate, useParams } from 'react-router-dom';
-import { CategoryEnum, LevelResponse, LevelSessionResponse } from 'src/types/openapi';
+import { CategoryEnum, LevelResponse, LevelSessionResponse } from '@devtools-dash/types/openapi';
 import { useEffect, useState } from 'react';
-import Button from 'src/components/form/button/Button';
+import Button from '@devtools-dash/components/form/button/Button';
 import StarIcon from '../StarIcon';
 
 const LevelGrid = () => {

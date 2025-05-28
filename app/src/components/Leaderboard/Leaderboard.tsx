@@ -1,11 +1,11 @@
 // leaderboard component
 
 import React, { useEffect, useState } from 'react';
-import { useAxiosClient } from 'src/context/AxiosContext';
+import { useAxiosClient } from '@devtools-dash/context/AxiosContext';
 import styles from './Leaderboard.module.css';
-import { LeaderboardUserEntry, UserLevelPoints } from 'src/types/openapi';
-import { AuthGuard } from 'src/guards/AuthGuard';
-import { useAuth } from 'src/context/AuthContext';
+import { LeaderboardUserEntry, UserLevelPoints } from '@devtools-dash/types/openapi';
+import { AuthGuard } from '@devtools-dash/guards/AuthGuard';
+import { useAuth } from '@devtools-dash/context/AuthContext';
 
 
 const Leaderboard = () => {

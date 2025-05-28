@@ -1,4 +1,4 @@
-import { CategoryEnum } from "src/types/openapi";
+import { CategoryEnum } from "@devtools-dash/types/openapi";
 
 export enum BadgeType {
   SILVER = 'silver',

@@ -1,4 +1,4 @@
-import { useAxiosClientWhileLoading } from "src/context/AxiosContext";
+import { useAxiosClientWhileLoading } from "@devtools-dash/context/AxiosContext";
 
 export const AxiosLoadedGuard  = ({ children }: { children: React.ReactNode }) => {
   const client = useAxiosClientWhileLoading();

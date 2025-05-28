@@ -1,13 +1,13 @@
 import styles from './Categories.module.css';
 import { useNavigate } from 'react-router-dom';
-import { capitalize } from 'src/utils/string-functions';
+import { capitalize } from '@devtools-dash/utils/string-functions';
 import { AuthGuard } from '../../guards/AuthGuard';
-import { CategoryResponse } from 'src/types/openapi';
-import ProgressBar from 'src/components/progressBar/ProgressBar';
+import { CategoryResponse } from '@devtools-dash/types/openapi';
+import ProgressBar from '@devtools-dash/components/progressBar/ProgressBar';
 import React, { useEffect, useState } from 'react';
 import Button from '../form/button/Button';
-import { categoryIconMap } from 'src/consts/categories';
-import { useAxiosClient } from 'src/context/AxiosContext';
+import { categoryIconMap } from '@devtools-dash/consts/categories';
+import { useAxiosClient } from '@devtools-dash/context/AxiosContext';
 
 const Categories = () => {
   const axiosClient = useAxiosClient();

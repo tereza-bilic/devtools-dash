@@ -1,8 +1,8 @@
-import Console from "src/components/icons/Console";
-import Elements from "src/components/icons/Elements";
-import Network from "src/components/icons/Network";
-import Sources from "src/components/icons/Sources";
-import { CategoryEnum } from "src/types/openapi";
+import Console from "@devtools-dash/components/icons/Console";
+import Elements from "@devtools-dash/components/icons/Elements";
+import Network from "@devtools-dash/components/icons/Network";
+import Sources from "@devtools-dash/components/icons/Sources";
+import { CategoryEnum } from "@devtools-dash/types/openapi";
 
 export const categories: CategoryEnum[] = ['Elements', 'Console', 'Network', 'Sources', 'Performance'];
 

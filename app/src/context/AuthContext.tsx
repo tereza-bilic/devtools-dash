@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { TokenData } from 'src/types/openapi';
-import { useAxiosClient } from 'src/context/AxiosContext';
+import { TokenData } from '@devtools-dash/types/openapi';
+import { useAxiosClient } from '@devtools-dash/context/AxiosContext';
 
 type AuthContextType = {
   user: TokenData | null | undefined;

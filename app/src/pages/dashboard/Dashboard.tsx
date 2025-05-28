@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react';
-import { AuthGuard } from 'src/guards/AuthGuard';
-import { LevelResponse, LevelSessionResponse } from 'src/types/openapi';
-import { useAxiosClient } from 'src/context/AxiosContext';
+import { AuthGuard } from '@devtools-dash/guards/AuthGuard';
+import { LevelResponse, LevelSessionResponse } from '@devtools-dash/types/openapi';
+import { useAxiosClient } from '@devtools-dash/context/AxiosContext';
 import { intervalToDuration } from "date-fns";
-import { RadarChart } from 'src/components/RadarChart/RadarChart';
-import { CalendarChart } from 'src/components/CalendarChart/CalendarChart';
-import CategoryProgressGrid from 'src/components/CategoryProgressGrid/CategoryProgressGrid';
-import Achievements from 'src/components/Achievements/Achievements';
+import { RadarChart } from '@devtools-dash/components/RadarChart/RadarChart';
+import { CalendarChart } from '@devtools-dash/components/CalendarChart/CalendarChart';
+import CategoryProgressGrid from '@devtools-dash/components/CategoryProgressGrid/CategoryProgressGrid';
+import Achievements from '@devtools-dash/components/Achievements/Achievements';
 
 import styles from './dashboard.module.css';
-import ProgressBar from 'src/components/progressBar/ProgressBar';
-import { categories } from 'src/consts/categories';
-import StarIcon from 'src/components/StarIcon';
-import PersonIcon from 'src/components/PersonIcon/PersonIcon';
-import { useAuth } from 'src/context/AuthContext';
-import { Badge, BadgeType } from 'src/consts/badge';
-import LeaderboardMinimized from 'src/components/LeaderboardMinimized/LeaderboardMinimized';
+import ProgressBar from '@devtools-dash/components/progressBar/ProgressBar';
+import { categories } from '@devtools-dash/consts/categories';
+import StarIcon from '@devtools-dash/components/StarIcon';
+import PersonIcon from '@devtools-dash/components/PersonIcon/PersonIcon';
+import { useAuth } from '@devtools-dash/context/AuthContext';
+import { Badge, BadgeType } from '@devtools-dash/consts/badge';
+import LeaderboardMinimized from '@devtools-dash/components/LeaderboardMinimized/LeaderboardMinimized';
 import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
