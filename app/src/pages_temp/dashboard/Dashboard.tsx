@@ -8,7 +8,7 @@ import { CalendarChart } from '@devtools-dash/components/CalendarChart/CalendarC
 import CategoryProgressGrid from '@devtools-dash/components/CategoryProgressGrid/CategoryProgressGrid';
 import Achievements from '@devtools-dash/components/Achievements/Achievements';
 
-import styles from './dashboard.module.css';
+import styles from './Dashboard.module.css';
 import ProgressBar from '@devtools-dash/components/progressBar/ProgressBar';
 import { categories } from '@devtools-dash/consts/categories';
 import StarIcon from '@devtools-dash/components/StarIcon';
