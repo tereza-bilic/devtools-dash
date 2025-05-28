@@ -1,0 +1,91 @@
+.theme-container {
+  display: flex;
+  margin: 2rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.light-section, .dark-section {
+  flex: 1;
+  padding: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: color 0.3s ease-in-out;
+}
+
+.light-section {
+  background-color: #f8f8f8;
+  color: #f8f8f8; /* Hidden in light mode */
+}
+
+.dark-section {
+  background-color: #222;
+  color: #222; /* Hidden in dark mode */
+}
+
+/* Light mode styles */
+@media (prefers-color-scheme: light) {
+  .light-section {
+    background-color: #f8f8f8;
+    color: #222; /* Visible in light mode */
+  }
+
+  .dark-section {
+    background-color: #222;
+    color: #222; /* Still hidden in light mode */
+  }
+
+  .mode-indicator::before {
+    content: "Currently in Light Mode";
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    font-size: 0.7rem;
+    opacity: 0.6;
+  }
+}
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  .light-section {
+    background-color: #f8f8f8;
+    color: #f8f8f8; /* Hidden in dark mode */
+  }
+
+  .dark-section {
+    background-color: #222;
+    color: #f8f8f8; /* Visible in dark mode */
+  }
+
+  .mode-indicator::before {
+    content: "Currently in Dark Mode";
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    font-size: 0.7rem;
+    opacity: 0.6;
+  }
+}
+
+.secret-code {
+  font-family: monospace;
+  font-size: 2.5rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+}
+
+.instructions {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.form-container {
+  margin-top: 2rem;
+}
+
+.hidden {
+  display: none;
+}

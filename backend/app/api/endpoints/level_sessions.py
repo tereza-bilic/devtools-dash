@@ -154,7 +154,7 @@ async def get_level_js(request: Request,
         response.status_code = e.status_code
         return templates.TemplateResponse(request=request, name=f"{e.status_code}.html", context={"message": e.message})
 
-@router.get("/css/{level_key}/{filename}.css", response_class=PlainTextResponse)
+@router.get("/css/{level_key}/{filename}.css", response_class=Response)
 async def get_level_css(request: Request,
     response: Response,
     level_key: LevelKey,
@@ -165,6 +165,7 @@ async def get_level_css(request: Request,
         level_session = await start_level(db_session, current_user.user_id, level_key)
         rendered = templates.TemplateResponse(request=request, name=f"level_{level_key}/{filename}.css", context={"level_session": level_session})
         response.headers['Content-Type'] = 'text/css'
+        logger.info(f"Rendering CSS for level {level_key} with filename level_{level_key}/{filename}.css")
         return rendered.body
     except NotFoundError as e:
         response.status_code = e.status_code

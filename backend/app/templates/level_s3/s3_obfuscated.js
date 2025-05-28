@@ -1,0 +1,1 @@
+setTimeout(()=>orMaybeAssignThisFirstLetter(), 500);

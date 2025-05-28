@@ -1,0 +1,28 @@
+{% extends "level.html" %}
+{% set key = level_session.level_key %}
+{% set secret = level_session.finish_secret %}
+{% set title = level_session.level.title %}
+
+{% block head %}
+  <script defer src="{{ url_path_for('get_level_js', level_key='e8') }}"></script>
+  <link rel="stylesheet" href="{{ url_path_for('get_level_css', level_key='e8', filename='e8') }}" />
+{% endblock %}
+
+{% block hint %}
+  Part of the secret is only visible in the dark, while the other only in the light. Try toggling the color scheme in DevTools.
+{% endblock %}
+
+{% block description %}
+  Or maybe it's the other way around? Split across themes, find the secret code.
+{% endblock %}
+
+{% block content %}
+  <div class="theme-container">
+    <div class="dark-section mode-indicator">
+      <div id="darkModeSecret" class="secret-code"></div>
+    </div>
+    <div class="light-section mode-indicator">
+      <div id="lightModeSecret" class="secret-code"></div>
+    </div>
+  </div>
+{% endblock %}

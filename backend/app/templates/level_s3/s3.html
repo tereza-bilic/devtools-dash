@@ -4,7 +4,8 @@
 {% set title = level_session.level.title %}
 
 {% block head %}
-  <script type="module" src="{{ url_path_for('get_level_js', level_key='s3')}}"></script>
+  <script src="{{ url_path_for('get_level_js', level_key='s3')}}?different_filename=other&should_obfuscate=False"></script>
+  <script src="{{ url_path_for('get_level_js', level_key='s3')}}"></script>
 
 {% endblock %}
 
