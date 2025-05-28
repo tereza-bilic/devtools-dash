@@ -1,0 +1,40 @@
+{# filepath: /Users/tere/DIPL/devtools-dash/backend/app/templates/level_c4/c4.html #}
+{% extends "level.html" %}
+{% set key = level_session.level_key %}
+{% set title = level_session.level.title %}
+{% set secret = level_session.finish_secret %}
+
+{% block head %}
+{% endblock %}
+
+{% block hint %}
+  {# Add a hint for this level here - it will be shown when hovering over the '?' icon #}
+  Use the console to decode the hidden message. Here are some useful functions:
+  split,
+  atob,
+  reverse,
+  decodeURIComponents,
+  join,
+  replace
+
+{% endblock %}
+
+{% block description %}
+  <p>A secret lies within... but it's been twisted beyond recognition. Can you unravel it?</p>
+  <ul>
+    <li>🌍 I've been on a long trip through the web</li>
+    <li>💸 Dollars sometimes cut us apart </li>
+    <li>🧵 The pieces? They want to be whole again.</li>
+    <li>🎭 There's a joke trailing behind — don't let it distract you.</li>
+    <li>🔄 I'm facing the wrong way... make me see straight.</li>
+    <li>🧬 I'm not what I seem — more binary than actual text. Docode me to see my true form.</li>
+  </ul>
+  <p>💡 The truth awaits in your console.</p>
+{% endblock %}
+
+{% block content %}
+  {# Your level content goes here #}
+  <div class="level-container">
+    {{level_session.level_metadata.input_text}}
+  </div>
+{% endblock %}

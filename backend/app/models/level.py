@@ -7,6 +7,7 @@ from app.utils.level.elements.e6_helpers import e6_initialize_level
 from app.utils.level.console.c3_helpers import c3_initialize_level
 from app.utils.level.sources.s1_helpers import s1_initialize_level
 from app.utils.level.sources.s2_helpers import s2_initialize_level
+from app.utils.level.console.c4_helpers import c4_initialize_level
 
 class CategoryEnum(enum.Enum):
     Elements = "Elements"
@@ -15,7 +16,7 @@ class CategoryEnum(enum.Enum):
     Sources = "Sources"
     Performance = "Performance"
 
-LevelKey = Literal["e1", "e2", "e3", "e4", "e5", "e6", "e7", "n1", "n2", "n3", "n4", "n5", "n6", "n7", "s1", "s2", "s3", "c1", "c2", "c3", "s4"]
+LevelKey = Literal["e1", "e2", "e3", "e4", "e5", "e6", "e7", "n1", "n2", "n3", "n4", "n5", "n6", "n7", "s1", "s2", "s3", "c1", "c2", "c3", "s4", "c4"]
 
 class Level(BaseModel):
     key: LevelKey
@@ -48,6 +49,7 @@ levels: list[Level] = [
     Level(key="c1", title="Console Chronicles", category=CategoryEnum.Console, order_in_category=1, difficulty=1),
     Level(key="c2", title="Silent Conversation", category=CategoryEnum.Console, order_in_category=2, difficulty=2),
     Level(key="c3", title="Frame Whisperer", category=CategoryEnum.Console, order_in_category=3, difficulty=2, session_factory=c3_initialize_level),
+    Level(key="c4", title="Evaluation Station", category=CategoryEnum.Console, order_in_category=4, difficulty=2, session_factory=c4_initialize_level),
 ]
 
 def get_level_by_key(key: str) -> Optional[Level]:
