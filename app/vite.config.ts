@@ -1,12 +1,14 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import path from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@devtools-dash': '/src',
+      // '@devtools-dash': '/src',
+      '@devtools-dash': path.resolve(__dirname, './src'),
     }
   },
   server: {
