@@ -1,7 +1,7 @@
 import { TokenData } from '@devtools-dash/types/openapi';
 import styles from './Navigation.module.css';
 import { useState } from 'react';
-import StarIcon from '@devtools-dash/components/StarIcon';
+import StarIcon from '@devtools-dash/components_temp/StarIcon';
 import Button from '../form/button/Button';
 
 const Navigation = (props: {user: TokenData, logout: () => void}) => {

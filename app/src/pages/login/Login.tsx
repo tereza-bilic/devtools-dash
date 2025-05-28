@@ -6,8 +6,8 @@ import { AnonymousGuard } from '@devtools-dash/guards/AnonymousGuard';
 import { isAxiosError } from 'axios';
 import { Link } from 'react-router-dom';
 import styles from './Login.module.css';
-import Input from '@devtools-dash/components/form/input/Input';
-import Button from '@devtools-dash/components/form/button/Button';
+import Input from '@devtools-dash/components_temp/form/input/Input';
+import Button from '@devtools-dash/components_temp/form/button/Button';
 
 
 const Login = () => {

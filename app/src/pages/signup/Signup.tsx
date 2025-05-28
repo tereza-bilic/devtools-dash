@@ -5,8 +5,8 @@ import { useAuth } from '@devtools-dash/context/AuthContext';
 import { AnonymousGuard } from '@devtools-dash/guards/AnonymousGuard';
 import { isAxiosError } from 'axios';
 import { Link } from 'react-router-dom';
-import Input from '@devtools-dash/components/form/input/Input';
-import Button from '@devtools-dash/components/form/button/Button';
+import Input from '@devtools-dash/components_temp/form/input/Input';
+import Button from '@devtools-dash/components_temp/form/button/Button';
 
 import styles from './Signup.module.css';
 

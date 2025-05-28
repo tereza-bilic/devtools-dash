@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { useAuth } from "@devtools-dash/context/AuthContext";
 import { useAxiosClient } from "@devtools-dash/context/AxiosContext";
-import Navigation from "@devtools-dash/components/Navigation/Navigation";
+import Navigation from "@devtools-dash/components_temp/Navigation/Navigation";
 
 const Layout = () => {
   const axiosClient = useAxiosClient();

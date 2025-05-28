@@ -5,8 +5,8 @@ import { CompletedLevelResponse } from "@devtools-dash/types/openapi";
 import { useAxiosClient } from "@devtools-dash/context/AxiosContext";
 
 import styles from "./CompletedLevel.module.css";
-import Button from "@devtools-dash/components/form/button/Button";
-import StarIcon from "@devtools-dash/components/StarIcon";
+import Button from "@devtools-dash/components_temp/form/button/Button";
+import StarIcon from "@devtools-dash/components_temp/StarIcon";
 
 const CompletedLevel = () => {
   const axiosClient = useAxiosClient();
