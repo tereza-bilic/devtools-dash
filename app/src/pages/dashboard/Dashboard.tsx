@@ -3,19 +3,19 @@ import { AuthGuard } from '@devtools-dash/guards/AuthGuard';
 import { LevelResponse, LevelSessionResponse } from '@devtools-dash/types/openapi';
 import { useAxiosClient } from '@devtools-dash/context/AxiosContext';
 import { intervalToDuration } from "date-fns";
-import { RadarChart } from '@devtools-dash/components_temp/RadarChart/RadarChart';
-import { CalendarChart } from '@devtools-dash/components_temp/CalendarChart/CalendarChart';
-import CategoryProgressGrid from '@devtools-dash/components_temp/CategoryProgressGrid/CategoryProgressGrid';
-import Achievements from '@devtools-dash/components_temp/Achievements/Achievements';
+import { RadarChart } from '@devtools-dash/components/RadarChart/RadarChart';
+import { CalendarChart } from '@devtools-dash/components/CalendarChart/CalendarChart';
+import CategoryProgressGrid from '@devtools-dash/components/CategoryProgressGrid/CategoryProgressGrid';
+import Achievements from '@devtools-dash/components/Achievements/Achievements';
 
 import styles from './dashboard.module.css';
-import ProgressBar from '@devtools-dash/components_temp/progressBar/ProgressBar';
+import ProgressBar from '@devtools-dash/components/progressBar/ProgressBar';
 import { categories } from '@devtools-dash/consts/categories';
-import StarIcon from '@devtools-dash/components_temp/StarIcon';
-import PersonIcon from '@devtools-dash/components_temp/PersonIcon/PersonIcon';
+import StarIcon from '@devtools-dash/components/StarIcon';
+import PersonIcon from '@devtools-dash/components/PersonIcon/PersonIcon';
 import { useAuth } from '@devtools-dash/context/AuthContext';
 import { Badge, BadgeType } from '@devtools-dash/consts/badge';
-import LeaderboardMinimized from '@devtools-dash/components_temp/LeaderboardMinimized/LeaderboardMinimized';
+import LeaderboardMinimized from '@devtools-dash/components/LeaderboardMinimized/LeaderboardMinimized';
 import { Link } from 'react-router-dom';
 
 const Dashboard = () => {

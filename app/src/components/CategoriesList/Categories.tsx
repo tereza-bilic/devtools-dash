@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { capitalize } from '@devtools-dash/utils/string-functions';
 import { AuthGuard } from '../../guards/AuthGuard';
 import { CategoryResponse } from '@devtools-dash/types/openapi';
-import ProgressBar from '@devtools-dash/components_temp/progressBar/ProgressBar';
+import ProgressBar from '@devtools-dash/components/progressBar/ProgressBar';
 import React, { useEffect, useState } from 'react';
 import Button from '../form/button/Button';
 import { categoryIconMap } from '@devtools-dash/consts/categories';

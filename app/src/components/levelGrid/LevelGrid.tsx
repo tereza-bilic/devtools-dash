@@ -5,7 +5,7 @@ import { useAxiosClient } from '@devtools-dash/context/AxiosContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import { CategoryEnum, LevelResponse, LevelSessionResponse } from '@devtools-dash/types/openapi';
 import { useEffect, useState } from 'react';
-import Button from '@devtools-dash/components_temp/form/button/Button';
+import Button from '@devtools-dash/components/form/button/Button';
 import StarIcon from '../StarIcon';
 
 const LevelGrid = () => {
