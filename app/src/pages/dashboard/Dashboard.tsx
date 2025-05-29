@@ -74,11 +74,10 @@ const Dashboard = () => {
     return total + (duration.hours || 0) * 60 + (duration.minutes || 0);
   }, 0);
 
-  const totalStars = levels.reduce((total, level) => {
+  const totalStars = levels.filter(l => l.completed).reduce((total, level) => {
     const stars = level.difficulty || 0;
     return total + stars;
-  }
-  , 0);
+  }, 0);
 
   const getProgressPerCategory = (category: string) => {
     const categoryLevels = levels.filter(level => level.category === category);

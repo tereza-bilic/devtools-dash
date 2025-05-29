@@ -20,7 +20,10 @@ async def get_completed(db_session: AsyncSession, user_id: int, id: int) -> Comp
         id=level_session.id,
         started_at=level_session.started_at,
         finished_at=level_session.finished_at,
-        level_key=level_session.level_key)
+        level_key=level_session.level_key,
+        difficulty=level_session.level.difficulty if level_session.level else None,
+        try_count=level_session.try_count
+        )
 
 async def start_level_public(db_session: AsyncSession, user_id: int, level_key: str) -> LevelSessionResponse:
     level_session = await start_level(db_session, user_id, level_key)

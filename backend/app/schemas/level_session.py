@@ -6,6 +6,8 @@ class CompletedLevelResponse(BaseModel):
     started_at: datetime
     finished_at: datetime
     level_key: str
+    difficulty: int | None
+    try_count: int
 
 
 class LevelSessionResponse(BaseModel):
