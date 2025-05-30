@@ -38,6 +38,7 @@ const LevelGrid = () => {
       }
     };
   }, [windowProxy]);
+
   const fetchLevels = async () => {
     if (!category) {
       return;
@@ -49,7 +50,7 @@ const LevelGrid = () => {
 
   useEffect(() => {
     fetchLevels();
-  }, []);
+  }, [category, axiosClient]);
 
   const handleLevelClick = async (level: LevelResponse) => {
     const startResponse = await axiosClient.api_start_level_api_level_session_start__level_key__post({
@@ -59,24 +60,54 @@ const LevelGrid = () => {
     setWindowProxy(window.open('/api/level_session/play/' + level.level_key, '_blank'));
   }
 
+  // Helper function to render difficulty stars
+  const renderDifficultyStars = (difficulty: number = 1) => {
+    const stars = [];
+    const maxStars = difficulty > 0 ? difficulty : 1; // Ensure at least 1 star
+
+    for (let i = 0; i < maxStars; i++) {
+      stars.push(
+        <StarIcon key={i} width='14px' height='14px' />
+      );
+    }
+    return stars;
+  };
+
   return (
     <AuthGuard>
       <div className={styles.container}>
         <div className={styles.levels}>
           <div className={styles.header}>
             <h2>{category}</h2>
-            <Button type="button" onClick={() => navigate('/')}>back</Button>
+            <Button type="button" onClick={() => navigate('/')}>
+              <span className={styles.backButtonText}>Back to Categories</span>
+            </Button>
           </div>
 
           <div className={styles.levelGrid}>
             {levels.map((level) => (
-              <button key={level.level_key} className={styles.level + " " + (level.completed && styles.completed)} onClick={() => handleLevelClick(level)}>
-                {level.completed && (
-                  <div className={styles.completedIcon}>
-                    <StarIcon width='30px' height='30px'/>
+              <button
+                key={level.level_key}
+                className={`${styles.level} ${level.completed ? styles.completed : ''}`}
+                onClick={() => handleLevelClick(level)}
+                aria-label={`Level ${level.order_in_category}, difficulty: ${level.difficulty}`}
+              >
+                <div className={styles.levelOrder}>{level.order_in_category}</div>
+
+                {level.completed ? (
+                  <>
+                    <div className={styles.completedIcon}>
+                      <StarIcon width='30px' height='30px'/>
+                    </div>
+                    <div className={styles.difficultyStars}>
+                      {renderDifficultyStars(level.difficulty)}
+                    </div>
+                  </>
+                ) : (
+                  <div className={styles.difficultyStars}>
+                    {renderDifficultyStars(level.difficulty)}
                   </div>
                 )}
-                {level.order_in_category}
               </button>
             ))}
           </div>
