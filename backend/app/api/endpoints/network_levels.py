@@ -156,3 +156,13 @@ async def get_n7_response(
         return {"secret": level_session.finish_secret}
     else:
         return {"message": "You shall not pass! You must put a password in the X-Secret-Password"}
+
+# Add this route to your FastAPI app
+@router.post("/api/secret/hidden_treasure")
+async def handle_hidden_treasure(request_data: dict):
+    # This endpoint will be called by the fetch in n8_optional.js
+    return {
+        "status": "success",
+        "message": "You found the treasure! Now who sent you here?",
+        "hint": "The answer is the filename without the extension"
+    }

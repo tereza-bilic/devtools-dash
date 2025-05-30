@@ -16,7 +16,7 @@ class CategoryEnum(enum.Enum):
     Sources = "Sources"
     Performance = "Performance"
 
-LevelKey = Literal["e1", "e2", "e3", "e4", "e5", "e6", "e7", "n1", "n2", "n3", "n4", "n5", "n6", "n7", "s1", "s2", "s3", "c1", "c2", "c3", "s4", "c4", "e8", "s5"]
+LevelKey = Literal["e1", "e2", "e3", "e4", "e5", "e6", "e7", "n1", "n2", "n3", "n4", "n5", "n6", "n7", "s1", "s2", "s3", "c1", "c2", "c3", "s4", "c4", "e8", "s5", "n8"]
 
 class Level(BaseModel):
     key: LevelKey
@@ -53,6 +53,8 @@ levels: list[Level] = [
     Level(key="e8", title="Join The Dark Side", category=CategoryEnum.Elements, order_in_category=8, difficulty=2),
 
     Level(key="s5", title="Only When It's Right", category=CategoryEnum.Sources, order_in_category=5, difficulty=2),
+
+    Level(key="n8", title="The Initiation", category=CategoryEnum.Network, order_in_category=8, difficulty=2),
 ]
 
 def get_level_by_key(key: str) -> Optional[Level]:

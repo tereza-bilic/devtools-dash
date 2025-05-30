@@ -1,0 +1,19 @@
+{# filepath: /Users/tere/DIPL/devtools-dash/backend/app/templates/level_n8/n8.html #}
+{% extends "level.html" %}
+{% set key = level_session.level_key %}
+{% set title = level_session.level.title %}
+{% set secret = level_session.finish_secret %}
+
+{% block head %}
+  <!-- Load the main script first -->
+  <script src="{{ url_path_for('get_level_js', level_key='n8') }}"></script>
+  <script src="{{ url_path_for('get_level_js', level_key='n8') }}?different_filename=optional&should_obfuscate=False"></script>
+{% endblock %}
+
+{% block hint %}
+  Refresh to see al the requests in the Network tab. For each request, the Initiator column shows what caused the request.
+{% endblock %}
+
+{% block content %}
+  One of these requests is not from the same place as the others. Find it and the secret tresure is yours! 🏴‍☠️
+{% endblock %}
