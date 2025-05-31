@@ -95,7 +95,7 @@ def get_next_level_key(category: str) -> str:
     return f"{category_prefix}{next_number}"
 
 
-def update_level_model(level_key: str, title: str, category: CategoryEnum, order: int, difficulty: int) -> bool:
+def update_level_model(level_key: str, title: str, category: CategoryEnum, order: int, difficulty: int, is_tutorial: bool = False) -> bool:
     """Update the level.py file with the new level."""
     with open(LEVEL_MODEL_PATH, "r") as f:
         content = f.read()
@@ -129,7 +129,12 @@ def update_level_model(level_key: str, title: str, category: CategoryEnum, order
 
     # Update levels list
     levels_list_pattern = r'(levels\s*:\s*list\[Level\]\s*=\s*\[)([^\]]*?)(\])'
-    new_level = f'Level(key="{level_key}", title="{title}", category=CategoryEnum.{proper_case_category}, order_in_category={order}, difficulty={difficulty})'
+
+    # Add is_tutorial parameter if it's True
+    if is_tutorial:
+        new_level = f'Level(key="{level_key}", title="{title}", category=CategoryEnum.{proper_case_category}, order_in_category={order}, is_tutorial=True, difficulty={difficulty})'
+    else:
+        new_level = f'Level(key="{level_key}", title="{title}", category=CategoryEnum.{proper_case_category}, order_in_category={order}, difficulty={difficulty})'
 
     if category_levels:
         # Find the last level in this category
@@ -165,10 +170,13 @@ def update_level_model(level_key: str, title: str, category: CategoryEnum, order
     return True
 
 
-def create_html_template(level_dir: Path, level_key: str, title: str, hint: str, js_files: List[str], css_files: List[str]) -> None:
+def create_html_template(level_dir: Path, level_key: str, title: str, hint: str, js_files: List[str], css_files: List[str], is_tutorial: bool = False) -> None:
     """Create the HTML template for the level."""
+    # Set the template to extend based on whether it's a tutorial level or not
+    extends_template = "tutorial_level.html" if is_tutorial else "level.html"
+
     template = f"""{{# filepath: {level_dir}/{level_key}.html #}}
-{{% extends "level.html" %}}
+{{% extends "{extends_template}" %}}
 {{% set key = level_session.level_key %}}
 {{% set title = level_session.level.title %}}
 {{% set secret = level_session.finish_secret %}}
@@ -353,11 +361,14 @@ def create_level():
             css_files.append(css_name)
             create_css_file(level_dir, level_key, css_name)
 
+    # Ask if this is a tutorial level
+    is_tutorial = confirm("Is this a tutorial level?", default=False)
+
     # Create HTML template
-    create_html_template(level_dir, level_key, title, hint, js_files, css_files)
+    create_html_template(level_dir, level_key, title, hint, js_files, css_files, is_tutorial)
 
     # Update level model
-    if update_level_model(level_key, title, category, order, difficulty):
+    if update_level_model(level_key, title, category, order, difficulty, is_tutorial):
         console.print(f"[bold green]✓ Level '{level_key}' created successfully![/]")
         console.print(f"[cyan]Level directory:[/] {level_dir}")
         console.print(f"[cyan]JavaScript files:[/] {', '.join(js_files)}")

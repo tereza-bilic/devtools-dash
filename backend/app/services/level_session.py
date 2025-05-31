@@ -82,7 +82,7 @@ async def submit_level(db_session: AsyncSession, user_id: int, level_key: str, l
 
     existing_session.try_count += 1
 
-    if existing_session.finish_secret == level_secret:
+    if existing_session.finish_secret == level_secret or existing_session.level.is_tutorial:
         existing_session.completed = True
         existing_session.finished_at = datetime.now()
         await update_level_session(db_session, existing_session)

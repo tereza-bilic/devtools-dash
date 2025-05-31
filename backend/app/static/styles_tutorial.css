@@ -39,7 +39,7 @@ main {
 }
 
 /* Level-specific components */
-.level-header {
+.tutorial-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -48,7 +48,7 @@ main {
   padding-bottom: 1rem;
 }
 
-.level-badge {
+.tutorial-badge {
   background-color: var(--primary-light);
   opacity: 50%;
   color: white;
@@ -61,7 +61,7 @@ main {
 }
 
 /* Level hint styles */
-.level-hint {
+.tutorial-hint {
   position: relative;
   display: inline-block;
   width: 28px;
@@ -78,12 +78,12 @@ main {
   transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
-.level-hint:hover {
+.tutorial-hint:hover {
   background-color: var(--color-orange-hover);
 }
 
 /* Only pulse during the waiting period before hint appears */
-.level-hint.pulsing {
+.tutorial-hint.pulsing {
   animation: pulse 1s ease-in;
 }
 
@@ -99,7 +99,7 @@ main {
   }
 }
 
-.level-hint::after {
+.tutorial-hint::after {
   content: attr(data-hint);
   position: absolute;
   top: 100%;
@@ -127,7 +127,7 @@ main {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.level-hint::before {
+.tutorial-hint::before {
   content: '';
   position: absolute;
   top: -3px;
@@ -140,7 +140,7 @@ main {
   pointer-events: none;
 }
 
-.level-hint:hover::before {
+.tutorial-hint:hover::before {
   border-color: var(--color-orange);
   border-top-color: transparent;
   animation: spin 1s linear infinite;
@@ -151,7 +151,7 @@ main {
   100% { transform: rotate(360deg); }
 }
 
-.level-hint:hover::after {
+.tutorial-hint:hover::after {
   opacity: 1;
   visibility: visible;
   transform: translateY(5px);
@@ -159,10 +159,9 @@ main {
     opacity 0.3s ease,
     transform 0.3s ease,
     visibility 0s linear;
-  transition-delay: 1s; /* Delay before showing the hint - increased to 1 second */
 }
 
-.level-title {
+.tutorial-title {
   color: var(--primary-color);
   font-size: 1.8rem;
   font-weight: 600;
@@ -171,13 +170,13 @@ main {
   gap: 10px;
 }
 
-.level-description {
+.tutorial-description {
   margin-bottom: 2rem;
   color: #666;
   font-size: 1rem;
 }
 
-.level-content {
+.tutorial-content {
   background-color: var(--card-bg);
   border-radius: var(--border-radius);
   padding: 1.5rem;
@@ -191,7 +190,7 @@ main {
   display: flex;
   gap: 0.75rem;
   max-width: 500px;
-  margin: 2rem auto 0;
+  margin: 0;
   align-items: center;
 }
 
@@ -278,7 +277,7 @@ main {
     width: 100%;
   }
 
-  .level-header {
+  .tutorial-header {
     padding: 0.75rem 1rem;
   }
 
@@ -286,13 +285,13 @@ main {
     padding: 1rem;
   }
 
-  .level-hint::after {
+  .tutorial-hint::after {
     width: 200px;
     right: -80px;
   }
 
   /* Make hint visible with a short tap on mobile */
-  .level-hint:active::after {
+  .tutorial-hint:active::after {
     opacity: 1;
     visibility: visible;
     transform: translateY(5px);

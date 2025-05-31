@@ -13,6 +13,7 @@ async def get_user_levels_by_category(db_session: AsyncSession, user_id: int, ca
         category=level.category,
         order_in_category=level.order_in_category,
         difficulty=level.difficulty,
+        is_tutorial=level.is_tutorial,
         completed=any(session.level_key == level.key and session.completed for session in user_sessions),
         in_progress=any(session.level_key == level.key and not session.completed for session in user_sessions)
     ) for level in levels_in_category]
@@ -39,6 +40,7 @@ async def get_user_levels(db_session: AsyncSession, user_id: int) -> list[LevelR
         category=level.category,
         order_in_category=level.order_in_category,
         difficulty=level.difficulty,
+        is_tutorial=level.is_tutorial,
         completed=any(session.level_key == level.key and session.completed for session in user_sessions),
         in_progress=any(session.level_key == level.key and not session.completed for session in user_sessions),
         # duration=sum((session.finished_at - session.started_at) for session in user_sessions if session.level_key == level.key and session.completed)

@@ -4,7 +4,7 @@ import Network from "@devtools-dash/components/icons/Network";
 import Sources from "@devtools-dash/components/icons/Sources";
 import { CategoryEnum } from "@devtools-dash/types/openapi";
 
-export const categories: CategoryEnum[] = ['Elements', 'Console', 'Network', 'Sources', 'Performance'];
+export const categories: CategoryEnum[] = ['Elements', 'Console', 'Network', 'Sources'];
 
 export const categoryIconMap: Record<string, () => React.ReactNode> = {
   'Elements': Elements,

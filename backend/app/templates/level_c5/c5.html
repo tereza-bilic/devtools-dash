@@ -1,0 +1,238 @@
+{# filepath: /Users/tere/DIPL/devtools-dash/backend/app/templates/level_c5/c5.html #}
+{% extends "tutorial_level.html" %}
+{% set key = level_session.level_key %}
+{% set title = level_session.level.title %}
+{% set secret = level_session.finish_secret %}
+
+{% block head %}
+  <script defer src="{{ url_path_for('get_level_js', level_key='c5') }}?should_obfuscate=False"></script>
+  <style>
+    code {
+      font-family: monospace;
+      background-color: #f5f5f5;
+      padding: 2px 4px;
+      border-radius: 3px;
+      color: #d63384;
+      font-size: 0.9em;
+    }
+/*
+    pre {
+      margin: 15px 0;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }*/
+
+    .console-example {
+      background-color: #282c34;
+      color: #abb2bf;
+      padding: 12px;
+      border-radius: 6px;
+      font-family: monospace;
+      margin: 15px 0;
+      position: relative;
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .shorthand-highlight {
+      display: inline-block;
+      background: linear-gradient(to right, rgba(91, 134, 215, 0.2), transparent);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    .interactive-section {
+      border: 2px dashed var(--primary-light);
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 8px;
+      background-color: #fafafa;
+    }
+
+    .note-box {
+      padding: 12px;
+      margin: 15px 0;
+      background-color: #fff8e1;
+      border-left: 4px solid #ffca28;
+      border-radius: 4px;
+    }
+
+    /* Animation for shorthand examples */
+    .flash-highlight {
+      animation: flash 2s ease-in-out;
+    }
+
+    @keyframes flash {
+      0% { background-color: transparent; }
+      30% { background-color: rgba(91, 134, 215, 0.2); }
+      100% { background-color: transparent; }
+    }
+  </style>
+{% endblock %}
+
+
+{% block content %}
+  <div class="stepper-item active" data-step="1">
+    <div class="tutorial-content">
+      <h2 style="color: var(--primary-color);">$0: The Selected Element</h2>
+      <p>Ever needed to reference the element you just clicked in the Elements panel? Meet <code style="background-color: #f0f0f0; padding: 2px 5px; border-radius: 4px; color: #e83e8c;">$0</code> - your new best friend!</p>
+
+      <div style="background-color: #f8f9fa; border-left: 4px solid var(--primary-color); padding: 10px; margin: 15px 0;">
+        <p><strong>What it does:</strong> <code>$0</code> refers to the currently selected element in the Elements panel.</p>
+      </div>
+
+      <div style="margin-top: 20px; display: flex; flex-direction: column; align-items: center;">
+        <p>Try it yourself:</p>
+        <ol style="width: fit-content;">
+          <li>Right click and inspect this element</li>
+          <div style="width: 25px; height: 25px; background-color: #7a44e6; border-radius: 5px; margin: 10px auto;"></div>
+          <li>Type <code>$0</code> in the Console and press Enter</li>
+          <li>Find the element's backgroundColor in rgb
+            <span class="tutorial-hint" data-hint="Hint: Try typing 'element.style.backgroundColor' in the console to get the color." style="cursor: help; display: inline-block; margin-left: 5px; width: 16px; height: 16px; background-color: var(--color-orange); color: white; border-radius: 50%; text-align: center; font-size: 12px; line-height: 16px;">?</span>
+          </li>
+        </ol>
+
+        <input type="text" id="color-input" placeholder="rgb(0, 0, 0)"  pattern="rgb(122, 68, 230)" style="width: 200px; padding: 5px; border-radius: 4px; border: 1px solid #ccc; margin-top: 10px;">
+        <span id="result"></span>
+      </div>
+
+      <div style="background-color: #e8f4fc; padding: 10px; border-radius: 5px; margin-top: 15px;">
+        <p><strong>Pro Tip:</strong> You can also access previously selected elements with <code>$1</code>, <code>$2</code>, <code>$3</code>, and <code>$4</code>!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="stepper-item hidden" data-step="2">
+    <div class="tutorial-content">
+      <h2 style="color: var(--primary-dark);">$(): The Document Selector</h2>
+      <p>Tired of typing <code>document.querySelector()</code> over and over? </p>
+
+      <div style="background-color: #f8f9fa; border-left: 4px solid var(--primary-dark); padding: 10px; margin: 15px 0;">
+        <p><strong>What it does:</strong> <code>$()</code> is a shorthand for <code>document.querySelector()</code>.</p>
+      </div>
+
+      <div style="margin-top: 20px;">
+        <p>Let's compare:</p>
+        <pre>
+          <code class="language-javascript">
+// The old way:
+document.querySelector('#my-awesome-id').textContent = 'Hello!';
+
+// The cool way:
+$('#my-awesome-id').textContent = 'Hello!';
+          </code>
+        </pre>
+      </div>
+
+      <div style="background-color: #fff3cd; padding: 10px; border-radius: 5px; margin-top: 15px;">
+        <p><strong>Important:</strong> This console shorthand is NOT jQuery! It returns the first matching element only, not a collection.</p>
+      </div>
+
+      <div style="margin-top: 15px;">
+        <p><strong>Your turn:</strong> Try selecting an element with an ID on the current page:</p>
+        <code id="fancy-element-id-here" style="display: block; background-color: #f0f0f0; padding: 10px; margin-top: 5px;">$('#fancy-element-id-here')</code>
+      </div>
+    </div>
+  </div>
+
+  <div class="stepper-item hidden" data-step="3">
+    <div class="tutorial-content">
+      <h2 style="color: var(--color-orange);">$$(): The Multiple Selector</h2>
+      <p>Need to grab all matching elements at once? <code style="background-color: #f0f0f0; padding: 2px 5px; border-radius: 4px; color: #e83e8c;">$$()</code> has got your back!</p>
+
+      <div style="background-color: #f8f9fa; border-left: 4px solid var(--color-orange); padding: 10px; margin: 15px 0;">
+        <p><strong>What it does:</strong> <code>$$()</code> is shorthand for <code>document.querySelectorAll()</code> and returns an array of elements.</p>
+      </div>
+
+      <div style="margin-top: 15px;">
+        <p>For example, to get all buttons on a page:</p>
+        <pre>
+        <code class="language-javascript">
+  // Get all buttons
+  $$('button')
+
+  // Do something with each button
+  $$('button').forEach(btn => btn.style.backgroundColor = 'purple')
+        </code>
+        </pre>
+      </div>
+
+      <div style="margin-top: 15px;">
+        <p><strong>Challenge:</strong> Count all paragraph elements on this page:</p>
+        <code style="display: block; background-color: #f0f0f0; padding: 10px; margin-top: 5px;">$$('p').length</code>
+        <input type="number" id="paragraph-count" placeholder="Count of paragraphs" style="width: 200px; padding: 5px; border-radius: 4px; border: 1px solid #ccc; margin-top: 10px;">
+        <span id="paragraph-result"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="stepper-item hidden" data-step="4">
+    <div class="tutorial-content">
+      <h2 style="color: var(--success-color);">$_: The Previous Result</h2>
+      <p>Ever ran a command and then wanted to use its result? Meet <code style="background-color: #f0f0f0; padding: 2px 5px; border-radius: 4px; color: #e83e8c;">$_</code> - the last expression's value!</p>
+
+      <div style="background-color: #f8f9fa; border-left: 4px solid var(--success-color); padding: 10px; margin: 15px 0;">
+        <p><strong>What it does:</strong> <code>$_</code> stores the value of the last evaluated expression in the console.</p>
+      </div>
+
+      <div style="margin-top: 20px;">
+        <p>Try this sequence in your console:</p>
+        <pre>
+          <code class="language-javascript">
+// Step 1: Run this
+'DevTools Ninja'
+
+// Step 2: Now run this to see the previous result
+$_
+
+// Step 3: Let's manipulate the previous result
+$_.toUpperCase()
+
+// Step 4: And again!
+$_.split('')
+          </code>
+        </pre>
+      </div>
+
+      <div style="background-color: #d1e7dd; padding: 10px; border-radius: 5px; margin-top: 15px;">
+        <p><strong>Power move:</strong> Chain operations on complex data without having to store variables!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="stepper-item hidden" data-step="5">
+    <div class="tutorial-content">
+      <h2 style="color: var(--primary-light);">Putting It All Together</h2>
+      <p>Now that you know these powerful shorthands, let's combine them!</p>
+
+      <div style="margin-top: 15px; background-color: #f8f9fa; padding: 15px; border-radius: 5px;">
+        <p><strong>Real-world example:</strong> Change the background color of all paragraphs, then modify the first one specifically.</p>
+
+        <pre>
+        <code class="language-javascript">
+// Select all paragraphs and give them a light gray background
+$$('p').forEach(p => p.style.backgroundColor = '#f0f0f0')
+
+// Get the first paragraph
+$('p')
+
+// It's now in $_, so let's make it stand out!
+$_.style.color = 'red'
+$_.textContent = 'I was modified using console shortcuts!'
+        </code>
+        </pre>
+      </div>
+
+      <div style="margin-top: 20px; padding: 15px; background-color: #e8f4fc; border-radius: 5px;">
+        <h3>Key Takeaways:</h3>
+        <ul style="margin-left: 20px;">
+          <li><code>$0</code> - Currently selected element in Elements panel</li>
+          <li><code>$()</code> - Shorthand for <code>document.querySelector()</code></li>
+          <li><code>$$()</code> - Shorthand for <code>document.querySelectorAll()</code></li>
+          <li><code>$_</code> - Value of the last expression</li>
+        </ul>
+        <p style="margin-top: 15px;">These shortcuts will make you significantly faster during debugging sessions!</p>
+      </div>
+    </div>
+  </div>
+{% endblock %}

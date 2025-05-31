@@ -22,7 +22,7 @@ export const RadarChart: React.FC<RadarChartProps> = ({ levels }) => {
         data={radarData}
         keys={['value']}
         indexBy="category"
-        maxValue={6}
+        maxValue={10}
         margin={{ top: 50, right: 50, bottom: 50, left: 50 }}
         curve="linearClosed"
         borderWidth={2}

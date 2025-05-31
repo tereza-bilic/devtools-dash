@@ -88,7 +88,7 @@ const LevelGrid = () => {
             {levels.map((level) => (
               <button
                 key={level.level_key}
-                className={`${styles.level} ${level.completed ? styles.completed : ''}`}
+                className={`${styles.level} ${level.completed ? styles.completed : ''} ${level.is_tutorial ? styles.tutorial : ''}`}
                 onClick={() => handleLevelClick(level)}
                 aria-label={`Level ${level.order_in_category}, difficulty: ${level.difficulty}`}
               >

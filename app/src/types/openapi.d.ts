@@ -194,6 +194,10 @@ declare namespace Components {
              */
             in_progress: boolean;
             /**
+             * Is Tutorial
+             */
+            is_tutorial: boolean;
+            /**
              * Duration
              */
             duration?: /* Duration */ number | null;
@@ -396,7 +400,7 @@ declare namespace Paths {
             /**
              * Level Key
              */
-            export type LevelKey = "e1" | "e2" | "e3" | "e4" | "e5" | "e6" | "e7" | "n1" | "n2" | "n3" | "n4" | "n5" | "n6" | "n7" | "s1" | "s2" | "s3" | "c1" | "c2" | "c3" | "s4" | "c4" | "e8" | "s5";
+            export type LevelKey = "e1" | "e2" | "e3" | "e4" | "e5" | "e6" | "e7" | "n1" | "n2" | "n3" | "n4" | "n5" | "n6" | "n7" | "s1" | "s2" | "s3" | "c1" | "c2" | "c3" | "s4" | "c4" | "e8" | "s5" | "n8" | "e9" | "c5";
         }
         export interface PathParameters {
             level_key: /* Level Key */ Parameters.LevelKey;
@@ -417,7 +421,7 @@ declare namespace Paths {
             /**
              * Level Key
              */
-            export type LevelKey = "e1" | "e2" | "e3" | "e4" | "e5" | "e6" | "e7" | "n1" | "n2" | "n3" | "n4" | "n5" | "n6" | "n7" | "s1" | "s2" | "s3" | "c1" | "c2" | "c3" | "s4" | "c4" | "e8" | "s5";
+            export type LevelKey = "e1" | "e2" | "e3" | "e4" | "e5" | "e6" | "e7" | "n1" | "n2" | "n3" | "n4" | "n5" | "n6" | "n7" | "s1" | "s2" | "s3" | "c1" | "c2" | "c3" | "s4" | "c4" | "e8" | "s5" | "n8" | "e9" | "c5";
         }
         export interface PathParameters {
             level_key: /* Level Key */ Parameters.LevelKey;
@@ -437,7 +441,7 @@ declare namespace Paths {
             /**
              * Level Key
              */
-            export type LevelKey = "e1" | "e2" | "e3" | "e4" | "e5" | "e6" | "e7" | "n1" | "n2" | "n3" | "n4" | "n5" | "n6" | "n7" | "s1" | "s2" | "s3" | "c1" | "c2" | "c3" | "s4" | "c4" | "e8" | "s5";
+            export type LevelKey = "e1" | "e2" | "e3" | "e4" | "e5" | "e6" | "e7" | "n1" | "n2" | "n3" | "n4" | "n5" | "n6" | "n7" | "s1" | "s2" | "s3" | "c1" | "c2" | "c3" | "s4" | "c4" | "e8" | "s5" | "n8" | "e9" | "c5";
             /**
              * Should Obfuscate
              */
@@ -508,6 +512,17 @@ declare namespace Paths {
             export type $200 = any;
         }
     }
+    namespace HandleHiddenTreasureApiLevelNetworkApiSecretHiddenTreasurePost {
+        /**
+         * Request Data
+         */
+        export interface RequestBody {
+        }
+        namespace Responses {
+            export type $200 = any;
+            export type $422 = /* HTTPValidationError */ Components.Schemas.HTTPValidationError;
+        }
+    }
     namespace LoginForAccessTokenApiUserLoginPost {
         export type RequestBody = /* Body_login_for_access_token_api_user_login_post */ Components.Schemas.BodyLoginForAccessTokenApiUserLoginPost;
         namespace Responses {
@@ -568,7 +583,7 @@ export interface OperationMethods {
   'login_for_access_token_api_user_login_post'(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: Paths.LoginForAccessTokenApiUserLoginPost.RequestBody,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig  
   ): OperationResponse<Paths.LoginForAccessTokenApiUserLoginPost.Responses.$200>
   /**
    * register_api_user_register_post - Register
@@ -576,7 +591,7 @@ export interface OperationMethods {
   'register_api_user_register_post'(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: Paths.RegisterApiUserRegisterPost.RequestBody,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig  
   ): OperationResponse<Paths.RegisterApiUserRegisterPost.Responses.$200>
   /**
    * logout_api_user_logout_post - Logout
@@ -584,7 +599,7 @@ export interface OperationMethods {
   'logout_api_user_logout_post'(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: any,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig  
   ): OperationResponse<Paths.LogoutApiUserLogoutPost.Responses.$200>
   /**
    * get_me_api_user_me_get - Get Me
@@ -592,7 +607,7 @@ export interface OperationMethods {
   'get_me_api_user_me_get'(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: any,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig  
   ): OperationResponse<Paths.GetMeApiUserMeGet.Responses.$200>
   /**
    * completed_api_level_session_completed__completed_id__get - Completed
@@ -600,7 +615,7 @@ export interface OperationMethods {
   'completed_api_level_session_completed__completed_id__get'(
     parameters?: Parameters<Paths.CompletedApiLevelSessionCompletedCompletedIdGet.PathParameters> | null,
     data?: any,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig  
   ): OperationResponse<Paths.CompletedApiLevelSessionCompletedCompletedIdGet.Responses.$200>
   /**
    * get_level_sessions_api_level_session_all_get - Get Level Sessions
@@ -608,7 +623,7 @@ export interface OperationMethods {
   'get_level_sessions_api_level_session_all_get'(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: any,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig  
   ): OperationResponse<Paths.GetLevelSessionsApiLevelSessionAllGet.Responses.$200>
   /**
    * get_leaderboard_endpoint_api_level_session_leaderboard_get - Get Leaderboard Endpoint
@@ -616,7 +631,7 @@ export interface OperationMethods {
   'get_leaderboard_endpoint_api_level_session_leaderboard_get'(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: any,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig  
   ): OperationResponse<Paths.GetLeaderboardEndpointApiLevelSessionLeaderboardGet.Responses.$200>
   /**
    * api_start_level_api_level_session_start__level_key__post - Api Start Level
@@ -624,7 +639,7 @@ export interface OperationMethods {
   'api_start_level_api_level_session_start__level_key__post'(
     parameters?: Parameters<Paths.ApiStartLevelApiLevelSessionStartLevelKeyPost.PathParameters> | null,
     data?: any,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig  
   ): OperationResponse<Paths.ApiStartLevelApiLevelSessionStartLevelKeyPost.Responses.$200>
   /**
    * play_level_api_level_session_play__level_key__get - Play Level
@@ -632,7 +647,7 @@ export interface OperationMethods {
   'play_level_api_level_session_play__level_key__get'(
     parameters?: Parameters<Paths.PlayLevelApiLevelSessionPlayLevelKeyGet.PathParameters> | null,
     data?: any,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig  
   ): OperationResponse<Paths.PlayLevelApiLevelSessionPlayLevelKeyGet.Responses.$200>
   /**
    * submit_api_level_session_play__level_key__post - Submit
@@ -640,7 +655,7 @@ export interface OperationMethods {
   'submit_api_level_session_play__level_key__post'(
     parameters?: Parameters<Paths.SubmitApiLevelSessionPlayLevelKeyPost.PathParameters> | null,
     data?: Paths.SubmitApiLevelSessionPlayLevelKeyPost.RequestBody,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig  
   ): OperationResponse<Paths.SubmitApiLevelSessionPlayLevelKeyPost.Responses.$200>
   /**
    * get_level_js_api_level_session_js__level_key__js_get - Get Level Js
@@ -648,7 +663,7 @@ export interface OperationMethods {
   'get_level_js_api_level_session_js__level_key__js_get'(
     parameters?: Parameters<Paths.GetLevelJsApiLevelSessionJsLevelKeyJsGet.QueryParameters & Paths.GetLevelJsApiLevelSessionJsLevelKeyJsGet.PathParameters> | null,
     data?: any,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig  
   ): OperationResponse<Paths.GetLevelJsApiLevelSessionJsLevelKeyJsGet.Responses.$200>
   /**
    * get_level_css_api_level_session_css__level_key___filename__css_get - Get Level Css
@@ -656,7 +671,7 @@ export interface OperationMethods {
   'get_level_css_api_level_session_css__level_key___filename__css_get'(
     parameters?: Parameters<Paths.GetLevelCssApiLevelSessionCssLevelKeyFilenameCssGet.PathParameters> | null,
     data?: any,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig  
   ): OperationResponse<Paths.GetLevelCssApiLevelSessionCssLevelKeyFilenameCssGet.Responses.$200>
   /**
    * get_level_html_api_level_session_html__level_key___filename__html_get - Get Level Html
@@ -664,7 +679,7 @@ export interface OperationMethods {
   'get_level_html_api_level_session_html__level_key___filename__html_get'(
     parameters?: Parameters<Paths.GetLevelHtmlApiLevelSessionHtmlLevelKeyFilenameHtmlGet.PathParameters> | null,
     data?: any,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig  
   ): OperationResponse<Paths.GetLevelHtmlApiLevelSessionHtmlLevelKeyFilenameHtmlGet.Responses.$200>
   /**
    * get_n1_response_api_level_network_n1_message_get - Get N1 Response
@@ -672,7 +687,7 @@ export interface OperationMethods {
   'get_n1_response_api_level_network_n1_message_get'(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: any,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig  
   ): OperationResponse<Paths.GetN1ResponseApiLevelNetworkN1MessageGet.Responses.$200>
   /**
    * get_n3_response_api_level_network_n3_response_get - Get N3 Response
@@ -680,7 +695,7 @@ export interface OperationMethods {
   'get_n3_response_api_level_network_n3_response_get'(
     parameters?: Parameters<Paths.GetN3ResponseApiLevelNetworkN3ResponseGet.QueryParameters> | null,
     data?: any,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig  
   ): OperationResponse<Paths.GetN3ResponseApiLevelNetworkN3ResponseGet.Responses.$200>
   /**
    * get_n4_secret_api_level_network_n4_response_get - Get N4 Secret
@@ -688,7 +703,7 @@ export interface OperationMethods {
   'get_n4_secret_api_level_network_n4_response_get'(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: any,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig  
   ): OperationResponse<Paths.GetN4SecretApiLevelNetworkN4ResponseGet.Responses.$200>
   /**
    * get_n5_response_api_level_network_n5_response_get - Get N5 Response
@@ -696,7 +711,7 @@ export interface OperationMethods {
   'get_n5_response_api_level_network_n5_response_get'(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: any,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig  
   ): OperationResponse<Paths.GetN5ResponseApiLevelNetworkN5ResponseGet.Responses.$200>
   /**
    * get_n6_secret_js_api_level_network_n6_js_secret_js_get - Get N6 Secret Js
@@ -704,7 +719,7 @@ export interface OperationMethods {
   'get_n6_secret_js_api_level_network_n6_js_secret_js_get'(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: any,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig  
   ): OperationResponse<Paths.GetN6SecretJsApiLevelNetworkN6JsSecretJsGet.Responses.$200>
   /**
    * get_n7_response_api_level_network_n7_what_is_the_password_get - Get N7 Response
@@ -712,15 +727,23 @@ export interface OperationMethods {
   'get_n7_response_api_level_network_n7_what_is_the_password_get'(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: any,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig  
   ): OperationResponse<Paths.GetN7ResponseApiLevelNetworkN7WhatIsThePasswordGet.Responses.$200>
+  /**
+   * handle_hidden_treasure_api_level_network_api_secret_hidden_treasure_post - Handle Hidden Treasure
+   */
+  'handle_hidden_treasure_api_level_network_api_secret_hidden_treasure_post'(
+    parameters?: Parameters<UnknownParamsObject> | null,
+    data?: Paths.HandleHiddenTreasureApiLevelNetworkApiSecretHiddenTreasurePost.RequestBody,
+    config?: AxiosRequestConfig  
+  ): OperationResponse<Paths.HandleHiddenTreasureApiLevelNetworkApiSecretHiddenTreasurePost.Responses.$200>
   /**
    * get_categories_api_level_categories_get - Get Categories
    */
   'get_categories_api_level_categories_get'(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: any,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig  
   ): OperationResponse<Paths.GetCategoriesApiLevelCategoriesGet.Responses.$200>
   /**
    * get_by_category_api_level__level_category__get - Get By Category
@@ -728,7 +751,7 @@ export interface OperationMethods {
   'get_by_category_api_level__level_category__get'(
     parameters?: Parameters<Paths.GetByCategoryApiLevelLevelCategoryGet.PathParameters> | null,
     data?: any,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig  
   ): OperationResponse<Paths.GetByCategoryApiLevelLevelCategoryGet.Responses.$200>
   /**
    * get_all_levels_api_level__get - Get All Levels
@@ -736,7 +759,7 @@ export interface OperationMethods {
   'get_all_levels_api_level__get'(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: any,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig  
   ): OperationResponse<Paths.GetAllLevelsApiLevelGet.Responses.$200>
   /**
    * fallback__full_path__get - Fallback
@@ -744,7 +767,7 @@ export interface OperationMethods {
   'fallback__full_path__get'(
     parameters?: Parameters<Paths.FallbackFullPathGet.PathParameters> | null,
     data?: any,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig  
   ): OperationResponse<Paths.FallbackFullPathGet.Responses.$200>
 }
 
@@ -756,7 +779,7 @@ export interface PathsDictionary {
     'post'(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: Paths.LoginForAccessTokenApiUserLoginPost.RequestBody,
-      config?: AxiosRequestConfig
+      config?: AxiosRequestConfig  
     ): OperationResponse<Paths.LoginForAccessTokenApiUserLoginPost.Responses.$200>
   }
   ['/api/user/register']: {
@@ -766,7 +789,7 @@ export interface PathsDictionary {
     'post'(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: Paths.RegisterApiUserRegisterPost.RequestBody,
-      config?: AxiosRequestConfig
+      config?: AxiosRequestConfig  
     ): OperationResponse<Paths.RegisterApiUserRegisterPost.Responses.$200>
   }
   ['/api/user/logout']: {
@@ -776,7 +799,7 @@ export interface PathsDictionary {
     'post'(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: any,
-      config?: AxiosRequestConfig
+      config?: AxiosRequestConfig  
     ): OperationResponse<Paths.LogoutApiUserLogoutPost.Responses.$200>
   }
   ['/api/user/me']: {
@@ -786,7 +809,7 @@ export interface PathsDictionary {
     'get'(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: any,
-      config?: AxiosRequestConfig
+      config?: AxiosRequestConfig  
     ): OperationResponse<Paths.GetMeApiUserMeGet.Responses.$200>
   }
   ['/api/level_session/completed/{completed_id}']: {
@@ -796,7 +819,7 @@ export interface PathsDictionary {
     'get'(
       parameters?: Parameters<Paths.CompletedApiLevelSessionCompletedCompletedIdGet.PathParameters> | null,
       data?: any,
-      config?: AxiosRequestConfig
+      config?: AxiosRequestConfig  
     ): OperationResponse<Paths.CompletedApiLevelSessionCompletedCompletedIdGet.Responses.$200>
   }
   ['/api/level_session/all']: {
@@ -806,7 +829,7 @@ export interface PathsDictionary {
     'get'(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: any,
-      config?: AxiosRequestConfig
+      config?: AxiosRequestConfig  
     ): OperationResponse<Paths.GetLevelSessionsApiLevelSessionAllGet.Responses.$200>
   }
   ['/api/level_session/leaderboard']: {
@@ -816,7 +839,7 @@ export interface PathsDictionary {
     'get'(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: any,
-      config?: AxiosRequestConfig
+      config?: AxiosRequestConfig  
     ): OperationResponse<Paths.GetLeaderboardEndpointApiLevelSessionLeaderboardGet.Responses.$200>
   }
   ['/api/level_session/start/{level_key}']: {
@@ -826,7 +849,7 @@ export interface PathsDictionary {
     'post'(
       parameters?: Parameters<Paths.ApiStartLevelApiLevelSessionStartLevelKeyPost.PathParameters> | null,
       data?: any,
-      config?: AxiosRequestConfig
+      config?: AxiosRequestConfig  
     ): OperationResponse<Paths.ApiStartLevelApiLevelSessionStartLevelKeyPost.Responses.$200>
   }
   ['/api/level_session/play/{level_key}']: {
@@ -836,7 +859,7 @@ export interface PathsDictionary {
     'get'(
       parameters?: Parameters<Paths.PlayLevelApiLevelSessionPlayLevelKeyGet.PathParameters> | null,
       data?: any,
-      config?: AxiosRequestConfig
+      config?: AxiosRequestConfig  
     ): OperationResponse<Paths.PlayLevelApiLevelSessionPlayLevelKeyGet.Responses.$200>
     /**
      * submit_api_level_session_play__level_key__post - Submit
@@ -844,7 +867,7 @@ export interface PathsDictionary {
     'post'(
       parameters?: Parameters<Paths.SubmitApiLevelSessionPlayLevelKeyPost.PathParameters> | null,
       data?: Paths.SubmitApiLevelSessionPlayLevelKeyPost.RequestBody,
-      config?: AxiosRequestConfig
+      config?: AxiosRequestConfig  
     ): OperationResponse<Paths.SubmitApiLevelSessionPlayLevelKeyPost.Responses.$200>
   }
   ['/api/level_session/js/{level_key}.js']: {
@@ -854,7 +877,7 @@ export interface PathsDictionary {
     'get'(
       parameters?: Parameters<Paths.GetLevelJsApiLevelSessionJsLevelKeyJsGet.QueryParameters & Paths.GetLevelJsApiLevelSessionJsLevelKeyJsGet.PathParameters> | null,
       data?: any,
-      config?: AxiosRequestConfig
+      config?: AxiosRequestConfig  
     ): OperationResponse<Paths.GetLevelJsApiLevelSessionJsLevelKeyJsGet.Responses.$200>
   }
   ['/api/level_session/css/{level_key}/{filename}.css']: {
@@ -864,7 +887,7 @@ export interface PathsDictionary {
     'get'(
       parameters?: Parameters<Paths.GetLevelCssApiLevelSessionCssLevelKeyFilenameCssGet.PathParameters> | null,
       data?: any,
-      config?: AxiosRequestConfig
+      config?: AxiosRequestConfig  
     ): OperationResponse<Paths.GetLevelCssApiLevelSessionCssLevelKeyFilenameCssGet.Responses.$200>
   }
   ['/api/level_session/html/{level_key}/{filename}.html']: {
@@ -874,7 +897,7 @@ export interface PathsDictionary {
     'get'(
       parameters?: Parameters<Paths.GetLevelHtmlApiLevelSessionHtmlLevelKeyFilenameHtmlGet.PathParameters> | null,
       data?: any,
-      config?: AxiosRequestConfig
+      config?: AxiosRequestConfig  
     ): OperationResponse<Paths.GetLevelHtmlApiLevelSessionHtmlLevelKeyFilenameHtmlGet.Responses.$200>
   }
   ['/api/level/network/n1_message']: {
@@ -884,7 +907,7 @@ export interface PathsDictionary {
     'get'(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: any,
-      config?: AxiosRequestConfig
+      config?: AxiosRequestConfig  
     ): OperationResponse<Paths.GetN1ResponseApiLevelNetworkN1MessageGet.Responses.$200>
   }
   ['/api/level/network/n3_response']: {
@@ -894,7 +917,7 @@ export interface PathsDictionary {
     'get'(
       parameters?: Parameters<Paths.GetN3ResponseApiLevelNetworkN3ResponseGet.QueryParameters> | null,
       data?: any,
-      config?: AxiosRequestConfig
+      config?: AxiosRequestConfig  
     ): OperationResponse<Paths.GetN3ResponseApiLevelNetworkN3ResponseGet.Responses.$200>
   }
   ['/api/level/network/n4_response']: {
@@ -904,7 +927,7 @@ export interface PathsDictionary {
     'get'(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: any,
-      config?: AxiosRequestConfig
+      config?: AxiosRequestConfig  
     ): OperationResponse<Paths.GetN4SecretApiLevelNetworkN4ResponseGet.Responses.$200>
   }
   ['/api/level/network/n5_response']: {
@@ -914,7 +937,7 @@ export interface PathsDictionary {
     'get'(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: any,
-      config?: AxiosRequestConfig
+      config?: AxiosRequestConfig  
     ): OperationResponse<Paths.GetN5ResponseApiLevelNetworkN5ResponseGet.Responses.$200>
   }
   ['/api/level/network/n6/js/secret.js']: {
@@ -924,7 +947,7 @@ export interface PathsDictionary {
     'get'(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: any,
-      config?: AxiosRequestConfig
+      config?: AxiosRequestConfig  
     ): OperationResponse<Paths.GetN6SecretJsApiLevelNetworkN6JsSecretJsGet.Responses.$200>
   }
   ['/api/level/network/n7_what_is_the_password']: {
@@ -934,8 +957,18 @@ export interface PathsDictionary {
     'get'(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: any,
-      config?: AxiosRequestConfig
+      config?: AxiosRequestConfig  
     ): OperationResponse<Paths.GetN7ResponseApiLevelNetworkN7WhatIsThePasswordGet.Responses.$200>
+  }
+  ['/api/level/network/api/secret/hidden_treasure']: {
+    /**
+     * handle_hidden_treasure_api_level_network_api_secret_hidden_treasure_post - Handle Hidden Treasure
+     */
+    'post'(
+      parameters?: Parameters<UnknownParamsObject> | null,
+      data?: Paths.HandleHiddenTreasureApiLevelNetworkApiSecretHiddenTreasurePost.RequestBody,
+      config?: AxiosRequestConfig  
+    ): OperationResponse<Paths.HandleHiddenTreasureApiLevelNetworkApiSecretHiddenTreasurePost.Responses.$200>
   }
   ['/api/level/categories']: {
     /**
@@ -944,7 +977,7 @@ export interface PathsDictionary {
     'get'(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: any,
-      config?: AxiosRequestConfig
+      config?: AxiosRequestConfig  
     ): OperationResponse<Paths.GetCategoriesApiLevelCategoriesGet.Responses.$200>
   }
   ['/api/level/{level_category}']: {
@@ -954,7 +987,7 @@ export interface PathsDictionary {
     'get'(
       parameters?: Parameters<Paths.GetByCategoryApiLevelLevelCategoryGet.PathParameters> | null,
       data?: any,
-      config?: AxiosRequestConfig
+      config?: AxiosRequestConfig  
     ): OperationResponse<Paths.GetByCategoryApiLevelLevelCategoryGet.Responses.$200>
   }
   ['/api/level/']: {
@@ -964,7 +997,7 @@ export interface PathsDictionary {
     'get'(
       parameters?: Parameters<UnknownParamsObject> | null,
       data?: any,
-      config?: AxiosRequestConfig
+      config?: AxiosRequestConfig  
     ): OperationResponse<Paths.GetAllLevelsApiLevelGet.Responses.$200>
   }
   ['/{full_path}']: {
@@ -974,7 +1007,7 @@ export interface PathsDictionary {
     'get'(
       parameters?: Parameters<Paths.FallbackFullPathGet.PathParameters> | null,
       data?: any,
-      config?: AxiosRequestConfig
+      config?: AxiosRequestConfig  
     ): OperationResponse<Paths.FallbackFullPathGet.Responses.$200>
   }
 }

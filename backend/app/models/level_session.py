@@ -27,7 +27,10 @@ class LevelSession(Base):
 
     @property
     def level(self):
-        return get_level_by_key(self.level_key)
+        result = get_level_by_key(self.level_key)
+        if result is None:
+            raise ValueError(f"Level with key {self.level_key} does not exist")
+        return result
 
 async def get_level_session_by_id(session: AsyncSession, id: int) -> Optional[LevelSession]:
     return (await session.scalars(select(LevelSession).filter(LevelSession.id == id).limit(1))).first()

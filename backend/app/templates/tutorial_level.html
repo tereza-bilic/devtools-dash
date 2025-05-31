@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} | DevTools Dash Tutorial</title>
+    <link href="{{ url_for('static', path='/styles_tutorial.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    {% block head%} {% endblock %}
+  </head>
+  <body>
+    <main class="tutorial-container">
+      <div class="tutorial-header">
+        <h1 class="tutorial-title">
+          <div class="tutorial-badge">TUTORIAL #{{ key }}</div>
+          {{ title }}
+        </h1>
+        <div class="tutorial-description">
+          {% block description %}{% endblock %}
+        </div>
+      </div>
+
+      <div class="center-content">
+        <style>
+          .stepper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px auto;
+            max-width: 600px;
+          }
+          .stepper-items {
+            display: block;;
+            width: 100%;
+          }
+          .stepper-item {
+            position: relative;
+            transform: translateX(-30px);
+            text-align: center;
+            padding: 10px;
+            transition: opacity 0.3s, transform 0.3s ease-in-out;
+          }
+          .stepper-item.right {
+            transform: translateX(30px);
+          }
+          .stepper-item.active {
+            opacity: 1;
+            transform: translateX(0);
+          }
+          .stepper-item:not(.active) {
+            opacity: 0;
+          }
+          .stepper-item.hidden {
+            display: none;
+          }
+          .stepper-number {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            line-height: 24px;
+            border-radius: 50%;
+            background-color: #4a76a8;
+            color: white;
+            margin-bottom: 5px;
+          }
+          .stepper-label {
+            display: block;
+            font-size: 14px;
+          }
+          .stepper-progress {
+            width: 100%;
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+          }
+          .stepper-progress-bar {
+            height: 100%;
+            background-color: #4CAF50;
+            width: 0;
+            transition: width 0.3s;
+          }
+          .stepper-actions {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 10px;
+          }
+          .stepper-next, .tutorial-finish-button, .stepper-prev {
+            background-color: #4a76a8;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+          }
+          .stepper-next svg, .stepper-prev svg {
+            margin-left: 5px;
+            fill: white;
+          }
+          .stepper-prev:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+          }
+          .stepper-next:disabled {
+            display: none;;
+          }
+          .submit-form {
+            display: none;
+          }
+          .next-or-finish:has(.stepper-next:disabled) .submit-form {
+            display: block;
+          }
+        </style>
+        <script>
+          // Initialize the stepper
+          document.addEventListener('DOMContentLoaded', function() {
+            const stepperItems = document.querySelectorAll('.stepper-item');
+            const stepperNext = document.querySelector('.stepper-next');
+            const stepperPrev = document.querySelector('.stepper-prev');
+            let currentStep = 1;
+
+            function updateStepper() {
+              stepperItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.dataset.step == currentStep) {
+                  setTimeout(() => {
+                    item.classList.remove('hidden');
+                    item.classList.add('right');
+                    setTimeout(() => {
+                      item.classList.remove('right');
+                      item.classList.add('active');
+                    }, 50);
+                  }, 300);
+                } else {
+                  setTimeout(() => {
+                    item.classList.add('hidden');
+                  }, 300);
+                }
+              });
+              const progressBar = document.querySelector('.stepper-progress-bar');
+              progressBar.style.width = `${(currentStep / stepperItems.length) * 100}%`;
+              stepperPrev.disabled = currentStep === 1;
+              stepperNext.disabled = currentStep === stepperItems.length;
+            }
+
+            stepperNext.addEventListener('click', () => {
+              if (currentStep < stepperItems.length) {
+                currentStep++;
+                updateStepper();
+              }
+            });
+
+            stepperPrev.addEventListener('click', () => {
+              if (currentStep > 1) {
+                currentStep--;
+                updateStepper();
+              }
+            });
+          });
+        </script>
+        <div class="stepper">
+          <div class="stepper-progress">
+            <div class="stepper-progress-bar" style="width: 33.33%;"></div>
+          </div>
+          <div class="stepper-items">
+            {% block content %}
+            {% endblock %}
+          </div>
+          <div class="stepper-actions">
+            <button class="stepper-prev" disabled>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 0L9.41 1.41L3.83 7H16V9H3.83L9.41 14.59L8 16L0 8L8 0Z" fill="currentColor"/>
+              </svg>
+            </button>
+            <div class="next-or-finish">
+              <button class="stepper-next">
+                Next
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z" fill="currentColor"/>
+                </svg>
+              </button>
+              <form method="POST" class="submit-form">
+                <input type="hidden" name="secret" value="tutorial" autocomplete="off"/>
+                <button type="submit" class="tutorial-finish-button">
+                  I'm done with this tutorial
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z" fill="currentColor"/>
+                  </svg>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="tutorial-playground">
+        </div>
+      </div>
+
+    </main>
+  </body>
+</html>

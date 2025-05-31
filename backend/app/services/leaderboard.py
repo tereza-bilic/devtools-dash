@@ -18,6 +18,7 @@ async def get_leaderboard(db_session: AsyncSession) -> LeaderboardResponse:
     if not sessions:
         return LeaderboardResponse(users=[])
 
+    sessions = list(filter(lambda s: not get_level_by_key(s.level_key).is_tutorial, sessions))
     # Calculate best times for each level
     best_times = {}
     for session in sessions:
