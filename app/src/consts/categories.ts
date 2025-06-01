@@ -6,7 +6,7 @@ import { CategoryEnum } from "@devtools-dash/types/openapi";
 
 export const categories: CategoryEnum[] = ['Elements', 'Console', 'Network', 'Sources'];
 
-export const categoryIconMap: Record<string, () => React.ReactNode> = {
+export const categoryIconMap: Record<string, (props: {className?: string, width?: string, height?: string}) => React.ReactNode> = {
   'Elements': Elements,
   'Console': Console,
   'Network': Network,
