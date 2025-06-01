@@ -90,9 +90,13 @@ const LevelGrid = () => {
                 key={level.level_key}
                 className={`${styles.level} ${level.completed ? styles.completed : ''} ${level.is_tutorial ? styles.tutorial : ''}`}
                 onClick={() => handleLevelClick(level)}
-                aria-label={`Level ${level.order_in_category}, difficulty: ${level.difficulty}`}
+                aria-label={`${level.is_tutorial ? 'Tutorial' : 'Level'} ${level.order_in_category}, difficulty: ${level.difficulty}`}
               >
                 <div className={styles.levelOrder}>{level.order_in_category}</div>
+
+                {level.is_tutorial && !level.completed && (
+                  <div className={styles.tutorialLabel}>TUTORIAL</div>
+                )}
 
                 {level.completed ? (
                   <>

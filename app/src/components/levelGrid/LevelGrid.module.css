@@ -29,6 +29,79 @@
 
 .tutorial {
   border-radius: 100%;
+  background: linear-gradient(135deg, #5B86D7, #3366BB);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(59, 102, 187, 0.3);
+  transform: rotate(-3deg);
+  transition: all 0.3s ease, transform 0.5s ease;
+}
+
+/* Tutorial level hover - blue theme */
+.tutorial:hover:not(.completed) {
+  border-color: rgba(255, 255, 255, 0.6);
+  background: linear-gradient(135deg, #6C9DF8, #4a76a8);
+  box-shadow: 0 8px 20px rgba(91, 134, 215, 0.4), 0 0 15px rgba(91, 134, 215, 0.6);
+  transform: translateY(-3px) rotate(0deg);
+}
+
+/* Glowing ring for tutorial levels */
+.tutorial::before {
+  content: '✏️';
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 14px;
+  z-index: 3;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.2));
+}
+
+/* Static glow effect for tutorial levels */
+.tutorial:not(.completed)::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: radial-gradient(circle at top right, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
+  border-radius: 100%;
+  z-index: -1;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Completed tutorial styling */
+.tutorial.completed {
+  background: linear-gradient(135deg, #66bb6a, #388E3C);
+  transform: rotate(0deg);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.tutorial.completed::before {
+  content: '✓';
+  font-size: 16px;
+  font-weight: bold;
+  top: 4px;
+  right: 4px;
+}
+
+.tutorial.completed::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at top right, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 70%);
+  pointer-events: none;
+  animation: none;
+}
+
+.tutorial.completed:hover {
+  box-shadow: 0 6px 16px rgba(76, 175, 80, 0.4), 0 0 10px rgba(76, 175, 80, 0.5);
+  transform: translateY(-3px) rotate(0deg);
 }
 
 /* Hover state for all levels */
@@ -102,6 +175,23 @@
   border-top: 1px solid rgba(255,255,255,0.3);
 }
 
+.tutorialLabel {
+  position: absolute;
+  bottom: 6px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  background-color: rgba(255,255,255,0.25);
+  color: white;
+  padding: 3px 0;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  border-top: 1px solid rgba(255,255,255,0.4);
+  animation: pulseLabel 2s infinite;
+}
+
 .completed .levelOrder {
   text-shadow: 0 2px 4px rgba(0,0,0,0.2);
   margin-top: -10px;
@@ -115,6 +205,12 @@
   0% { transform: scale(1); }
   50% { transform: scale(1.1); }
   100% { transform: scale(1); }
+}
+
+@keyframes pulseLabel {
+  0% { opacity: 0.8; }
+  50% { opacity: 1; }
+  100% { opacity: 0.8; }
 }
 
 @keyframes shimmer {
@@ -170,6 +266,19 @@
   text-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
+.tutorial .levelOrder {
+  font-size: 1.8rem;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2px;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
 .difficultyStars {
   display: flex;
   gap: 2px;
@@ -206,7 +315,15 @@
     padding: 16px;
   }
 
-  .completedLabel {
+  .completedLabel,
+  .tutorialLabel {
     font-size: 0.6rem;
+    padding: 1px 0;
+  }
+
+  .tutorial .levelOrder {
+    font-size: 1.6rem;
+    width: 36px;
+    height: 36px;
   }
 }
