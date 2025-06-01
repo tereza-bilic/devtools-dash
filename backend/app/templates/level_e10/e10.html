@@ -1,0 +1,372 @@
+{# filepath: /Users/tere/DIPL/devtools-dash/backend/app/templates/level_e10/e10.html #}
+{% extends "tutorial_level.html" %}
+{% set key = level_session.level_key %}
+{% set title = level_session.level.title %}
+{% set secret = level_session.finish_secret %}
+
+{% block head %}
+  <script defer src="{{ url_path_for('get_level_js', level_key='e10') }}?should_obfuscate=False"></script>
+  <style>
+    /* Basic styling for code elements */
+    code {
+      font-family: monospace;
+      background-color: #f5f5f5;
+      padding: 2px 4px;
+      border-radius: 3px;
+      color: #d63384;
+      font-size: 0.9em;
+    }
+
+    .code-highlight {
+      background-color: #f0f0f0;
+      padding: 2px 5px;
+      border-radius: 4px;
+      color: #e83e8c;
+    }
+
+    /* Info boxes with different background colors */
+    .info-box {
+      padding: 20px;
+      border-radius: 5px;
+      margin: 15px 0;
+    }
+
+    .info-box-light {
+      background-color: #f8f9fa;
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .info-box-primary-dark {
+      border-left: 4px solid var(--primary-dark);
+      background-color: #f8f9fa;
+    }
+
+    .info-box-orange {
+      border-left: 4px solid var(--color-orange);
+      background-color: #fff8e1;
+    }
+
+    .info-box-success {
+      border-left: 4px solid var(--success-color);
+      background-color: #f0fff0;
+    }
+
+    .info-box-blue {
+      background-color: #e8f4fc;
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .info-box-yellow {
+      background-color: #fff3cd;
+      border-left: 4px solid #ffca28;
+    }
+
+    .info-box-green {
+      background-color: #d1e7dd;
+      border-left: 4px solid var(--color-green);
+    }
+
+    /* Content section spacing */
+    .content-section {
+      margin-top: 15px;
+      padding: 10px 20px;
+    }
+
+    .content-section-larger {
+      margin-top: 30px;
+    }
+
+    /* Code blocks */
+    .code-block {
+      display: block;
+      background-color: #282c34;
+      color: #e0e0e0;
+      padding: 12px;
+      border-radius: 6px;
+      font-family: monospace;
+      margin: 15px 0;
+      overflow: auto;
+      position: relative;
+      border-left: 4px solid var(--primary-color);
+    }
+
+    /* Container styles for flex and grid demonstrations */
+    .demo-wrapper {
+      border: 2px solid #ccc;
+      padding: 10px;
+      margin: 20px 0;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .flex-container {
+      display: flex;
+      border: 2px dashed var(--primary-color);
+      padding: 15px;
+      background-color: #f0f5ff;
+      min-height: 120px;
+      margin-bottom: 15px;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-gap: 10px;
+      border: 2px dashed var(--primary-light);
+      padding: 15px;
+      background-color: #f0f5ff;
+      min-height: 200px;
+      margin-bottom: 15px;
+    }
+
+    .flex-item, .grid-item {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 15px;
+      border-radius: 4px;
+      text-align: center;
+      font-weight: bold;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .grid-item {
+      background-color: var(--color-orange);
+    }
+
+    /* Challenge containers */
+    .challenge-container {
+      border: 2px solid var(--primary-dark);
+      border-radius: 8px;
+      padding: 15px;
+      margin: 20px 0;
+      background-color: #fafafa;
+    }
+
+    .challenge-flex {
+      display: flex;
+      flex-direction: column;
+      background-color: #fff;
+      padding: 15px;
+      border: 2px dashed #ccc;
+      min-height: 150px;
+    }
+
+    .challenge-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      grid-gap: 10px;
+      background-color: #fff;
+      padding: 15px;
+      border: 2px dashed #ccc;
+      min-height: 250px;
+    }
+
+    .challenge-item {
+      padding: 10px;
+      margin: 5px;
+      background-color: var(--primary-light);
+      color: white;
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    .challenge-grid .challenge-item {
+      background-color: var(--color-orange);
+    }
+
+    /* Success indicator for challenge completion */
+    .challenge-success {
+      display: none;
+      padding: 10px;
+      background-color: #d4edda;
+      color: #155724;
+      border-radius: 4px;
+      margin-top: 10px;
+      border-left: 4px solid #5cb85c;
+      font-weight: bold;
+    }
+
+    .badge-illustration {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 5px;
+      margin: 15px 0;
+      max-width: 400px;
+    }
+
+    .devtools-screenshot {
+      max-width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin: 15px 0;
+    }
+
+    .tool-hint {
+      background-color: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 10px;
+      margin: 15px 0;
+      border-radius: 4px;
+    }
+
+    /* Additional styles for interactive elements */
+    .interactive-exercise {
+      border: 2px solid var(--primary-light);
+      border-radius: 8px;
+      padding: 15px;
+      margin: 20px 0;
+      background-color: rgba(91, 134, 215, 0.05);
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <div class="stepper-item active" data-step="1">
+    <div class="tutorial-content">
+      <h2 class="heading-primary-dark">🎮 Visual CSS Editors: DevTools' Hidden Superpower!</h2>
+      <p>Ever struggled with remembering all the flexbox or grid properties? DevTools has your back with visual editors that let you click and adjust layouts without writing a single line of CSS!</p>
+
+      <div class="info-box info-box-blue content-section">
+        <p><strong>What are layout badges?</strong> They're those small icons that appear next to <code>display: flex</code> or <code>display: grid</code> in the Styles panel. Click them and BOOM—instant visual editor!</p>
+      </div>
+
+      <div class="demo-wrapper">
+        <h3 class="heading-primary">What they look like:</h3>
+        <div class="content-section">
+          <img src="{{ url_for('static', path='/e10_flex.png') }}" alt="Flexbox Badge in DevTools" class="devtools-screenshot">
+          <p class="content-section"><em>👆 That little waffle icon next to <code>display: flex</code> is your gateway to visual flexbox editing!</em></p>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <p>In this tutorial, you'll:</p>
+        <ul>
+          <li>Discover how to access layout badges</li>
+          <li>Use the flexbox editor to arrange items without writing CSS</li>
+          <li>Master the grid editor to create complex layouts visually</li>
+          <li>Solve real layout challenges using these powerful tools</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="stepper-item hidden" data-step="2">
+    <div class="tutorial-content">
+      <h2 class="heading-primary-dark">🔄 Flexbox Visual Editor</h2>
+      <p>The flexbox badge gives you a visual interface for all those tricky flex properties!</p>
+
+      <div class="demo-wrapper">
+        <div class="flex-container" id="flex-demo">
+          <div class="flex-item">1</div>
+          <div class="flex-item">2</div>
+          <div class="flex-item">3</div>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h3>How to use the Flexbox Editor:</h3>
+        <ol>
+          <li>Right-click any of the blue boxes above and select <strong>Inspect</strong></li>
+          <li>In the Styles panel, find <code>display: flex</code> on the parent container</li>
+          <li>Click the flexbox badge (waffle icon) next to it</li>
+          <li>A visual editor appears showing flexbox properties you can click to adjust!</li>
+        </ol>
+      </div>
+
+      <div class="info-box info-box-green content-section">
+        <p><strong>Try this:</strong> Use the flexbox editor to change <code>flex-direction</code> to <code>column</code> and watch the items stack vertically!</p>
+      </div>
+
+      <div class="content-section">
+        <p>The editor lets you visually control:</p>
+        <ul>
+          <li>flex-direction (row/column)</li>
+          <li>justify-content (main axis alignment)</li>
+          <li>align-items (cross axis alignment)</li>
+          <li>flex-wrap behavior</li>
+        </ul>
+      </div>
+
+      <div class="info-box info-box-yellow content-section">
+        <p><strong>Remember:</strong> You're changing the actual CSS in real-time! Any changes you make in the editor are immediately reflected in the Styles panel.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="stepper-item hidden" data-step="3">
+    <div class="tutorial-content">
+      <h2 class="heading-primary-dark">🔲 Grid Visual Editor</h2>
+      <p>CSS Grid can be complex, but the grid editor makes it visual and intuitive!</p>
+
+      <div class="demo-wrapper">
+        <div class="grid-container" id="grid-demo">
+          <div class="grid-item">1</div>
+          <div class="grid-item">2</div>
+          <div class="grid-item">3</div>
+          <div class="grid-item">4</div>
+          <div class="grid-item">5</div>
+          <div class="grid-item">6</div>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h3>How to use the Grid Editor:</h3>
+        <ol>
+          <li>Right-click on one of the orange boxes above and select <strong>Inspect</strong></li>
+          <li>In the Elements panel, find element with badge <code>grid</code> on the parent container</li>
+          <li>Click the grid badge next to the element</li>
+          <li>A visual overlay appears on your layout showing grid lines and tracks</li>
+          <li>In the layout panel, you can toggle options to visualize different aspects of your grid</li>
+        </ol>
+      </div>
+
+      <div class="info-box info-box-blue content-section">
+        <p><strong>Cool feature:</strong> The grid editor shows line numbers! This makes it super easy to place items precisely using <code>grid-column</code> and <code>grid-row</code> properties.</p>
+      </div>
+
+      <div class="info-box info-box-green content-section">
+        <p><strong>Try this:</strong> With the grid editor active, try changing <code>grid-template-columns</code> to <code>1fr 2fr 1fr</code> and see how columns resize proportionally!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="stepper-item hidden" data-step="4">
+    <div class="tutorial-content">
+      <h2 class="heading-primary-dark">💪 Flex Challenge!</h2>
+      <p>Time to put your new skills to the test! Complete this challenge using <strong>only</strong> the flexbox visual editor!</p>
+
+      <div class="challenge-container">
+        <h3>Challenge: Fix the Navbar</h3>
+        <p>Use the flexbox editor to turn this broken layout into a proper navbar with:</p>
+        <ul class="content-section">
+          <li>Items in a horizontal row</li>
+          <li>Logo on the left</li>
+          <li>Navigation links in the center</li>
+          <li>Login button on the right</li>
+        </ul>
+
+        <div class="challenge-flex" id="flex-challenge">
+          <div class="challenge-item" style="background-color: #5B86D7; order: 0;">Logo</div>
+          <div class="challenge-item" style="order: 0;">Home</div>
+          <div class="challenge-item" style="order: 0;">Products</div>
+          <div class="challenge-item" style="order: 0;">About</div>
+          <div class="challenge-item" style="background-color: #FE8D59; order: 0;">Login</div>
+        </div>
+
+        <div class="tool-hint">
+          <p><strong>Hint:</strong> Inspect the challenge container, click the flexbox badge, and try changing:</p>
+          <ol style="display: inline-block;">
+            <li>flex-direction to horizontal</li>
+            <li>justify-content to space between items</li>
+            <li>align-items to flex-start or center</li>
+          </ol>
+        </div>
+
+        <div id="flex-challenge-success" class="challenge-success">
+          <p>🎉 Success! You've mastered the flexbox editor!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

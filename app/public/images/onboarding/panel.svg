@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <rect width="100%" height="100%" fill="#f0f0f0" />
+  <rect x="30" y="50" width="140" height="100" rx="5" fill="#fff" stroke="#5B86D7" stroke-width="2" />
+  <rect x="30" y="50" width="140" height="25" rx="5 5 0 0" fill="#5B86D7" />
+  <rect x="40" y="85" width="50" height="50" rx="3" fill="#FE8D59" opacity="0.7" />
+  <text x="65" y="115" font-family="Arial" font-size="12" text-anchor="middle" fill="#fff">Panel</text>
+  <text x="100" y="160" font-family="Arial" font-size="16" text-anchor="middle" fill="#333">Use the right panel</text>
+</svg>
