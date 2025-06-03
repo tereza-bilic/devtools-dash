@@ -16,7 +16,7 @@ class CategoryEnum(enum.Enum):
     Sources = "Sources"
     Performance = "Performance"
 
-LevelKey = Literal["e1", "e2", "e3", "e4", "e5", "e6", "e7", "n1", "n2", "n3", "n4", "n5", "n6", "n7", "s1", "s2", "s3", "c1", "c2", "c3", "s4", "c4", "e8", "s5", "n8", "e9", "c5", "c6", "e10"]
+LevelKey = Literal["e1", "e2", "e3", "e4", "e5", "e6", "e7", "n1", "n2", "n3", "n4", "n5", "n6", "n7", "s1", "s2", "s3", "c1", "c2", "c3", "s4", "c4", "e8", "s5", "n8", "e9", "c5", "c6", "e10", "p1"]
 
 class Level(BaseModel):
     key: LevelKey
@@ -60,6 +60,8 @@ levels: list[Level] = [
     Level(key="c6", title="Logs", category=CategoryEnum.Console, order_in_category=6, is_tutorial=True, difficulty=1),
 
     Level(key="e10", title="The Boxes - Flex 'n' Grid", category=CategoryEnum.Elements, order_in_category=10, is_tutorial=True, difficulty=1),
+
+    Level(key="p1", title="Shifting around", category=CategoryEnum.Performance, order_in_category=1, difficulty=2),
 ]
 
 def get_level_by_key(key: str) -> Optional[Level]:

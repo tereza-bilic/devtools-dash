@@ -1,4 +1,6 @@
 import asyncio
+import random
+import string
 from typing import Annotated, Any
 from fastapi import APIRouter, Depends, Form, HTTPException, Query, Request, Response, WebSocket, status
 from fastapi.responses import HTMLResponse, PlainTextResponse, RedirectResponse
@@ -20,6 +22,7 @@ from app.utils.js_obfuscator import obfuscate
 from app.utils.level.elements.e4_helpers import convert_to_ascii_matrix
 from app.utils.level.sources.s2_helpers import s2_all_combinations
 from app.models.level_session import get_level_session_by_id, get_level_sessions_by_user_id
+from app.utils.level.general_helpers import create_secret_generator
 
 router = APIRouter()
 
@@ -27,6 +30,7 @@ def level_session_templates_context(request: Request) -> dict[str, Any]:
     return {
         'url_path_for': lambda *a, **kw: request.url_for(*a, **kw).path,
         'level_utils': {
+            'random_secret': create_secret_generator(),
             'e4': {
                 'matrix_secret': convert_to_ascii_matrix,
             },

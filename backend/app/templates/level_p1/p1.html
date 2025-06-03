@@ -1,0 +1,272 @@
+{# filepath: /Users/tere/DIPL/devtools-dash/backend/app/templates/level_p1/p1.html #}
+{% extends "level.html" %}
+{% set key = level_session.level_key %}
+{% set title = level_session.level.title %}
+{% set secret = level_session.finish_secret %}
+
+{% block head %}
+  <script defer src="{{ url_path_for('get_level_js', level_key='p1') }}"></script>
+  <style>
+    /* Common styles */
+    .app-container {
+      font-family: Arial, sans-serif;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .loading {
+      background-color: #f0f0f0;
+      color: transparent;
+      border-radius: 4px;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.6; }
+      50% { opacity: 0.8; }
+      100% { opacity: 0.6; }
+    }
+
+    /* Header styling */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #4285f4;
+      margin-right: 10px;
+    }
+
+    /* Hero section styling */
+    .hero {
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    .hero-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      background-color: #e0e0e0;
+    }
+
+    /* Content layout styling */
+    .content {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+    }
+
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    /* Cards styling */
+    .card {
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .card-content {
+      margin-bottom: 15px;
+    }
+
+    .card-image {
+      width: 100%;
+      height: 120px;
+      border-radius: 4px;
+      background-color: #e0e0e0;
+      margin-bottom: 10px;
+    }
+
+    /* Product grid styling */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .product-card {
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 10px;
+    }
+
+    .product-image {
+      width: 100%;
+      height: 100px;
+      background-color: #e0e0e0;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+
+    .product-title {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .product-price {
+      color: #4285f4;
+      font-weight: bold;
+    }
+
+    /* Newsletter form styling */
+    .newsletter-form {
+      display: flex;
+      margin-top: 10px;
+    }
+
+    .newsletter-input {
+      flex-grow: 1;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px 0 0 4px;
+    }
+
+    .newsletter-button {
+      background-color: #4285f4;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+    }
+
+    /* Banner styling */
+    .banner {
+      background-color: #f9f9f9;
+      padding: 10px;
+      border-radius: 8px;
+      margin: 20px 0;
+      border: 1px solid #e0e0e0;
+      text-align: center;
+    }
+
+    /* Footer styling */
+    .footer {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #e0e0e0;
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+{% endblock %}
+
+{% block hint %}
+  In performance tab, press record, then refresh the page. Stop recording and check CLS score details.
+{% endblock %}
+
+{% block description %}
+  So many things moving, but most annoying ones are when you visit a page. Find most annoying element's id.
+{% endblock %}
+
+{% block content %}
+  <div class="app-container" id="app">
+    <!-- Header area -->
+    <div id="{{ level_utils['random_secret'](6, secret) }}" class="header">
+      <div class="logo" id="logo">ShiftySite</div>
+      <div id="{{ level_utils['random_secret'](6, secret) }}" class="user-info">
+        <div id="{{ level_utils['random_secret'](6, secret) }}" class="avatar"></div>
+        <div id="username">Guest User</div>
+      </div>
+    </div>
+
+    <!-- Hero banner -->
+    <div id="{{ level_utils['random_secret'](6, secret) }}" class="hero">
+      <div class="hero-image loading" id="hero-image">
+        <!-- Hero image will load here -->
+      </div>
+    </div>
+
+    <!-- Main content area -->
+    <div id="{{ level_utils['random_secret'](6, secret) }}" class="content">
+      <div id="{{ level_utils['random_secret'](6, secret) }}" class="main-content">
+        <!-- Featured products section -->
+        <div id="{{ level_utils['random_secret'](6, secret) }}" class="card">
+          <h2 id="{{ level_utils['random_secret'](6, secret) }}" class="card-title loading">Featured Products</h2>
+          <div class="product-grid" id="product-grid">
+            <!-- Product items will be loaded dynamically -->
+          </div>
+        </div>
+
+        <!-- News section with layout shift -->
+        <div id="{{ level_utils['random_secret'](6, secret) }}" class="card">
+          <h2 id="{{ level_utils['random_secret'](6, secret) }}" class="card-title loading">Latest News</h2>
+          <div id="news-container">
+            <!-- News items will be loaded dynamically -->
+          </div>
+        </div>
+      </div>
+
+      <div id="{{ level_utils['random_secret'](6, secret) }}" class="sidebar">
+        <!-- Sidebar content with layout shifts -->
+        <div id="{{ level_utils['random_secret'](6, secret) }}" class="card">
+          <h3 id="{{ level_utils['random_secret'](6, secret) }}" class="card-title loading">Popular Categories</h3>
+          <div id="categories-list">
+            <!-- Categories will be loaded dynamically -->
+          </div>
+        </div>
+
+        <!-- Ad banner loaded dynamically -->
+        <div id="{{ secret }}" class="banner loading">
+          <!-- Ad banner will be loaded dynamically -->
+        </div>
+
+        <!-- Newsletter signup -->
+        <div id="{{ level_utils['random_secret'](6, secret) }}" class="card">
+          <h3 id="{{ level_utils['random_secret'](6, secret) }}" class="card-title loading">Newsletter</h3>
+          <p cid="{{ level_utils['random_secret'](6, secret) }}" lass="loading">Subscribe for updates</p>
+          <div id="{{ level_utils['random_secret'](6, secret) }}" class="newsletter-form">
+            <input id="{{ level_utils['random_secret'](6, secret) }}" type="email" class="newsletter-input" placeholder="Your email">
+            <button id="{{ level_utils['random_secret'](6, secret) }}" class="newsletter-button">Sign up</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div id="{{ level_utils['random_secret'](6, secret) }}" class="footer">
+      <div id="{{ level_utils['random_secret'](6, secret) }}" class="footer-links loading">
+        <!-- Footer links will be loaded -->
+      </div>
+      <div id="{{ level_utils['random_secret'](6, secret) }}" class="copyright loading">
+        <!-- Copyright info -->
+      </div>
+    </div>
+  </div>
+{% endblock %}
