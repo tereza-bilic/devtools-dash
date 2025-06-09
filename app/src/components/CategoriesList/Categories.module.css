@@ -61,3 +61,8 @@
 .progressBarContainer {
   display: flex;
 }
+
+.allCompleted {
+  color: var(--color-green-light);
+  font-weight: 600;
+}

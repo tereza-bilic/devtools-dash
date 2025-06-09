@@ -7,9 +7,9 @@ const Performance = (props?: {className?: string, width?: string, height?: strin
       <path d="M50.4687 51.4688C52.5027 49.4394 54.1158 47.0281 55.2152 44.3735C56.3145 41.7189 56.8786 38.8733 56.875 36C56.875 23.9188 47.0812 14.125 35 14.125C22.9188 14.125 13.125 23.9188 13.125 36C13.125 42.0406 15.5729 47.5094 19.5312 51.4688M35 15.1667V19.3333M50.4635 22.6063L47.226 25.2281M54.2937 39.3677L50.2344 38.4302M15.7052 39.3677L19.7656 38.4302M19.5365 22.6063L22.774 25.2281" stroke="#9444FC" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"/>
       <defs>
       <linearGradient id="paint0_linear_2138_118" x1="35" y1="1" x2="35" y2="69" gradientUnits="userSpaceOnUse">
-      <stop offset="0.105" stop-color="#CFDEF8"/>
-      <stop offset="0.565" stop-color="#EBF3FB"/>
-      <stop offset="1" stop-color="#B2C8F4"/>
+      <stop offset="0.105" stopColor="#CFDEF8"/>
+      <stop offset="0.565" stopColor="#EBF3FB"/>
+      <stop offset="1" stopColor="#B2C8F4"/>
       </linearGradient>
       </defs>
     </svg>

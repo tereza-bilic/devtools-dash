@@ -11,7 +11,6 @@ interface AchievementsProps {
 const Achievements = ({ userBadges }: AchievementsProps) => {
   return (
     <div>
-      <h3 className={styles.title}>Achievements</h3>
       <div className={styles.achievements}>
         {userBadges.map((badge, index) => (
           <div key={index} className={styles.badgeWrapper}>

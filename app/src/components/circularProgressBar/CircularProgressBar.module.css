@@ -6,7 +6,7 @@
 }
 
 .circularProgressBar {
-  transform: rotate(-90deg);
+  transform: rotate(-90deg); /* Start from the top (12 o'clock) */
 }
 
 .circleBackground {
@@ -16,8 +16,8 @@
 
 .circleProgress {
   fill: none;
+  stroke-linecap: round; /* Add rounded caps to make it look nicer */
   transition: stroke-dashoffset 1s ease-in-out;
-  animation: progress 1s ease-in-out forwards;
 }
 
 .progressText {
@@ -41,8 +41,11 @@
   margin-left: 2px;
 }
 
-@keyframes progress {
+@keyframes progress-animation {
   0% {
     stroke-dashoffset: 100%;
+  }
+  100% {
+    stroke-dashoffset: var(--final-offset, 0);
   }
 }

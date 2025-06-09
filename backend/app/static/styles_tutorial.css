@@ -238,30 +238,6 @@ main {
   transform: translateY(1px);
 }
 
-/* Box styles and hover interactions for E2 level */
-.box2 {
-  display: none;
-  margin: 30px;
-}
-
-.box1 {
-  display: block;
-  margin: 30px;
-}
-
-.box3 {
-  display: none;
-  margin: 30px;
-}
-
-.box1:hover + .box2 {
-  display: block;
-}
-
-.box2:hover + .box3 {
-  display: block;
-}
-
 
 /* Responsive helper classes */
 @media (max-width: 768px) {

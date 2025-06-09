@@ -14,8 +14,8 @@
   font-size: 1.5rem;
   font-weight: bold;
   color: #fff;
-  background-color: var(--color-blue-light);
-  border: 2px solid transparent;
+  background: linear-gradient(135deg, var(--color-blue-light), var(--color-blue-hover));
+  border: 0px solid transparent;
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -74,7 +74,7 @@
 
 /* Completed tutorial styling */
 .tutorial.completed {
-  background: linear-gradient(135deg, #66bb6a, #388E3C);
+  background: linear-gradient(135deg, #66bb6a, #30d048);
   transform: rotate(0deg);
   box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
 }
@@ -124,7 +124,7 @@
 
 /* Completed level base styling */
 .completed {
-  background: linear-gradient(135deg, #4CAF50, #388E3C);
+  background: linear-gradient(135deg, #4CAF50, #30d048);
   color: var(--color-white);
   border-color: transparent;
   box-shadow: 0 4px 10px rgba(76, 175, 80, 0.2);
@@ -134,8 +134,6 @@
 
 /* Completed level hover - green theme */
 .completed:hover {
-  border-color: rgba(76, 175, 80, 0.4); /* Lighter green border with transparency */
-  background: linear-gradient(135deg, #66bb6a, #43a047); /* Lighter, softer green */
   box-shadow: 0 6px 16px rgba(76, 175, 80, 0.2);
 }
 

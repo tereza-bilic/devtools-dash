@@ -18,17 +18,23 @@ export const CalendarChart: React.FC<CalendarChartProps> = ({ levelSessions }) =
   return (
     <div style={{
       width: '100%',
-      height: '180px',
+      height: '200px',
       minHeight: '180px',
-      flex: '1'
-    }}>
+      flex: '1',
+      backgroundColor: '#ffffff',
+      borderRadius: '12px',
+      boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+      padding: '15px',
+      transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+    }} className="calendar-chart-container">
+      <h3 style={{ margin: '0 0 5px 0', fontSize: '1.1rem' }}>Activity Calendar</h3>
       <ResponsiveCalendar
         data={calendarData}
         from="2025-01-01"
         to="2025-01-01"
         emptyColor="#f7f7f7"
         colors={blueGradient}
-        margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
+        margin={{ top: 30, right: 30, bottom: 30, left: 30 }}
         yearSpacing={40}
         monthBorderColor="#ffffff"
         dayBorderWidth={2}

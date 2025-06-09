@@ -1,23 +1,46 @@
 .categoryProgress {
   display: grid;
-  width: 70%;
-  grid-template-columns: 1fr 1fr 1fr;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  width: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 15px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
 .categoryBox {
-  padding: 10px;
+  padding: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 8px;
+  background-color: #fafafa;
+}
+
+.categoryBox:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
 }
 
 .categoryName {
-  margin-bottom: 8px;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: var(--color-blue);
 }
 
 .loading {
   text-align: center;
   padding: 20px;
+}
+
+.skeletonCircle {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
 }

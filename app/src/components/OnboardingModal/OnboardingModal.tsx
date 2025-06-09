@@ -45,7 +45,7 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ isFirstVisit, onCompl
         <div className={styles.modalBody}>
           <div className={styles.introSection}>
             <h3 className={styles.introTitle}>
-              Master Browser DevTools Through Gaming
+              Master Browser DevTools
             </h3>
             <p className={styles.introText}>
               This interactive game will teach you how to use browser developer tools through

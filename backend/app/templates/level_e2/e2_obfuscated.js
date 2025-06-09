@@ -1,29 +1,32 @@
 const box2 = document.getElementById('box2');
+const boxes = document.getElementById('boxes');
 
-const box3 = document.getElementById('box3');
-
-let box4 = null;
+let box3 = null;
 setInterval(() => {
   if (box2.matches('.box2:hover')) {
-    if (box4 !== null) {
+    if (box3 !== null) {
       return;
     }
-    box3.innerHTML = `<div id="box4" class="box4">box4</div>`;
-    box4 = document.getElementById('box4');
-    box4.addEventListener('mouseover', () => {
-      box4.innerHTML = '{{level_session.finish_secret}}'
+
+    box3 = document.createElement('div');
+    box3.className = 'box3';
+    box3.innerHTML = 'Hover me for real';
+    boxes.appendChild(box3);
+
+    box3.addEventListener('mouseover', () => {
+      box3.innerHTML = '{{level_session.finish_secret}}'
     });
 
-    box4.addEventListener('mouseout', () => {
-        box4.innerHTML = 'last box'
+    box3.addEventListener('mouseout', () => {
+        box3.innerHTML = 'Hover me for real'
     });
   } else {
-    if (box4 === null) {
+    if (box3 === null) {
       return;
     }
-    box3.innerHTML = 'box3';
-    box4 = null;
 
+    boxes.removeChild(box3);
+    box3 = null;
   }
 }, 50);
 

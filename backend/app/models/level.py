@@ -31,8 +31,8 @@ class Level(BaseModel):
 levels: list[Level] = [
     Level(key="e1", title="Hidden in Plain Sight", category=CategoryEnum.Elements, order_in_category=1, difficulty=1),
     Level(key="e2", title="Phantom Elements", category=CategoryEnum.Elements, order_in_category=2, difficulty=1),
-    Level(key="e3", title="Labeling Friends", category=CategoryEnum.Elements, order_in_category=3, difficulty=2),
-    Level(key="e4", title="Matrix Blues", category=CategoryEnum.Elements, order_in_category=4, difficulty=1, session_factory=e4_initialize_level),
+    Level(key="e3", title="Labeling Friends", category=CategoryEnum.Elements, order_in_category=3, difficulty=3),
+    Level(key="e4", title="Blues Clues", category=CategoryEnum.Elements, order_in_category=4, difficulty=1, session_factory=e4_initialize_level),
     Level(key="e5", title="Pixel Cipher", category=CategoryEnum.Elements, order_in_category=5, difficulty=1, session_factory=e4_initialize_level),
     Level(key="e6", title="Colorful Secrets", category=CategoryEnum.Elements, order_in_category=6, difficulty=1, session_factory=e6_initialize_level),
     Level(key="e7", title="Aftermath", category=CategoryEnum.Elements, order_in_category=7, difficulty=2),

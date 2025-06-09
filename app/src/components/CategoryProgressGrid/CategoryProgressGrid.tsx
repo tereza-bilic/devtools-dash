@@ -1,5 +1,6 @@
 import { CategoryEnum, LevelResponse } from "@devtools-dash/types/openapi";
 import CircularProgressBar from "../circularProgressBar/CircularProgressBar";
+import Skeleton from "../Skeleton/Skeleton";
 import styles from "./CategoryProgressGrid.module.css";
 
 interface CategoryProgressGridProps {
@@ -21,7 +22,18 @@ const CategoryProgressGrid = ({ categories, levels, loading }: CategoryProgressG
   };
 
   if (loading) {
-    return <div className={styles.loading}>Loading...</div>;
+    return (
+      <div className={styles.categoryProgress}>
+        {[...Array(categories.length)].map((_, index) => (
+          <div key={index} className={styles.categoryBox}>
+            <Skeleton variant="text" width="80px" height="20px" />
+            <div className={styles.skeletonCircle}>
+              <Skeleton variant="circular" width="80px" height="80px" />
+            </div>
+          </div>
+        ))}
+      </div>
+    );
   }
 
   return (

@@ -1,9 +1,3 @@
-.title {
-  font-size: 1.2em;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
 .achievements {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;

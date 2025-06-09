@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './CircularProgressBar.module.css';
 
 interface CircularProgressBarProps {
@@ -22,12 +22,26 @@ const CircularProgressBar = ({
   textColor = '#000',
   showText = true,
 }: CircularProgressBarProps) => {
-  const [progress] = useState(completed / total * 100);
+  const [progress, setProgress] = useState(0);
+  const [isFirstMount, setIsFirstMount] = useState(true);
 
   // Calculate the radius and circumference
   const radius = (size - strokeWidth) / 2;
   const circumference = radius * 2 * Math.PI;
   const strokeDashoffset = circumference - (progress / 100) * circumference;
+
+  // Use useEffect to create the animation
+  useEffect(() => {
+    if (isFirstMount) {
+      setIsFirstMount(false);
+      // Use requestAnimationFrame to ensure the initial 0 state is rendered
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setProgress(completed / total * 100);
+        });
+      });
+    }
+  }, [completed, total, isFirstMount]);
 
   return (
     <div className={styles.circularProgressContainer} style={{ width: size, height: size }}>
@@ -49,8 +63,9 @@ const CircularProgressBar = ({
           style={{
             stroke: progressColor,
             strokeDasharray: circumference,
-            strokeDashoffset: strokeDashoffset
-          }}
+            strokeDashoffset: strokeDashoffset,
+            '--final-offset': strokeDashoffset + 'px',
+          } as React.CSSProperties}
         />
       </svg>
       {showText && (

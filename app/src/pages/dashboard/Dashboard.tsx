@@ -7,6 +7,7 @@ import { RadarChart } from '@devtools-dash/components/RadarChart/RadarChart';
 import { CalendarChart } from '@devtools-dash/components/CalendarChart/CalendarChart';
 import CategoryProgressGrid from '@devtools-dash/components/CategoryProgressGrid/CategoryProgressGrid';
 import Achievements from '@devtools-dash/components/Achievements/Achievements';
+import Skeleton from '@devtools-dash/components/Skeleton/Skeleton';
 
 import styles from './Dashboard.module.css';
 import ProgressBar from '@devtools-dash/components/progressBar/ProgressBar';
@@ -26,7 +27,11 @@ const Dashboard = () => {
   const [loadingLevels, setLoadingLevels] = useState(true);
 
   const [levelSessions, setLevelSessions] = useState<LevelSessionResponse[]>([]);
-  const [, setLoadingLevelSessions] = useState(true);
+  const [loadingLevelSessions, setLoadingLevelSessions] = useState(true);
+  const [loadingUser, setLoadingUser] = useState(!user);
+
+  // Combined loading state to coordinate animations
+  const isLoading = loadingLevels || loadingLevelSessions || loadingUser;
 
   useEffect(() => {
     setLoadingLevels(true);
@@ -39,7 +44,7 @@ const Dashboard = () => {
         console.error('Error fetching level sessions:', error);
         setLoadingLevels(false);
       });
-  }, []);
+  }, [axiosClient]);
 
   useEffect(() => {
     setLoadingLevelSessions(true);
@@ -52,8 +57,14 @@ const Dashboard = () => {
         console.error('Error fetching level sessions:', error);
         setLoadingLevelSessions(false);
       });
-  }
-  , []);
+  }, [axiosClient]);
+
+  // Update loading state when user becomes available
+  useEffect(() => {
+    if (user) {
+      setLoadingUser(false);
+    }
+  }, [user]);
 
 
   // Calculate total levels completed and total time spent
@@ -118,39 +129,69 @@ const Dashboard = () => {
 
   return (
     <AuthGuard>
-        <div className={styles.dashboard}>
+        <div className={`${styles.dashboard} ${isLoading ? styles.loading : ''}`}>
           <div className={styles.leftDashboard}>
             <div className={styles.userIconWrapper}>
-              <PersonIcon width='150px' height='150px'/>
+              {!loadingUser ? (
+                <PersonIcon width='150px' height='150px'/>
+              ) : (
+                <Skeleton variant="circular" width="150px" height="150px" />
+              )}
             </div>
-              {user && <div className={styles.userName}>{user.user_nickname}</div>}
+            {!loadingUser && user ? (
+              <div className={styles.userName}>{user.user_nickname}</div>
+            ) : (
+              <Skeleton variant="text" width="120px" height="24px" />
+            )}
 
             <div className={styles.divider} />
 
-            <Achievements userBadges={userBadges} />
-
-            <div className={styles.divider} />
-
-            <div>
-              <Link
-                to="/leaderboard"
-                className={styles.leaderboardLink}
-                title="View Leaderboard"
-                aria-label="View Leaderboard"
-              >
-                Leaderboard
+              <div className={styles.leaderboardWrapper}>
+                <div className={styles.sectionTitle}>Leaderboard</div>
+                <Link
+                  to="/leaderboard"
+                  className={styles.leaderboardLink}
+                  title="View Leaderboard"
+                  aria-label="View Leaderboard"
+                >
+                  View full leaderboard
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
                 </Link>
-              <LeaderboardMinimized />
-            </div>
+                {loadingLevels ? (
+                  <div style={{ padding: '10px' }}>
+                    <Skeleton height="120px" />
+                  </div>
+                ) : (
+                  <LeaderboardMinimized />
+                )}
+              </div>
 
+            <div className={styles.divider} />
+
+            <div className={styles.sectionTitle}>My Achievements</div>
+            {loadingLevels ? (
+              <div style={{ padding: '10px' }}>
+                <Skeleton height="180px" />
+              </div>
+            ) : (
+              <Achievements userBadges={userBadges} />
+            )}
           </div>
 
           <div>
-            completion
+            <div className={styles.sectionTitle}>
+              {loadingLevels ? <Skeleton variant="text" width="120px" /> : "Dashboard Overview"}
+            </div>
+
             {loadingLevels ? (
-              <div className={styles.loading}>Loading...</div>
+              <div className={styles.progressBarContainer}>
+                <Skeleton height="24px" />
+              </div>
             ) : (
               <div className={styles.progressBarContainer}>
+                <h3 style={{ margin: '0 0 10px 0', fontSize: '1.1rem' }}>Progress</h3>
                 <ProgressBar
                   completed={totalLevelsCompleted}
                   total={totalLevels}
@@ -158,32 +199,80 @@ const Dashboard = () => {
               </div>
             )}
 
+            {/* First row - Time played and Calendar */}
             <div className={styles.flex}>
-              <div className={styles.dataBox}>You've played for <div>{totalTimeSpent} minutes </div></div>
-              <CalendarChart levelSessions={levelSessions} />
-            </div>
-
-            <div className={styles.flex}>
-              <RadarChart levels={levels} />
-              <div className={styles.dataBox}>
-                You've collected
-                <div>{totalStars}
-                  <StarIcon />
+              {loadingLevelSessions ? (
+                <div className={styles.dataBox}>
+                  <Skeleton variant="text" width="120px" />
+                  <div><Skeleton variant="text" width="80px" /></div>
                 </div>
-              </div>
+              ) : (
+                <div className={styles.dataBox}>
+                  <span>Time played</span>
+                  <div>{totalTimeSpent} minutes</div>
+                </div>
+              )}
 
-              <div className={styles.dataBox}>
-                Average time per level
-                <div>{(totalTimeSpent / totalLevelsCompleted).toFixed(0)} minutes</div>
-              </div>
+              {loadingLevelSessions ? (
+                <div className={styles.dataBox}>
+                  <Skeleton variant="text" width="150px" />
+                  <div><Skeleton variant="text" width="80px" /></div>
+                </div>
+              ) : (
+                <div className={styles.dataBox}>
+                  <span>Average time per level</span>
+                  <div>{totalLevelsCompleted > 0 ? (totalTimeSpent / totalLevelsCompleted).toFixed(0) : 0} minutes</div>
+                </div>
+              )}
+
+              {loadingLevels ? (
+                <div className={styles.dataBox}>
+                  <Skeleton variant="text" width="120px" />
+                  <div>
+                    <Skeleton variant="text" width="60px" />
+                  </div>
+                </div>
+              ) : (
+                <div className={styles.dataBox}>
+                  <span>Stars collected</span>
+                  <div>{totalStars}
+                    <StarIcon />
+                  </div>
+                </div>
+              )}
             </div>
 
+            {/* Second row - Calendar chart */}
+            <div className={styles.flex}>
+              {loadingLevelSessions ? (
+                <div className={styles.calendarPlaceholder}>
+                  <Skeleton variant="chart" height="180px" />
+                </div>
+              ) : (
+                <CalendarChart levelSessions={levelSessions} />
+              )}
+            </div>
+
+            {/* Third row - Radar chart */}
+            <div className={styles.flex}>
+              {loadingLevels ? (
+                <div className={styles.radarPlaceholder}>
+                  <Skeleton variant="chart" height="240px" width="240px" />
+                </div>
+              ) : (
+                <RadarChart levels={levels} />
+              )}
+            </div>
+
+            {/* Category progress grid */}
+            <div className={styles.sectionTitle}>
+              {loadingLevels ? <Skeleton variant="text" width="120px" /> : "Category Progress"}
+            </div>
             <CategoryProgressGrid
               categories={categories}
               levels={levels}
               loading={loadingLevels}
             />
-
           </div>
       </div>
     </AuthGuard>

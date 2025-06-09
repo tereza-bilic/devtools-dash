@@ -46,9 +46,16 @@ const Categories = () => {
     return 'orange';
   }
 
+  const areAllCategoriesCompleted = Boolean(categories.length) && categories.every(category => category.completed_count === category.total_count);
+
   return (
     <AuthGuard>
       <div className={styles.container}>
+        {areAllCategoriesCompleted && (
+          <div className={styles.allCompleted}>
+            <h2>Congratulations! You've completed everything</h2>
+          </div>
+        )}
         <div className={styles.list}>
           {categories.map((category) => (
             <div
