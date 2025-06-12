@@ -124,6 +124,10 @@ declare namespace Components {
              * Try Count
              */
             try_count: number;
+            /**
+             * Title
+             */
+            title: string;
         }
         /**
          * HTTPValidationError
@@ -400,7 +404,7 @@ declare namespace Paths {
             /**
              * Level Key
              */
-            export type LevelKey = "e1" | "e2" | "e3" | "e4" | "e5" | "e6" | "e7" | "n1" | "n2" | "n3" | "n4" | "n5" | "n6" | "n7" | "s1" | "s2" | "s3" | "c1" | "c2" | "c3" | "s4" | "c4" | "e8" | "s5" | "n8" | "e9" | "c5";
+            export type LevelKey = "e1" | "e2" | "e3" | "e4" | "e5" | "e6" | "e7" | "n1" | "n2" | "n3" | "n4" | "n5" | "n6" | "n7" | "s1" | "s2" | "s3" | "c1" | "c2" | "c3" | "s4" | "c4" | "e8" | "s5" | "n8" | "e9" | "c5" | "c6" | "e10" | "p1" | "n9";
         }
         export interface PathParameters {
             level_key: /* Level Key */ Parameters.LevelKey;
@@ -421,7 +425,7 @@ declare namespace Paths {
             /**
              * Level Key
              */
-            export type LevelKey = "e1" | "e2" | "e3" | "e4" | "e5" | "e6" | "e7" | "n1" | "n2" | "n3" | "n4" | "n5" | "n6" | "n7" | "s1" | "s2" | "s3" | "c1" | "c2" | "c3" | "s4" | "c4" | "e8" | "s5" | "n8" | "e9" | "c5";
+            export type LevelKey = "e1" | "e2" | "e3" | "e4" | "e5" | "e6" | "e7" | "n1" | "n2" | "n3" | "n4" | "n5" | "n6" | "n7" | "s1" | "s2" | "s3" | "c1" | "c2" | "c3" | "s4" | "c4" | "e8" | "s5" | "n8" | "e9" | "c5" | "c6" | "e10" | "p1" | "n9";
         }
         export interface PathParameters {
             level_key: /* Level Key */ Parameters.LevelKey;
@@ -441,7 +445,7 @@ declare namespace Paths {
             /**
              * Level Key
              */
-            export type LevelKey = "e1" | "e2" | "e3" | "e4" | "e5" | "e6" | "e7" | "n1" | "n2" | "n3" | "n4" | "n5" | "n6" | "n7" | "s1" | "s2" | "s3" | "c1" | "c2" | "c3" | "s4" | "c4" | "e8" | "s5" | "n8" | "e9" | "c5";
+            export type LevelKey = "e1" | "e2" | "e3" | "e4" | "e5" | "e6" | "e7" | "n1" | "n2" | "n3" | "n4" | "n5" | "n6" | "n7" | "s1" | "s2" | "s3" | "c1" | "c2" | "c3" | "s4" | "c4" | "e8" | "s5" | "n8" | "e9" | "c5" | "c6" | "e10" | "p1" | "n9";
             /**
              * Should Obfuscate
              */

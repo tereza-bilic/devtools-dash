@@ -7,7 +7,17 @@
 <link rel="stylesheet" href="{{ url_path_for('get_level_css', level_key='e6', filename='my_bootstrap.min') }}">
 {% endblock %}
 
+{% block hint %}
+  Find the hex value of the border color of the button
+{% endblock %}
+
+{% block description %}
+  <p>Something's off with the colors on this button</p>
+{% endblock %}
+
 {% block content %}
-<button type="button" class="btn btn-secret btn-primary">My colors could be secret</button>
+<button type="button" class="btn btn-secret btn-primary">
+  Suspicious Button
+</button>
 {% endblock %}
 

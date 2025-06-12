@@ -16,7 +16,7 @@ class CategoryEnum(enum.Enum):
     Sources = "Sources"
     Performance = "Performance"
 
-LevelKey = Literal["e1", "e2", "e3", "e4", "e5", "e6", "e7", "n1", "n2", "n3", "n4", "n5", "n6", "n7", "s1", "s2", "s3", "c1", "c2", "c3", "s4", "c4", "e8", "s5", "n8", "e9", "c5", "c6", "e10", "p1"]
+LevelKey = Literal["e1", "e2", "e3", "e4", "e5", "e6", "e7", "n1", "n2", "n3", "n4", "n5", "n6", "n7", "s1", "s2", "s3", "c1", "c2", "c3", "s4", "c4", "e8", "s5", "n8", "e9", "c5", "c6", "e10", "p1", "n9"]
 
 class Level(BaseModel):
     key: LevelKey
@@ -29,11 +29,17 @@ class Level(BaseModel):
 
 
 levels: list[Level] = [
-    Level(key="e1", title="Hidden in Plain Sight", category=CategoryEnum.Elements, order_in_category=1, difficulty=1),
+    Level(
+        key="e1",
+        title="Hidden in Plain Sight",
+        category=CategoryEnum.Elements,
+        order_in_category=1,
+        difficulty=1
+    ),
     Level(key="e2", title="Phantom Elements", category=CategoryEnum.Elements, order_in_category=2, difficulty=1),
     Level(key="e3", title="Labeling Friends", category=CategoryEnum.Elements, order_in_category=3, difficulty=3),
     Level(key="e4", title="Blues Clues", category=CategoryEnum.Elements, order_in_category=4, difficulty=1, session_factory=e4_initialize_level),
-    Level(key="e5", title="Pixel Cipher", category=CategoryEnum.Elements, order_in_category=5, difficulty=1, session_factory=e4_initialize_level),
+    Level(key="e5", title="Paint the Town Red", category=CategoryEnum.Elements, order_in_category=5, difficulty=1, session_factory=e4_initialize_level),
     Level(key="e6", title="Colorful Secrets", category=CategoryEnum.Elements, order_in_category=6, difficulty=1, session_factory=e6_initialize_level),
     Level(key="e7", title="Aftermath", category=CategoryEnum.Elements, order_in_category=7, difficulty=2),
     Level(key="n1", title="Message in Transit", category=CategoryEnum.Network, order_in_category=1, difficulty=1),
@@ -49,8 +55,8 @@ levels: list[Level] = [
     Level(key="s4", title="Error Tracker", category=CategoryEnum.Sources, order_in_category=4, difficulty=2),
     Level(key="c1", title="Console Chronicles", category=CategoryEnum.Console, order_in_category=1, difficulty=1),
     Level(key="c2", title="Silent Conversation", category=CategoryEnum.Console, order_in_category=2, difficulty=2),
-    Level(key="c3", title="Frame Whisperer", category=CategoryEnum.Console, order_in_category=3, difficulty=2, session_factory=c3_initialize_level),
-    Level(key="c4", title="Evaluation Station", category=CategoryEnum.Console, order_in_category=4, difficulty=2, session_factory=c4_initialize_level),
+    Level(key="c3", title="Frame Whisperer", category=CategoryEnum.Console, order_in_category=3, difficulty=3, session_factory=c3_initialize_level),
+    Level(key="c4", title="Evaluation Station", category=CategoryEnum.Console, order_in_category=4, difficulty=3, session_factory=c4_initialize_level),
     Level(key="e8", title="Join The Dark Side", category=CategoryEnum.Elements, order_in_category=8, difficulty=2),
     Level(key="s5", title="Only When It's Right", category=CategoryEnum.Sources, order_in_category=5, difficulty=2),
     Level(key="n8", title="The Initiation", category=CategoryEnum.Network, order_in_category=8, difficulty=2),
@@ -62,6 +68,8 @@ levels: list[Level] = [
     Level(key="e10", title="The Boxes - Flex 'n' Grid", category=CategoryEnum.Elements, order_in_category=10, is_tutorial=True, difficulty=1),
 
     Level(key="p1", title="Shifting around", category=CategoryEnum.Performance, order_in_category=1, difficulty=2),
+
+    Level(key="n9", title="Respond To Me", category=CategoryEnum.Network, order_in_category=9, difficulty=2),
 ]
 
 def get_level_by_key(key: str) -> Optional[Level]:

@@ -1,9 +1,18 @@
 {% extends "level.html" %}
 {% set key = level_session.level_key %}
 {% set secret = level_session.finish_secret %}
+{% set title = level_session.level.title %}
 
 {% block head %}
   <script defer src="{{ url_path_for('get_level_js', level_key='c2') }}"></script>
+{% endblock %}
+
+{% block hint %}
+  console.log('') anything in the console to see the secret message
+{% endblock %}
+
+{% block description %}
+  I'm waiting for you to write me something through the console.
 {% endblock %}
 
 {% block content %}

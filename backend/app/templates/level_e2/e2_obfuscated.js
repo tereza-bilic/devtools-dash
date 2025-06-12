@@ -10,15 +10,16 @@ setInterval(() => {
 
     box3 = document.createElement('div');
     box3.className = 'box3';
-    box3.innerHTML = 'Hover me for real';
+    const textToAdd = 'Hover me with mouse';
+    box3.innerHTML = textToAdd;
     boxes.appendChild(box3);
 
     box3.addEventListener('mouseover', () => {
-      box3.innerHTML = '{{level_session.finish_secret}}'
+      box3.innerHTML = '{{level_session.finish_secret}}';
     });
 
     box3.addEventListener('mouseout', () => {
-        box3.innerHTML = 'Hover me for real'
+        box3.innerHTML = textToAdd;
     });
   } else {
     if (box3 === null) {

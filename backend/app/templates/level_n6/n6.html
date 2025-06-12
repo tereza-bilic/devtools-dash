@@ -7,10 +7,15 @@
   <script defer src="{{ url_path_for('get_n6_secret_js') }}")></script>
 {% endblock %}
 
-{% block content %}
+{% block hint %}
+  Disable caching in your browser and reload the page to see the secret.
+{% endblock %}
 
-  <h1> Cache me if you can </h1>
+{% block description %}
   <p>Old things sometimes linger…</p>
+{% endblock %}
+
+{% block content %}
 
   <div id="secret"></div>
 

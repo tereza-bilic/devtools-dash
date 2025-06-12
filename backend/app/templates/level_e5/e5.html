@@ -10,10 +10,19 @@
     grid-template-columns: repeat({{level_utils['e4']['matrix_secret'](secret)[0] | length}}, 1fr);
   }
   .cell {
-    width: 10px;
+    width: 15px;
     height: 15px;
+    border: 1px solid #ccc;
   }
 </style>
+{% endblock %}
+
+{% block hint%}
+  Add a style rule to the elements with the cell-red class
+{% endblock %}
+
+{% block description %}
+  <p>There's a pattern hidden in this grid, can you find it?</p>
 {% endblock %}
 
 {% block content %}

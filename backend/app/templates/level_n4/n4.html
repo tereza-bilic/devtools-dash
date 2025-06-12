@@ -6,13 +6,49 @@
 {% block head %}
   <script defer src="{{ url_path_for('get_level_js', level_key='n4')}}"></script>
   <script defer src="{{url_path_for('get_level_js', level_key='n4') }}?different_filename=secret"></script>
+  <style>
+    #fetchSecretBtn {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #4a76a8; /* Primary color */
+      color: white;
+      border: none;
+      border-radius: 6px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    #fetchSecretBtn:hover {
+      background-color: #3b5a7f; /* Darker shade on hover */
+    }
+
+    #secretResult {
+      margin-top: 20px;
+      padding: 10px;
+      border-radius: 4px;
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      display: block;
+    }
+
+    #secretResult:empty {
+      display: none;
+    }
+
+  </style>
+{% endblock %}
+
+{% block hint %}
+  Throttle the network request to simulate a slow connection.
+{% endblock %}
+
+{% block description %}
+  <p>
+    Click the button to fetch the secret, but don't be too quick!
+  </p>
 {% endblock %}
 
 {% block content %}
-  <h2>Throttle to Reveal</h2>
-  <p>
-    The secret is hidden behind a slow network. Try to fetch it!
-  </p>
   <button id="fetchSecretBtn">Fetch Secret</button>
   <div id="secretResult"></div>
   <script>

@@ -40,18 +40,6 @@
   overflow: hidden;
 }
 
-.modalHeader::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(90deg, transparent, rgba(91, 134, 215, 0.2), transparent);
-  animation: shimmer 2s infinite;
-  pointer-events: none;
-}
-
 .modalHeader h2 {
   margin: 0;
   color: #5B86D7;

@@ -60,6 +60,23 @@ const LevelGrid = () => {
     setWindowProxy(window.open('/api/level_session/play/' + level.level_key, '_blank'));
   }
 
+  const getLevelCategoryDescription = (category?: CategoryEnum) => {
+    switch (category) {
+      case 'Elements':
+        return 'Inspect and manipulate the DOM elements and their properties.';
+      case 'Console':
+        return 'Use the console for debugging, logging, and executing JavaScript code.';
+      case 'Network':
+        return 'Understand network requests, responses, and performance optimization.';
+      case 'Sources':
+        return `View and edit the website's resources, such as stylesheets, Javascript files, and images.`;
+      case 'Performance':
+        return 'Explore web performance metrics and optimization strategies.';
+      default:
+        return 'Explore various web development challenges.';
+    }
+  };
+
   // Helper function to render difficulty stars
   const renderDifficultyStars = (difficulty: number = 1) => {
     const stars = [];
@@ -80,8 +97,11 @@ const LevelGrid = () => {
           <div className={styles.header}>
             <h2>{category}</h2>
             <Button type="button" onClick={() => navigate('/')}>
-              <span className={styles.backButtonText}>Back to Categories</span>
+              <span className={styles.backButtonText}>Categories</span>
             </Button>
+            <p className={styles.description}>
+              {getLevelCategoryDescription(category)}
+            </p>
           </div>
 
           <div className={styles.levelGrid}>

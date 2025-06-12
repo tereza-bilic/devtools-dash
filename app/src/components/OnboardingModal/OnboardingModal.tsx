@@ -7,22 +7,26 @@ interface OnboardingModalProps {
 }
 
 const OnboardingModal: React.FC<OnboardingModalProps> = ({ isFirstVisit, onComplete }) => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    // Check if the user has already seen the onboarding modal
-    const hasViewedOnboarding = localStorage.getItem('onboardingCompleted') === 'true';
+    if (isFirstVisit) {
+      // Check if the user has already seen the onboarding modal
+      const hasViewedOnboarding = localStorage.getItem('onboardingCompleted') === 'true';
 
-    // Only show the modal if it's the user's first visit and they haven't seen it before
-    if (isFirstVisit && !hasViewedOnboarding) {
-      setIsVisible(true);
+      // Only show the modal if it's the user's first visit and they haven't seen it before
+      if (hasViewedOnboarding) {
+        setIsVisible(false);
+      }
     }
   }, [isFirstVisit]);
 
   const handleComplete = () => {
-    // Save to localStorage that the user has completed onboarding
-    localStorage.setItem('onboardingCompleted', 'true');
-    console.log('Onboarding tutorial completed, preference saved to localStorage');
+    // Save to localStorage only if it's the first visit
+    if (isFirstVisit) {
+      localStorage.setItem('onboardingCompleted', 'true');
+      console.log('Onboarding tutorial completed, preference saved to localStorage');
+    }
     setIsVisible(false);
     onComplete();
   };
@@ -33,7 +37,7 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ isFirstVisit, onCompl
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
         <div className={styles.modalHeader}>
-          <h2>Welcome to DevTools Dash!</h2>
+          <h2>Welcome to DevToolsDash!</h2>
           <button className={styles.closeButton} onClick={handleComplete}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="18" y1="6" x2="6" y2="18"></line>

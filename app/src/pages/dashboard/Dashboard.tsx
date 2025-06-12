@@ -18,6 +18,7 @@ import { useAuth } from '@devtools-dash/context/AuthContext';
 import { Badge, BadgeType } from '@devtools-dash/consts/badge';
 import LeaderboardMinimized from '@devtools-dash/components/LeaderboardMinimized/LeaderboardMinimized';
 import { Link } from 'react-router-dom';
+import { durationFormat } from '@devtools-dash/utils/date-functions';
 
 const Dashboard = () => {
   const axiosClient = useAxiosClient();
@@ -72,18 +73,21 @@ const Dashboard = () => {
   const totalLevelsCompleted = completedSessions.length;
   const totalLevels = levels.length;
 
-  // Calculate time spent in minutes
-  const totalTimeSpent = levelSessions.reduce((total, session) => {
+  // Calculate time s
+  const totalTimeDelta = levelSessions.reduce((total, session) => {
     const startTime = new Date(session.started_at);
     if (!session.finished_at) {
       return total; // Skip sessions that are not finished
     }
 
     const endTime = new Date(session.finished_at);
-    const duration = intervalToDuration({ start: startTime, end: endTime });
-
-    return total + (duration.hours || 0) * 60 + (duration.minutes || 0);
+    const duration = endTime.getTime() - startTime.getTime();
+    return total + duration;
   }, 0);
+
+  const totalTimeSpent = durationFormat(totalTimeDelta, {isMinFormat: true});
+
+  const averageTimePerLevel = durationFormat(totalTimeDelta / totalLevelsCompleted, {isMinFormat: true});
 
   const totalStars = levels.filter(l => l.completed).reduce((total, level) => {
     const stars = level.difficulty || 0;
@@ -209,7 +213,7 @@ const Dashboard = () => {
               ) : (
                 <div className={styles.dataBox}>
                   <span>Time played</span>
-                  <div>{totalTimeSpent} minutes</div>
+                  <div>{totalTimeSpent}</div>
                 </div>
               )}
 
@@ -221,7 +225,7 @@ const Dashboard = () => {
               ) : (
                 <div className={styles.dataBox}>
                   <span>Average time per level</span>
-                  <div>{totalLevelsCompleted > 0 ? (totalTimeSpent / totalLevelsCompleted).toFixed(0) : 0} minutes</div>
+                  <div>{totalLevelsCompleted > 0 ? averageTimePerLevel : 0}</div>
                 </div>
               )}
 
@@ -253,17 +257,6 @@ const Dashboard = () => {
               )}
             </div>
 
-            {/* Third row - Radar chart */}
-            <div className={styles.flex}>
-              {loadingLevels ? (
-                <div className={styles.radarPlaceholder}>
-                  <Skeleton variant="chart" height="240px" width="240px" />
-                </div>
-              ) : (
-                <RadarChart levels={levels} />
-              )}
-            </div>
-
             {/* Category progress grid */}
             <div className={styles.sectionTitle}>
               {loadingLevels ? <Skeleton variant="text" width="120px" /> : "Category Progress"}
@@ -273,6 +266,17 @@ const Dashboard = () => {
               levels={levels}
               loading={loadingLevels}
             />
+
+              {/* Third row - Radar chart */}
+            <div className={styles.flex}>
+              {loadingLevels ? (
+                <div className={styles.radarPlaceholder}>
+                  <Skeleton variant="chart" height="240px" width="240px" />
+                </div>
+              ) : (
+                <RadarChart levels={levels} />
+              )}
+            </div>
           </div>
       </div>
     </AuthGuard>

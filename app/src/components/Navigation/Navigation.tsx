@@ -3,12 +3,15 @@ import styles from './Navigation.module.css';
 import { useState, useEffect } from 'react';
 import StarIcon from '@devtools-dash/components/StarIcon';
 import { useAxiosClient } from '@devtools-dash/context/AxiosContext';
+import OnboardingModal from '@devtools-dash/components/OnboardingModal';
+import Help from '@devtools-dash/components/icons/Help';
 
 const Navigation = (props: {user: TokenData, logout: () => void}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [totalStars, setTotalStars] = useState(0);
   const [isStarAnimating, setIsStarAnimating] = useState(false);
   const [currentPath, setCurrentPath] = useState('');
+  const [showHelp, setShowHelp] = useState(false);
   const axiosClient = useAxiosClient();
 
   // Get current path on component mount
@@ -44,8 +47,24 @@ const Navigation = (props: {user: TokenData, logout: () => void}) => {
     setCurrentPath(path);
   };
 
+  const handleHelpClick = () => {
+    setShowHelp(true);
+  };
+
+  const handleHelpClose = () => {
+    setShowHelp(false);
+  };
+
   return (
     <div className={styles.container}>
+      <div className={styles.logo}>
+        <a href="/" onClick={(e) => {
+          e.preventDefault();
+          navigateTo('/');
+        }}>
+          DevToolsDash
+        </a>
+      </div>
       <div className={styles.navLinks}>
         <a
           href="/dashboard"
@@ -74,6 +93,14 @@ const Navigation = (props: {user: TokenData, logout: () => void}) => {
         <StarIcon width="28px" height="28px" />
       </div>
 
+      <button
+        className={styles.helpButton}
+        onClick={handleHelpClick}
+        aria-label="Open help guide"
+      >
+        <Help className={styles.helpIcon} width="32px" height="32px" />
+      </button>
+
       <div
         onMouseEnter={() => setIsOpen(true)}
         onMouseLeave={() => setIsOpen(false)}
@@ -98,7 +125,11 @@ const Navigation = (props: {user: TokenData, logout: () => void}) => {
         </div>
       )}
       </div>
-    </div>
+
+      {showHelp && (
+        <OnboardingModal isFirstVisit={false} onComplete={handleHelpClose} />
+      )}
+      </div>
   );
 };
 

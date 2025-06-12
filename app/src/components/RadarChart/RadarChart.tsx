@@ -10,9 +10,10 @@ export const RadarChart: React.FC<RadarChartProps> = ({ levels }) => {
   // Process data for radar chart
   const radarData = categories.map((category) => {
     const count = levels.filter((level) => level.category === category && level.completed).length;
+    const total = levels.filter((level) => level.category === category).length;
     return {
       category,
-      value: count,
+      value: Math.floor((count / total) * 100), // Convert to a value between 0 and 1
     };
   });
 
@@ -22,7 +23,7 @@ export const RadarChart: React.FC<RadarChartProps> = ({ levels }) => {
         data={radarData}
         keys={['value']}
         indexBy="category"
-        maxValue={10}
+        maxValue={100}
         margin={{ top: 50, right: 50, bottom: 50, left: 50 }}
         curve="linearClosed"
         borderWidth={2}

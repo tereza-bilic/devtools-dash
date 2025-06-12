@@ -8,6 +8,7 @@ class CompletedLevelResponse(BaseModel):
     level_key: str
     difficulty: int | None
     try_count: int
+    title: str
 
 
 class LevelSessionResponse(BaseModel):

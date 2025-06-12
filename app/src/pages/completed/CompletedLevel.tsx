@@ -9,6 +9,8 @@ import Button from "@devtools-dash/components/form/button/Button";
 import StarIcon from "@devtools-dash/components/StarIcon";
 import BadgeAchievementPopup from "@devtools-dash/components/BadgeAchievementPopup/BadgeAchievementPopup";
 import { Badge, BadgeType } from "@devtools-dash/consts/badge";
+import { formatDistance } from "date-fns";
+import { durationFormat } from "@devtools-dash/utils/date-functions";
 
 const CompletedLevel = () => {
   const axiosClient = useAxiosClient();
@@ -22,8 +24,10 @@ const CompletedLevel = () => {
   const [showBadgePopup, setShowBadgePopup] = useState(false);
 
   const timeDelta = completedLevel
-    ? (new Date(completedLevel.finished_at).getTime() - new Date(completedLevel.started_at).getTime()) / 1000
+    ? (new Date(completedLevel.finished_at).getTime() - new Date(completedLevel.started_at).getTime())
     : 0;
+
+  const stringTimeDelta = durationFormat(timeDelta);
 
   // Fetch all levels
   useEffect(() => {
@@ -157,6 +161,10 @@ const CompletedLevel = () => {
     if (completedLevel && allLevels.length > 0 && levelSessions.length > 0) {
       // Find the current level's category
       const currentLevel = allLevels.find(level => level.level_key === completedLevel.level_key);
+      const levelSessionsOfCurrentLevel = levelSessions.filter(session => session.level_key === completedLevel.level_key && session.completed);
+      if (levelSessionsOfCurrentLevel.length !== 1) {
+        return;
+      }
 
       if (currentLevel) {
         const category = currentLevel.category;
@@ -181,7 +189,7 @@ const CompletedLevel = () => {
           badgeEarned = { type: BadgeType.BRONZE, category };
         }
         // Check if completed at least half of the levels in this category
-        else if (completedCount >= Math.floor(totalCount / 2) && completedCount < totalCount) {
+        else if (completedCount == Math.floor(totalCount / 2)) {
           badgeEarned = { type: BadgeType.SILVER, category };
         }
         // Check if completed all levels in this category
@@ -221,15 +229,14 @@ const CompletedLevel = () => {
                     <div className={styles.stats}>
                         <div className={styles.statItem}>
                           <span className={styles.stat}>LEVEL:</span>
-                          <span className={styles.statValue}>{completedLevel.level_key}</span>
+                          <span className={styles.statValue}>{completedLevel.title}</span>
                         </div>
                         <div className={styles.statItem}>
                           <span className={styles.stat}>TIME:</span>
                           <span className={styles.statValue}>
                             <span className={styles.timeCounter}>
-                              {timeDelta.toFixed(2)}
+                              {stringTimeDelta}
                             </span>
-                            <span className={styles.timeUnit}>seconds</span>
                           </span>
                         </div>
                     </div>

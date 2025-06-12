@@ -1,3 +1,4 @@
+timeElapsed = 0;
 document.getElementById('fetchSecretBtn').onclick = async function() {
       const startTime = Date.now();
       document.getElementById('secretResult').textContent = "Loading...";

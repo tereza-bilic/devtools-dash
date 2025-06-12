@@ -232,8 +232,10 @@
 }
 
 .header {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 150px;
   justify-content: space-between;
+  justify-items: start;
   align-items: center;
   margin-bottom: 2rem;
   color: var(--color-blue);
