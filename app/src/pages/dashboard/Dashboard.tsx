@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { AuthGuard } from '@devtools-dash/guards/AuthGuard';
-import { LevelResponse, LevelSessionResponse } from '@devtools-dash/types/openapi';
+import { CategoryEnum, LevelResponse, LevelSessionResponse } from '@devtools-dash/types/openapi';
 import { useAxiosClient } from '@devtools-dash/context/AxiosContext';
 import { intervalToDuration } from "date-fns";
 import { RadarChart } from '@devtools-dash/components/RadarChart/RadarChart';
@@ -8,6 +8,7 @@ import { CalendarChart } from '@devtools-dash/components/CalendarChart/CalendarC
 import CategoryProgressGrid from '@devtools-dash/components/CategoryProgressGrid/CategoryProgressGrid';
 import Achievements from '@devtools-dash/components/Achievements/Achievements';
 import Skeleton from '@devtools-dash/components/Skeleton/Skeleton';
+import { ResponsiveBar } from '@nivo/bar'
 
 import styles from './Dashboard.module.css';
 import ProgressBar from '@devtools-dash/components/progressBar/ProgressBar';
@@ -128,6 +129,39 @@ const Dashboard = () => {
   }
   , []);
 
+  type BarData = {
+    category: CategoryEnum;
+    easy: number;
+    medium: number;
+    hard: number;
+  }
+
+  const solvedLevelsByCategoryAndDifficulty = levels.reduce((acc: BarData[], level) => {
+    if (!level.completed) {
+      return acc;
+    }
+
+    const categoryIndex = acc.findIndex(item => item.category === level.category);
+    if (categoryIndex === -1) {
+      // If category doesn't exist, create a new entry
+      acc.push({
+        category: level.category,
+        easy: level.difficulty === 1 ? 1 : 0,
+        medium: level.difficulty === 2 ? 1 : 0,
+        hard: level.difficulty === 3 ? 1 : 0
+      });
+    } else {
+      // If category exists, update the counts
+      acc[categoryIndex].easy += level.difficulty === 1 ? 1 : 0;
+      acc[categoryIndex].medium += level.difficulty === 2 ? 1 : 0;
+      acc[categoryIndex].hard += level.difficulty === 3 ? 1 : 0;
+    }
+
+    return acc;
+  }
+  , []);
+
+  console.log('Solved levels by category and difficulty:', solvedLevelsByCategoryAndDifficulty);
 
 
 
@@ -268,7 +302,7 @@ const Dashboard = () => {
             />
 
               {/* Third row - Radar chart */}
-            <div className={styles.flex}>
+            <div className={styles.flex} style={{ justifyContent: 'space-evenly' }}>
               {loadingLevels ? (
                 <div className={styles.radarPlaceholder}>
                   <Skeleton variant="chart" height="240px" width="240px" />
@@ -276,7 +310,30 @@ const Dashboard = () => {
               ) : (
                 <RadarChart levels={levels} />
               )}
+
+            {loadingLevels ? (
+              <div style={{ padding: '10px' }}>
+                <Skeleton height="180px" />
+              </div>
+            ) : (
+              <div style={{ height: '300px', width: '400px' }}>
+                <ResponsiveBar
+                  data={solvedLevelsByCategoryAndDifficulty}
+                  keys={['easy', 'medium', 'hard']}
+                  indexBy="category"
+                  margin={{ top: 20, right: 30, bottom: 50, left: 60 }}
+                  padding={0.3}
+                  colors={{ scheme: 'nivo' }}
+                  axisLeft={{
+                    legend: 'Levels',
+                    legendPosition: 'middle',
+                    legendOffset: -40
+                  }}
+                />
+              </div>
+            )}
             </div>
+
           </div>
       </div>
     </AuthGuard>

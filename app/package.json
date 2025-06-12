@@ -12,6 +12,7 @@
     "generate-types": "npx --yes openapicmd typegen http://localhost:8000/openapi.json > src/types/openapi.d.ts"
   },
   "dependencies": {
+    "@nivo/bar": "^0.99.0",
     "@nivo/calendar": "^0.99.0",
     "@nivo/core": "^0.99.0",
     "@nivo/radar": "^0.99.0",

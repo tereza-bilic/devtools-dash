@@ -65,6 +65,25 @@ main {
   display: inline;
 }
 
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+  text-decoration: none;
+  border-radius: var(--border-radius);
+  background-color: var(--primary-light);
+  opacity: 50%;
+  border: 0px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.back-button:hover {
+  background-color: var(--primary-light);
+  opacity: 100%;
+  transform: translateY(-2px);
+}
+
 /* Level hint styles */
 .level-hint {
   position: relative;
@@ -281,6 +300,4 @@ main {
     transform: translateY(5px);
     transition-delay: 0s;
   }
-
-  /* No animation adjustments needed for mobile as we handle it with JS */
 }
