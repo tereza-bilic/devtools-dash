@@ -9,7 +9,6 @@ import Button from "@devtools-dash/components/form/button/Button";
 import StarIcon from "@devtools-dash/components/StarIcon";
 import BadgeAchievementPopup from "@devtools-dash/components/BadgeAchievementPopup/BadgeAchievementPopup";
 import { Badge, BadgeType } from "@devtools-dash/consts/badge";
-import { formatDistance } from "date-fns";
 import { durationFormat } from "@devtools-dash/utils/date-functions";
 
 const CompletedLevel = () => {

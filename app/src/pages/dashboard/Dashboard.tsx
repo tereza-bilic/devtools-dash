@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { AuthGuard } from '@devtools-dash/guards/AuthGuard';
 import { CategoryEnum, LevelResponse, LevelSessionResponse } from '@devtools-dash/types/openapi';
 import { useAxiosClient } from '@devtools-dash/context/AxiosContext';
-import { intervalToDuration } from "date-fns";
 import { RadarChart } from '@devtools-dash/components/RadarChart/RadarChart';
 import { CalendarChart } from '@devtools-dash/components/CalendarChart/CalendarChart';
 import CategoryProgressGrid from '@devtools-dash/components/CategoryProgressGrid/CategoryProgressGrid';
