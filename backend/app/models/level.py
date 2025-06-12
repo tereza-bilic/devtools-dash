@@ -67,9 +67,7 @@ levels: list[Level] = [
 
     Level(key="e10", title="The Boxes - Flex 'n' Grid", category=CategoryEnum.Elements, order_in_category=10, is_tutorial=True, difficulty=1),
 
-    Level(key="p1", title="Shifting around", category=CategoryEnum.Performance, order_in_category=1, difficulty=2),
-
-    Level(key="n9", title="Respond To Me", category=CategoryEnum.Network, order_in_category=9, difficulty=2),
+    Level(key="p1", title="Shifting around", category=CategoryEnum.Performance, order_in_category=1, difficulty=2)
 ]
 
 def get_level_by_key(key: str) -> Optional[Level]:

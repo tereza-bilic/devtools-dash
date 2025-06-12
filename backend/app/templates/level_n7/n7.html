@@ -7,8 +7,15 @@
   <script src="{{ url_path_for('get_level_js', level_key='n7')}}"></script>
 {% endblock %}
 
+{% block hint %}
+  Copy previously made request as fetch with the right click in the network tab and add the headers there. Then send that request from console to get the secret.
+{% endblock %}
+
+{% block description %}
+  The API guards a secret code, you can only get it if you send the secret password.
+{% endblock %}
+
 {% block content %}
-  <h1>The API guards a secret code, you can only get it if you send the secret password.</h1>
   <p> Luckily we prepared it for you: open sesame</p>
 
   <div id="secret"></div>
