@@ -7,6 +7,14 @@
   <script src="{{ url_path_for('get_level_js', level_key='s1')}}?should_obfuscate=False"></script>
 {% endblock %}
 
+{% block hint %}
+  Put a breakpoint to see the value of the secret variable in the code
+{% endblock %}
+
+{% block description %}
+  I'll have the secret ready for you in a second. Catch it before it's gone
+{% endblock %}
+
 {% block content %}
-  <h1>I'll have the secret ready for you in a second. Catch it before it's gone </h1>
+  Time to explore source code! 🕵️
 {% endblock %}

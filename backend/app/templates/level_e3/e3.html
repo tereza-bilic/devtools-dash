@@ -5,16 +5,37 @@
 
 {% block head %}
   <script defer src="{{ url_path_for('get_level_js', level_key='e3')}}"></script>
+  <style>
+    .story-piece {
+      display: inline-block;
+      margin: 5px;
+      padding: 10px;
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+    }
+    #finish {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #e0ffe0;
+      border: 1px solid #ccc;
+    }
+    </style>
+{% endblock %}
+
+{% block hint %}
+  Use the aria-labelledby attribute to label the finish div with the aria-labeled story pieces in the correct order of a sentence.
+{% endblock %}
+
+{% block description %}
+  Hey I don't see too well, could you please help me?
 {% endblock %}
 
 {% block content %}
-  <h1>Hey I don't see too well, could you tell me what's in the finish element</h1>
 
-  <div id="1" aria-label="yellow">element 1</div>
-  <div id="2" aria-label="red">element 2</div>
+  <div id="1" aria-label="A time" class="story-piece">story piece</div>
+  <div id="2" aria-label="Once upon" class="story-piece">story piece</div>
+  <div id="3" aria-label="Fox in a Box" class="story-piece">story piece</div>
+  <div id="4" aria-label="There was a" class="story-piece">story piece</div>
 
-  <div id="finish"> Label me with my friends </div>
-
-  <input type="text" id="3" placeholder="Enter your name" value = "lory">
-  <input type="text" id="4" placeholder="Enter your name" value = "lory">
+  <div id="finish"> Make screen readers read me as a story using these pieces </div>
 {% endblock %}

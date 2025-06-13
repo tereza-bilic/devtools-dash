@@ -16,7 +16,14 @@
   <script defer src="{{ url_path_for('get_level_js', level_key='s2')}}?should_obfuscate=True"></script>
 {% endblock %}
 
-{% block content %}
+{% block hint %}
+  Use the 'load' Event Listener Breakpoints to find out which class is calling the alert when loading the page.
+  {% endblock %}
+
+{% block description %}
   <p>Many classes know how to reveal the secret. But only one of them is the correct one.</p>
-  <p>Use the Event Listener Breakpoints in DevTools to find out which class is responsible for revealing the secret.</p>
+{% endblock %}
+
+{% block content %}
+  The secret code is only four characters long in this level.
 {% endblock %}

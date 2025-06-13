@@ -9,6 +9,14 @@
   <script defer src="{{ url_path_for('get_level_js', level_key='s4') }}?different_filename=catcher&should_obfuscate=False"></script>
 {% endblock %}
 
+{% block hint %}
+  Pause on all caught exceptions, first skip throught the decoy errors, then take the characters and put them together in the correct positions.
+{% endblock %}
+
+{% block description %}
+  <p>I'm in the errors our developers caught</p>
+{% endblock %}
+
 {% block content %}
-  <p> im in the errors our developers cought </p>
+  <p> We through in a couple of decoys, so be patient and collect all the characters one by one </p>
 {% endblock %}
