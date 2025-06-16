@@ -15,6 +15,7 @@ app.include_router(network_levels_router, prefix="/api/level/network", tags=["Le
 app.include_router(level_router, prefix="/api/level", tags=["Level"])
 
 app.mount("/assets", StaticFiles(directory="app/static/assets"), name="static_assets")
+app.mount("/images", StaticFiles(directory="app/static/images"), name="static_images")
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 @app.get("/{full_path:path}", response_class=HTMLResponse)
 async def fallback(request: Request, full_path: str):
